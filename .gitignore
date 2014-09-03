@@ -7,8 +7,6 @@
 # R data files from past sessions
 .Rdata
 .Rproj.user
-<<<<<<< HEAD
-=======
 Team2.Rproj
 inclass/*.html
->>>>>>> c38601eff98516828a9aac8db0d40be8e01cbba3
+
