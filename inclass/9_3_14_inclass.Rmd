@@ -1,0 +1,13 @@
+***
+title: "In Class Exercises - Sep 3, 2014"
+author: Andrew Wong, Helen Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+***
+    
+### Exercise 1
+
+```{r}
+1+1
+plot(rnorm(100,rnorm(100)))
+```
+
