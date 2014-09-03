@@ -14,3 +14,7 @@ d<- c(3L, NaN+1L) #double because NaN is a double
 e<- c(NA,TRUE) #Logical because both are logical
 ```
 
+###Exercise 2
+```{r}
+str(list("firstName"="John","lastName"="Smith","age"=25,"address"=list("streetAddress"="21 2nd Street", "city"="New York", "state"="NY","postalCode"=10021), "phoneNumber"=list(list("type"="home", "number"="212 555-1239"),list("type"="fax", "number"="646 555-4567"))))
+```
