@@ -24,3 +24,7 @@ typeof(c(NA, TRUE))
 ```
 
 ### Exercise 2
+```{r}
+list(firstName="John", lastName="Smith", age=25, address=list(streetAddress="21 2nd Street",city="New York",state="NY",postalCode=10021))
+
+```
