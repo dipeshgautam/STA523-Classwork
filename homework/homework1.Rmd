@@ -1,0 +1,47 @@
+---
+title: "Homework1"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+#Variables to Find
+```{r}
+id <-  # jessie
+pig <-  #jessie 
+class <- #jessie
+pid <- #heather 
+mid <- #heather
+pname <- #heather
+pteam <- #dipesh
+ptime <- #dipesh
+paddtime <- #dipesh
+ptype <- #dipesh
+pteamimg <- #andrew
+pmatch <- #andrew
+style <- #andrew 
+```
+
+```{r}
+
+
+d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+library(stringr)
+
+
+
+#pteam=\"Cameroon\"
+Team=str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\""))
+
+
+#ptime=\"26\" 
+Time=str_match_all(d, " ptime=\"([0-9]*)\"")
+
+
+#paddtime=\"0\" 
+AddedTime=str_match_all(d, " paddtime=\"([0-9]*)\"")
+
+#ptype=\"goal\"
+GoalType=str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\""))
+
+
+```

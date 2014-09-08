@@ -4,23 +4,35 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ***
     
-### Exercise 1 (Example)
+### Exercise 1
 
 ```{r}
-a <- c(1, NA+1L, "C") #character because "C" is a string and trumps all
-b<- c(1L/0,NA) #double because 1L/0 returns infinity which is a double
-c<- c(1:3,5) #double
-d<- c(3L, NaN+1L) #double because NaN is a double
-e<- c(NA,TRUE) #Logical because both are logical
+a <- c(1, NA+1L, "C") 
+b<- c(1L/0,NA) 
+c<- c(1:3,5)
+d<- c(3L, NaN+1L) 
+e<- c(NA,TRUE) 
 ```
+*A is a character because "C" is a string and trumps all
 
+*B is a double because 1L/0 returns infinity which is a double
 
+<<<<<<< HEAD
+=======
+*C is a double
+
+*D is a double because NaN is a double
+
+*E is logical because both NA and TRUE are logicals
+
+>>>>>>> d611bebf471fb952106954ee80e8a57a37d1b349
 ###Exercise 2
 ```{r}
 str(list("firstName"="John","lastName"="Smith","age"=25,"address"=list("streetAddress"="21 2nd Street", "city"="New York", "state"="NY","postalCode"=10021), "phoneNumber"=list(list("type"="home", "number"="212 555-1239"),list("type"="fax", "number"="646 555-4567"))))
 ```
 
 
+<<<<<<< HEAD
 ####Exercise 3
 ```{r}
 x <- c(1,1,1,1,1,1,1)
@@ -28,4 +40,12 @@ attr(x,"class")=c("sunny","cloudy","rain","snow")
 attr(x,"levels")=c(1,2,3,4)
 attr(x,"class")="factor"
 str(x)
+=======
+###Exercise 3
+```{r}
+weather = as.integer(c(3,1,3,3,2,4,1))
+attr(weather,"levels") = c("sunny","cloudy","rain","snow")
+attr(weather, "class")="factor"
+str(weather)
+>>>>>>> d611bebf471fb952106954ee80e8a57a37d1b349
 ```
