@@ -1,0 +1,8 @@
+***
+  title: "In Class Exercises - Sep 8, 2014"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+***
+  
+  ### Exercise 1
+  
