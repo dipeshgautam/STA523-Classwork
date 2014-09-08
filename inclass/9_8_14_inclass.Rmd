@@ -24,10 +24,19 @@ y4=x[ c(TRUE,TRUE,TRUE,FALSE) | x%%2==0]
   ###Exercise 2
 ```{r}
 d = read.csv("~cr173/Sta523/data/evals.csv")
+
 d[d==-999]=NA
-genders=factor(c("Male", "Female")
-gender=               
 
+rankFact= c("teaching","tenure track","tenured")
+genderFact=c("male","female")
+clsFact= c("lower division","upper division")
 
+d$rank= as.factor(d$rank)
+levels(d$rank)=rankFact
 
+d$gender=as.factor(d$gender)
+levels(d$gender)=genderFact
+
+d$cls_level=as.factor(d$cls_level)
+levels(d$cls_level)=clsFact
 ```
