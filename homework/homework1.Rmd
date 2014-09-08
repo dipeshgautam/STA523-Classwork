@@ -30,7 +30,7 @@ library(stringr)
 
 
 #pteam=\"Cameroon\"
-Team=str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\""))
+Team=as.matrix(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))
 
 
 #ptime=\"26\" 
