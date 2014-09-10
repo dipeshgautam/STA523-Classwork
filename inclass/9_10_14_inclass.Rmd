@@ -23,5 +23,11 @@ output: html_document
             m[i,j] = x[i] * y[j]
         }
     }
+    return(m)
 }
+```
+Testing the outer and inner product functions:
+```{r}
+c(1,2,3) %op% c(1,2,3)
+c(1,2,3) %in% c(1,2,3)
 ```
