@@ -28,7 +28,7 @@ e<- c(NA,TRUE)
 >>>>>>> d611bebf471fb952106954ee80e8a57a37d1b349
 ###Exercise 2
 ```{r}
-str(list("firstName"="John","lastName"="Smith","age"=25,"address"=list("streetAddress"="21 2nd Street", "city"="New York", "state"="NY","postalCode"=10021), "phoneNumber"=list(list("type"="home", "number"="212 555-1239"),list("type"="fax", "number"="646 555-4568"))))
+str(list("firstName"="John","lastName"="Smith","age"=25,"address"=list("streetAddress"="21 2nd Street", "city"="New York", "state"="NY","postalCode"=10021), "phoneNumber"=list(list("type"="home", "number"="212 555-1239"),list("type"="fax", "number"="646 555-4567"))))
 ```
 
 
