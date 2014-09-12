@@ -1,0 +1,33 @@
+***
+title: "In Class Exercises - Sep 8, 2014"
+authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+***
+
+### Exercise 1
+```{r}
+`%ip%` = function(x,y)
+{
+  return(sum(x*y))
+}
+```
+
+```{r}
+`%op%` = function(x,y)
+{
+    m = matrix(NA, ncol=length(x), nrow=length(y))
+    for(i in 1:length(x))
+    {
+        for(j in 1:length(y))
+        {
+            m[i,j] = x[i] * y[j]
+        }
+    }
+    return(m)
+}
+```
+Testing the outer and inner product functions:
+```{r}
+c(1,2,3) %op% c(1,2,3)
+c(1,2,3) %in% c(1,2,3)
+```
