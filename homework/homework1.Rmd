@@ -3,8 +3,7 @@ title: "Homework1"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-```{r}
-#Variables to Find
+#Find variables
 #id <-  jessie
 #pig <- jessie
 #class <- jessie
@@ -18,32 +17,29 @@ output: html_document
 #pteamimg <- andrew
 #pmatch <- andrew
 #style <- andrew 
-```
-Task 1: Read data, parse, construct data frame
+
+Task 1: Parse the data
 ```{r}
-library(stringr)
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+library(stringr)
 
-pid <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,194,2)]
-mid <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,194,2)]
-name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z &;']*)\"")))[seq(2,194,2)]
+Id = unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
+PointInGoal = unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
+Class = unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
+PlayerId = unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
+MatchId = unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
+Name = unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
+Team = unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
+Time = unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
+AddedTime = unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
+GoalType = unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
+TeamImage = unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
+PMatch = unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
+HorizontalLocation = unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)]
+HorizontalLocation[2:193] = unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
+VerticalLocationFromTop = unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
-#pteam=\"Cameroon\"
-Team=str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\""))
-#ptime=\"26\" 
-Time=str_match_all(d, " ptime=\"([0-9]*)\"")
-#paddtime=\"0\" 
-AddedTime=str_match_all(d, " paddtime=\"([0-9]*)\"")
-#ptype=\"goal\"
-GoalType=str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\""))
-
-# Andrew: I first set the criteria for [str_match_all] to use. Then, I move the matching elements of the data frame into a single vector with [unlist]. Lastly, I return the relevant atomic vectors, which alternates as every other element in my new vector beginning at i=2 until the last element, n=386.
-pteamimg.criteria <- "pteamimg=\"([a-z]*/[a-z]*.[a-z]*)\""
-pteamimg <- unlist(str_match_all(d, pteamimg.criteria))[seq(2,386,2)]
-pmatch.criteria <- "pmatch=\"([0-9]*)\""
-pmatch <- unlist(str_match_all(d, pmatch.criteria))[seq(2,386,2)]
-style.criteria <- "style=\"([a-z]*[:][ ][0-9]*[a-z]*[;][ ][a-z]*[:][ ][0-9]*[a-z]*[;])\""
-style <- unlist(str_match_all(d, style.criteria))[seq(2,386,2)]
+Data = data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 ```
 
 Task 2: Visualize the data

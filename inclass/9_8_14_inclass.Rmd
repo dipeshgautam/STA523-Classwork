@@ -1,42 +1,52 @@
-***
+
+*** 
   title: "In Class Exercises - Sep 8, 2014"
+ 
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+ 
 output: html_document
+ 
 ***
-  
+ 
   ### Exercise 1
+
+ 
 ```{r}
+
+ 
 x = c(56, 3, 17, 2, 4, 9, 6, 5, 19, 5, 2, 3, 5, 0, 13, 12, 6, 31, 10, 21, 8, 4, 1, 1, 2, 5, 16, 1, 3, 8, 1, 3, 4, 8, 5, 2, 8, 6, 18, 40, 10, 20, 1, 27, 2, 11, 14, 5, 7, 0, 3, 0, 7, 0, 8, 10, 10, 12, 8, 82, 21, 3, 34, 55, 18, 2, 9, 29, 1, 4, 7, 14, 7, 1, 2, 7, 4, 74, 5, 0, 3, 13, 2, 8, 1, 6, 13, 7, 1, 10,    5, 2, 4, 4, 14, 15, 4, 17, 1, 9)
-
+ 
 y1=x[seq(2,length(x),3)]
-
+ 
 y2=x[seq(2,length(x),2)]
-
+ 
 prime=c()
-
+ 
 y3=x[ %in% prime]
-
 y4=x[ c(TRUE,TRUE,TRUE,FALSE) | x%%2==0]
-
-
 ```
-
-  ###Exercise 2
+ 
+  ###Exercise 2 
 ```{r}
+ 
 d = read.csv("~cr173/Sta523/data/evals.csv")
-
 d[d==-999]=NA
-
+ 
 rankFact= c("teaching","tenure track","tenured")
+ 
 genderFact=c("male","female")
+ 
 clsFact= c("lower division","upper division")
-
+ 
 d$rank= as.factor(d$rank)
+ 
 levels(d$rank)=rankFact
-
+ 
 d$gender=as.factor(d$gender)
+ 
 levels(d$gender)=genderFact
-
 d$cls_level=as.factor(d$cls_level)
+ 
 levels(d$cls_level)=clsFact
+ 
 ```
