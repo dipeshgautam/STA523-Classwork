@@ -4,8 +4,8 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
+###Task 1: Parse the Data
 ```{r}
-
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
 
@@ -26,10 +26,9 @@ HorizontalLocation[2:193] = unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,
 VerticalLocationFromTop = unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
 Data = data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
-
 ```
 
-### Task 2
+### Task 2:Visualize the Data
 ```{r}
 library("ggmap")
 library(maptools)
