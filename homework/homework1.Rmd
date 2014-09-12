@@ -1,0 +1,45 @@
+---
+title: "Homework1"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+```{r}
+#Variables to Find
+#id <-  jessie
+#pig <- jessie
+#class <- jessie
+#pid <- heather 
+#mid <- heather
+#pname <- heather
+#pteam <- dipesh
+#ptime <- dipesh
+#paddtime <- dipesh
+#ptype <- dipesh
+#pteamimg <- andrew
+#pmatch <- andrew
+#sty <- andrew 
+```
+Task 1: Read data, parse, construct data frame
+```{r}
+library(stringr)
+d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+
+id<-str_match_all(d," id=\"([a-z0-9]*)\"")
+pig<-str_match_all(d," pig\"[0-90-9]*)\"")
+class<-str_match_all(d," class\"[a-z ]*\"")
+
+pid <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,194,2)]
+mid <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,194,2)]
+name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z &;']*)\"")))[seq(2,194,2)]
+
+#pteam=\"Cameroon\"
+Team=str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\""))
+#ptime=\"26\" 
+Time=str_match_all(d, " ptime=\"([0-9]*)\"")
+#paddtime=\"0\" 
+AddedTime=str_match_all(d, " paddtime=\"([0-9]*)\"")
+#ptype=\"goal\"
+GoalType=str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\""))
+
+
+```
