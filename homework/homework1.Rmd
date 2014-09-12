@@ -4,25 +4,7 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
-#Variables to Find
 ```{r}
-id <-  # jessie
-pig <-  #jessie 
-class <- #jessie
-pid <- #heather 
-mid <- #heather
-pname <- #heather
-pteam <- #dipesh
-ptime <- #dipesh
-paddtime <- #dipesh
-ptype <- #dipesh
-pteamimg <- #andrew
-pmatch <- #andrew
-style <- #andrew 
-```
-
-```{r}
-
 
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
@@ -45,4 +27,27 @@ VerticalLocationFromTop = unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386
 
 Data = data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 
+```
+
+### Task 2
+```{r}
+library("ggmap")
+library(maptools)
+library(maps)
+library(plyr)
+Data$Team=as.character(Data$Team)
+Data$Team[Data$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
+
+visited <- as.data.frame(count(Data$Team))
+colnames(visited)= c("country","Freq")
+visited$country= as.character(visited$country)
+ll.visited <- geocode(visited$country)
+visit.x <- ll.visited$lon
+visit.y <- ll.visited$lat
+
+mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
+mapWorld <-borders("world",colour="gray50",fill="white")
+mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=.7*visited$Freq, alpha= I(0.6))
+mp
+##+ geom_text(aes(visit.x,visit.y,label=visited$country)
 ```
