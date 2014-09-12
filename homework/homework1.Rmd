@@ -17,7 +17,7 @@ output: html_document
 #ptype <- dipesh
 #pteamimg <- andrew
 #pmatch <- andrew
-#sty <- andrew 
+#style <- andrew 
 ```
 Task 1: Read data, parse, construct data frame
 ```{r}
@@ -37,5 +37,13 @@ AddedTime=str_match_all(d, " paddtime=\"([0-9]*)\"")
 #ptype=\"goal\"
 GoalType=str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\""))
 
-
+# Andrew: I first set the criteria for [str_match_all] to use. Then, I move the matching elements of the data frame into a single vector with [unlist]. Lastly, I return the relevant atomic vectors, which alternates as every other element in my new vector beginning at i=2 until the last element, n=386.
+pteamimg.criteria <- "pteamimg=\"([a-z]*/[a-z]*.[a-z]*)\""
+pteamimg <- unlist(str_match_all(d, pteamimg.criteria))[seq(2,386,2)]
+pmatch.criteria <- "pmatch=\"([0-9]*)\""
+pmatch <- unlist(str_match_all(d, pmatch.criteria))[seq(2,386,2)]
+style.criteria <- "style=\"([a-z]*[:][ ][0-9]*[a-z]*[;][ ][a-z]*[:][ ][0-9]*[a-z]*[;])\""
+style <- unlist(str_match_all(d, style.criteria))[seq(2,386,2)]
 ```
+
+Task 2: Visualize the data
