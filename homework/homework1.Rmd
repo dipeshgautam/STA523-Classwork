@@ -9,35 +9,41 @@ output: html_document
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
 
-Id = unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
-PointInGoal = unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
-Class = unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
-PlayerId = unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
-MatchId = unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
-Name = unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
-Team = unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
-Time = unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
-AddedTime = unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
-GoalType = unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
-TeamImage = unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
-PMatch = unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
-HorizontalLocation = unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)]
-HorizontalLocation[2:193] = unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
-VerticalLocationFromTop = unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
+Id <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
+PointInGoal <- unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
+Class <- unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
+PlayerId <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
+MatchId <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
+Name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
+Team <- unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
+Time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
+AddedTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
+GoalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
+TeamImage <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
+PMatch <- unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
+HorizontalLocation <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
+HorizontalLocation[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
+VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
-Data = data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
+Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 ```
 
 ### Task 2:Visualize the Data
 ```{r}
-library("ggmap")
+library(ggmap)
 library(maptools)
 library(maps)
 library(plyr)
-Data$Team=as.character(Data$Team)
-Data$Team[Data$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
 
-visited <- as.data.frame(count(Data$Team))
+
+#Create new dataframe by removing "Own goal" and Class with "ispen"
+DataModified <-Data[Data$GoalType!="Own goal" & grepl(".+ispen$", Class)==FALSE, ]
+
+DataModified$Team=as.character(DataModified$Team)
+DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
+DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
+
+visited <- as.data.frame(count(DataModified$Team))
 colnames(visited)= c("country","Freq")
 visited$country= as.character(visited$country)
 ll.visited <- geocode(visited$country)
@@ -46,7 +52,7 @@ visit.y <- ll.visited$lat
 
 mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
 mapWorld <-borders("world",colour="gray50",fill="white")
-mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=.7*visited$Freq, alpha= I(0.6))
+mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=0.9*visited$Freq, alpha= I(0.6))
 mp
 ##+ geom_text(aes(visit.x,visit.y,label=visited$country)
 ```
