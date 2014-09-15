@@ -50,9 +50,39 @@ ll.visited <- geocode(visited$country)
 visit.x <- ll.visited$lon
 visit.y <- ll.visited$lat
 
-mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
-mapWorld <-borders("world",colour="gray50",fill="white")
-mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=0.9*visited$Freq, alpha= I(0.6))
-mp
+# mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
+# mapWorld <-borders("world",colour="gray50",fill="white")
+# mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=.7*visited$Freq, alpha= I(0.6))
+# mp
 ##+ geom_text(aes(visit.x,visit.y,label=visited$country)
+```
+
+```{r}
+install.packages("rworldmap")
+install.packages("RColorBrewer")
+library(rworldmap)
+library(RColorBrewer)
+visited$lon=visit.x
+visited$lat=visit.y
+visited$color=c(1:32)
+region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
+
+# mapDevice(device="dev.new", rows=4, columns=2) #create world map shaped window
+for(i in 1:7){
+
+mapBubbles(dF=visited, nameX="lon", nameY="lat"
+,nameZSize="Goals"
+,nameZColour="color"
+,colourPalette= "rainbow"#c(brewer.pal(6, "Reds"),brewer.pal(5, "Greens"),brewer.pal(6, "Oranges"),brewer.pal(5, "Blues"),brewer.pal(5, "Greys"), brewer.pal(5, "Purples"))#
+,oceanCol="lightblue"
+,landCol="white"
+,main=region[i]
+,addLegend=TRUE
+,legendHoriz=FALSE
+,addColourLegend=FALSE
+,pch=16, alpha= I(0.6), maxZVal=18
+,catMethod="fixedWidth"
+,mapRegion=region[i])
+}
+# identifyCountries(getMap(),nameColumnToPlot="country")
 ```
