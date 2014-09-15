@@ -1,0 +1,13 @@
+---
+title: "In Class Exercises - Sep 15, 2014"
+authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+```{r}
+set.seed(112)
+d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
+d$cat = sample(LETTERS[1:5], 1e6, replace=TRUE)
+
+
+```

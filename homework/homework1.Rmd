@@ -44,7 +44,7 @@ DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
 DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
 
 visited <- as.data.frame(count(DataModified$Team))
-colnames(visited)= c("country","Freq")
+colnames(visited)= c("country","Goals")
 visited$country= as.character(visited$country)
 ll.visited <- geocode(visited$country)
 visit.x <- ll.visited$lon
