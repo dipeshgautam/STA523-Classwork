@@ -3,43 +3,82 @@ title: "Homework1"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-```{r}
-#Variables to Find
-#id <-  jessie
-#pig <- jessie
-#class <- jessie
-#pid <- heather 
-#mid <- heather
-#pname <- heather
-#pteam <- dipesh
-#ptime <- dipesh
-#paddtime <- dipesh
-#ptype <- dipesh
-#pteamimg <- andrew
-#pmatch <- andrew
-#sty <- andrew 
-```
-Task 1: Read data, parse, construct data frame
-```{r}
-library(stringr)
+Task 1: Parse the Data
+
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+library(stringr)
 
-id<-str_match_all(d," id=\"([a-z0-9]*)\"")
-pig<-str_match_all(d," pig\"[0-90-9]*)\"")
-class<-str_match_all(d," class\"[a-z ]*\"")
+Id <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
+PointInGoal <- unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
+Class <- unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
+PlayerId <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
+MatchId <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
+Name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
+Team <- unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
+Time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
+AddedTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
+GoalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
+TeamImage <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
+PMatch <- unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
+HorizontalLocation <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
+HorizontalLocation[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
+VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
-pid <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,194,2)]
-mid <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,194,2)]
-name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z &;']*)\"")))[seq(2,194,2)]
+Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name,Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 
-#pteam=\"Cameroon\"
-Team=str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\""))
-#ptime=\"26\" 
-Time=str_match_all(d, " ptime=\"([0-9]*)\"")
-#paddtime=\"0\" 
-AddedTime=str_match_all(d, " paddtime=\"([0-9]*)\"")
-#ptype=\"goal\"
-GoalType=str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\""))
+Task 2:Visualize the Data
+
+library(ggmap)
+library(maptools)
+library(maps)
+library(plyr)
 
 
-```
+#Create new dataframe by removing "Own goal" and Class with "ispen"
+DataModified <-Data[Data$GoalType!="Own goal" & grepl(".+ispen$", Class)==FALSE, ]
+
+DataModified$Team=as.character(DataModified$Team)
+DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
+DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
+
+visited <- as.data.frame(count(DataModified$Team))
+colnames(visited)= c("country","Goals")
+visited$country= as.character(visited$country)
+ll.visited <- geocode(visited$country)
+visit.x <- ll.visited$lon
+visit.y <- ll.visited$lat
+
+# mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
+# mapWorld <-borders("world",colour="gray50",fill="white")
+# mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=.7*visited$Freq, alpha= I(0.6))
+# mp
+##+ geom_text(aes(visit.x,visit.y,label=visited$country)
+
+install.packages("rworldmap")
+install.packages("RColorBrewer")
+library(rworldmap)
+library(RColorBrewer)
+visited$lon=visit.x
+visited$lat=visit.y
+visited$color=c(1:32)
+region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
+
+# mapDevice(device="dev.new", rows=4, columns=2) #create world map shaped window
+for(i in 1:7){
+
+mapBubbles(dF=visited, nameX="lon", nameY="lat"
+,nameZSize="Goals"
+,nameZColour="color"
+,colourPalette= "rainbow"#c(brewer.pal(6, "Reds"),brewer.pal(5, "Greens"),brewer.pal(6, "Oranges"),brewer.pal(5, "Blues"),brewer.pal(5, "Greys"), brewer.pal(5, "Purples"))#
+,oceanCol="lightblue"
+,landCol="white"
+,main=region[i]
+,addLegend=TRUE
+,legendHoriz=FALSE
+,addColourLegend=FALSE
+,pch=16, alpha= I(0.6), maxZVal=18
+,catMethod="fixedWidth"
+,mapRegion=region[i])
+}
+# identifyCountries(getMap(),nameColumnToPlot="country")
+ 
