@@ -4,6 +4,7 @@ authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
+### 1a
 ```{r}
 set.seed(112)
 d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
@@ -34,9 +35,9 @@ benchmark(
   vapply(d[-11],2, FUN=max),
   replications=1000,
   order="relative")
-
-##first 100 rows
-
+```
+##Subset of first 100 rows
+```{r}
 dsub=d[1:100,]
 apply(dsub[-11],2, FUN=max)
 sapply(dsub[-11],2, FUN=max)
