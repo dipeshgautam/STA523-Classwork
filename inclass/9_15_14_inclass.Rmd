@@ -9,5 +9,55 @@ set.seed(112)
 d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
 d$cat = sample(LETTERS[1:5], 1e6, replace=TRUE)
 
+apply(d[-11],2, FUN=max)
+sapply(d[-11],2, FUN=max)
+vapply(d[-11],2, FUN=max)
 
+for (i in 1:10){
+  tup = c(colnames(d)[i], max(d[i]))
+  print(tup)
+}
+
+for(i in 1:10){
+  for (k in colnames(d[i])){
+    tup= c(k,max(d[i]))
+  }
+  print(tup)
+}
+
+install.packages("rbenchmark")
+library("rbenchmark")
+
+benchmark(
+  apply(d[-11],2, FUN=max),
+  sapply(d[-11],2, FUN=max),
+  vapply(d[-11],2, FUN=max),
+  replications=1000,
+  order="relative")
+
+##first 100 rows
+
+dsub=d[1:100,]
+apply(dsub[-11],2, FUN=max)
+sapply(dsub[-11],2, FUN=max)
+vapply(dsub[-11],2, FUN=max)
+
+for (i in 1:10){
+  tup = c(colnames(dsub)[i], max(dsub[i]))
+  print(tup)
+}
+
+for(i in 1:10){
+  for (k in colnames(dsub[i])){
+    tup= c(k,max(dsub[i]))
+  }
+  print(tup)
+}
+
+benchmark(
+  apply(dsub[-11],2, FUN=max),
+  sapply(dsub[-11],2, FUN=max),
+  vapply(dsub[-11],2, FUN=max),
+  replications=1000,
+  order="relative")
 ```
