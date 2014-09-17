@@ -1,0 +1,96 @@
+---
+title: "In Class Exercises - Sep 15, 2014"
+authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+### 1a
+```{r}
+set.seed(112)
+d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
+d$cat = sample(LETTERS[1:5], 1e6, replace=TRUE)
+
+apply(d[-11],2, FUN=max)
+sapply(d[-11],2, FUN=max)
+vapply(d[-11],2, FUN=max)
+
+for (i in 1:10){
+  tup = c(colnames(d)[i], max(d[i]))
+  print(tup)
+}
+
+for(i in 1:10){
+  for (k in colnames(d[i])){
+    tup= c(k,max(d[i]))
+  }
+  print(tup)
+}
+
+install.packages("rbenchmark")
+library("rbenchmark")
+
+benchmark(
+  apply(d[-11],2, FUN=max),
+  sapply(d[-11],2, FUN=max),
+  vapply(d[-11],2, FUN=max),
+  replications=1000,
+  order="relative")
+```
+##Subset of first 100 rows
+```{r}
+dsub=d[1:100,]
+apply(dsub[-11],2, FUN=max)
+sapply(dsub[-11],2, FUN=max)
+vapply(dsub[-11],2, FUN=max)
+
+for (i in 1:10){
+  tup = c(colnames(dsub)[i], max(dsub[i]))
+  print(tup)
+}
+
+for(i in 1:10){
+  for (k in colnames(dsub[i])){
+    tup= c(k,max(dsub[i]))
+  }
+  print(tup)
+}
+
+benchmark(
+  apply(dsub[-11],2, FUN=max),
+  sapply(dsub[-11],2, FUN=max),
+  vapply(dsub[-11],2, FUN=max),
+  replications=1000,
+  order="relative")
+```
+
+```{r}
+set.seed(112)
+d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
+d$cat = sample(LETTERS[1:5], 1e6, replace=TRUE)
+
+apply(d[,-11],1,which.max)
+str(lapply(d[,-11],which.max))
+sapply(d[,-11],which.max)
+vapply(d[,-11],1,which.max)
+
+max = function(x,y){
+  if(x>y) return x
+  else return y
+}
+
+maxd<-rep(NA,1000000)
+k=0
+for(i in 1:9){
+  maxd[k]<-max(d[k,i],d[k,i+1]
+  k=k+1
+}
+
+m<-matrix(-100000,1000000,1)
+for(i in 1:1000000){
+  for(j in 1:10){
+    if(d[i,j]>m[i,1])
+      m[i,1]<-d[i,j]
+  }
+}
+m
+```
