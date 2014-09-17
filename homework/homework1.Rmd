@@ -61,7 +61,7 @@ Countries$lat <- ll.Countries$lat
 
 ```{r}
 install.packages("rworldmap",  repos="http://cran.rstudio.com/")
-install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
+#install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
 
 ##+ geom_text(aes(visit.x,visit.y,label=Countries$name)
 ```
@@ -73,6 +73,14 @@ library(rworldmap)
 
 #Plot bubble maps showing the world and separated regionwise with number of goals as size of the bubble
 region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
+
+install.packages('png' ,repos="http://cran.rstudio.com/")
+library(png)
+install.packages('grid', repos="http://cran.rstudio.com/")
+library(grid)
+download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
+alg =readPNG("alg.png")
+g = rasterGrob(alg)
 
 for(i in 1:7){
 
@@ -91,6 +99,7 @@ mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,maxZVal=18
 ,catMethod="categorical"
 ,mapRegion=region[i])
+ggplot()+annotation_custom(g)
 }
 # identifyCountries(getMap(),nameColumnToPlot="country")
 
