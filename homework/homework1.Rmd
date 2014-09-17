@@ -3,8 +3,7 @@ title: "Homework1"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-
-###Task 1: Parse the Data
+Task 1: Parse the Data
 ```{r}
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
@@ -25,10 +24,9 @@ HorizontalLocation <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"
 HorizontalLocation[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
 VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
-Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name, Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
+Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name,Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 ```
-
-### Task 2:Visualize the Data
+###Task 2:Visualize the Data
 ```{r}
 library(ggmap)
 library(maptools)
@@ -39,20 +37,24 @@ library(plyr)
 #Create new dataframe by removing "Own goal" and Class with "ispen"
 DataModified <-Data[Data$GoalType!="Own goal" & grepl(".+ispen$", Class)==FALSE, ]
 
+#Change the name for Ivory Coast and South Korea to match the geocode database
 DataModified$Team=as.character(DataModified$Team)
 DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
 DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
 
-visited <- as.data.frame(count(DataModified$Team))
-colnames(visited)= c("country","Goals")
-visited$country= as.character(visited$country)
-ll.visited <- geocode(visited$country)
-visit.x <- ll.visited$lon
-visit.y <- ll.visited$lat
+#Create a new dataframe with total goals scored by players from each country
+Countries <- as.data.frame(count(DataModified$Team))
+colnames(Countries)= c("name","Goals")
+
+#Get the latitude and longitude data for all 32 countries and add to the Countries data frame
+Countries$name= as.character(Countries$name)
+ll.Countries <- geocode(Countries$name)
+Countries$lon <- ll.Countries$lon
+Countries$lat <- ll.Countries$lat
 
 # mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
 # mapWorld <-borders("world",colour="gray50",fill="white")
-# mp <- ggplot() + mapWorld + geom_point(aes(x=visit.x,y=visit.y),color=c(2:33),pch=16,size=.7*visited$Freq, alpha= I(0.6))
+# mp <- ggplot() + mapWorld + geom_point(aes(x=Countries$lon,y=Countries$lat),color=c(2:33),pch=16,size=.7*Countries$Freq, alpha= I(0.6))
 # mp
 ##+ geom_text(aes(visit.x,visit.y,label=visited$country)
 ```
@@ -60,29 +62,37 @@ visit.y <- ll.visited$lat
 ```{r}
 install.packages("rworldmap",  repos="http://cran.rstudio.com/")
 install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
+
+##+ geom_text(aes(visit.x,visit.y,label=Countries$name)
+```
+
+```{r}
+# install.packages("rworldmap")
 library(rworldmap)
-library(RColorBrewer)
-visited$lon=visit.x
-visited$lat=visit.y
-visited$color=c(1:32)
+
+
+#Plot bubble maps showing the world and separated regionwise with number of goals as size of the bubble
 region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
 
-# mapDevice(device="dev.new", rows=4, columns=2) #create world map shaped window
 for(i in 1:7){
 
-mapBubbles(dF=visited, nameX="lon", nameY="lat"
+mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,nameZSize="Goals"
-,nameZColour="color"
-,colourPalette= "rainbow"#c(brewer.pal(6, "Reds"),brewer.pal(5, "Greens"),brewer.pal(6, "Oranges"),brewer.pal(5, "Blues"),brewer.pal(5, "Greys"), brewer.pal(5, "Purples"))#
+,nameZColour="Goals"
+,colourPalette= "rainbow"
 ,oceanCol="lightblue"
 ,landCol="white"
 ,main=region[i]
 ,addLegend=TRUE
 ,legendHoriz=FALSE
 ,addColourLegend=FALSE
-,pch=16, alpha= I(0.6), maxZVal=18
-,catMethod="fixedWidth"
+,pch=16
+,alpha= I(0.6)
+,maxZVal=18
+,catMethod="categorical"
 ,mapRegion=region[i])
 }
 # identifyCountries(getMap(),nameColumnToPlot="country")
+
 ```
+

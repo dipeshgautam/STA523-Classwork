@@ -17,6 +17,8 @@ e<- c(NA,TRUE)
 
 *B is a double because 1L/0 returns infinity which is a double
 
+<<<<<<< HEAD
+=======
 *C is a double
 
 *D is a double because NaN is a double
@@ -36,8 +38,8 @@ attr(x,"class")=c("sunny","cloudy","rain","snow")
 attr(x,"levels")=c(1,2,3,4)
 attr(x,"class")="factor"
 str(x)
-
-#Alternate
+=======
+###Exercise 3
 ```{r}
 weather = as.integer(c(3,1,3,3,2,4,1))
 attr(weather,"levels") = c("sunny","cloudy","rain","snow")
