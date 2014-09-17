@@ -94,3 +94,15 @@ for(i in 1:1000000){
 }
 m
 ```
+
+
+```{r}
+medianmatrix<-matrix(NA,5,10)
+for(i in 1:10){
+  for(j in 1:5){
+    medianmatrix[j,i]<-median(d[,i][d$cat==LETTERS[j]])
+  }
+}
+median(d[,1][d$cat==LETTERS[1]])
+median(d[,1][d$cat==LETTERS[2]])
+```
