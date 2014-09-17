@@ -4,7 +4,7 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 Task 1: Parse the Data
-
+```{r}
 d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
 
@@ -25,9 +25,9 @@ HorizontalLocation[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2
 VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
 Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name,Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
-
-Task 2:Visualize the Data
-
+```
+###Task 2:Visualize the Data
+```{r}
 library(ggmap)
 library(maptools)
 library(maps)
@@ -57,10 +57,12 @@ Countries$lat <- ll.Countries$lat
 # mp <- ggplot() + mapWorld + geom_point(aes(x=Countries$lon,y=Countries$lat),color=c(2:33),pch=16,size=.7*Countries$Freq, alpha= I(0.6))
 # mp
 ##+ geom_text(aes(visit.x,visit.y,label=visited$country)
+```
 
-install.packages("rworldmap")
-install.packages("RColorBrewer")
-=======
+```{r}
+install.packages("rworldmap",  repos="http://cran.rstudio.com/")
+install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
+
 ##+ geom_text(aes(visit.x,visit.y,label=Countries$name)
 ```
 
@@ -91,8 +93,6 @@ mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,mapRegion=region[i])
 }
 # identifyCountries(getMap(),nameColumnToPlot="country")
- 
-=======
-# identifyCountries(getMap(),nameColumnToPlot="name")
+
 ```
 

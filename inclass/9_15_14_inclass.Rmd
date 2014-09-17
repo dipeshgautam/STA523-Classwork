@@ -4,7 +4,7 @@ authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
-### 1a
+# 1a
 ```{r}
 set.seed(112)
 d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
@@ -63,6 +63,8 @@ benchmark(
   order="relative")
 ```
 
+
+#1b
 ```{r}
 set.seed(112)
 d = data.frame(matrix(rnorm(1e6 * 10),ncol=10))
