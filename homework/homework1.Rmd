@@ -58,8 +58,8 @@ visit.y <- ll.visited$lat
 ```
 
 ```{r}
-install.packages("rworldmap")
-install.packages("RColorBrewer")
+install.packages("rworldmap",  repos="http://cran.rstudio.com/")
+install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
 library(rworldmap)
 library(RColorBrewer)
 visited$lon=visit.x
