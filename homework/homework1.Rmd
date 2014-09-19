@@ -1,33 +1,49 @@
 ---
-title: "Homework1"
+title: "Homework 1"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-Task 1: Parse the Data
-```{r}
-d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+###Task 1: Parse the Data
+
+The stringr library is loaded to give us the "str_match_all" function, which returns a matrix with one column for the complete match and one column for each group matching the specified criteria. The "unlist" function used in conjuction with the "seq" function draws information from the second column of the aforementioned matrix. It does so by retrieving the information at position 2 and continuing on to grab every other item until the end of the matrix.
+```{r parseData}
+d <- readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
 
-Id <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
-PointInGoal <- unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
-Class <- unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
-PlayerId <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
-MatchId <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
-Name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
-Team <- unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
-Time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
-AddedTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
-GoalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
-TeamImage <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
-PMatch <- unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
-HorizontalLocation <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
-HorizontalLocation[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
-VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
+ID <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
+pointInGoal <- unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
+class <- unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
+playerID <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
+matchID <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
+name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
+team <- unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
+time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
+addTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
+goalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
+teamImg <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
+pMatch <- unlist(str_match_all(d," pMatch=\"([0-9]*)\""))[seq(2,386,2)]
+horiLoc <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
+horiLoc[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
+vertLoc <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
 
-Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name,Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
+Data <- data.frame(ID = ID, 
+  pointInGoal = pointInGoal, 
+  class = class, 
+  playerID = playerID, 
+  matchID = matchID, 
+  name = name,
+  team = team, 
+  time = time, 
+  addTime = addTime, 
+  goalType = goalType, 
+  teamImg = teamImg, 
+  pMatch = pMatch, 
+  horiLoc = horiLoc, 
+  vertLoc = vertLoc) 
 ```
-###Task 2:Visualize the Data
-```{r, echo=FALSE}
+###Task 2: Visualize the Data
+```{r checkPackages, echo=FALSE}
+# Check for missing packages. If missing, install.
 if("ggmap" %in% rownames(installed.packages()) == FALSE) {install.packages("ggmap",  repos="http://cran.rstudio.com/")}
 library(ggmap)
 if("maptools" %in% rownames(installed.packages()) == FALSE) {install.packages("maptools",  repos="http://cran.rstudio.com/")}
@@ -37,78 +53,77 @@ library(maps)
 if("plyr" %in% rownames(installed.packages()) == FALSE) {install.packages("plyr",  repos="http://cran.rstudio.com/")}
 library(plyr)
 
+# Create new dataframe by removing "Own goal" and class with "ispen"
+DataModified <-Data[Data$goalType!="Own goal" & grepl(".+ispen$", class)==FALSE, ]
 
-#Create new dataframe by removing "Own goal" and Class with "ispen"
-DataModified <-Data[Data$GoalType!="Own goal" & grepl(".+ispen$", Class)==FALSE, ]
+# Change the name for Ivory Coast and South Korea to match the geocode database
+DataModified$team=as.character(DataModified$team)
+DataModified$team[DataModified$team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
+DataModified$team[DataModified$team=="Korea Republic"]= "South Korea"
 
-#Change the name for Ivory Coast and South Korea to match the geocode database
-DataModified$Team=as.character(DataModified$Team)
-DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
-DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
-
-#Create a new dataframe with total goals scored by players from each country
-Countries <- as.data.frame(count(DataModified$Team))
+# Create a new dataframe with total goals scored by players from each country
+Countries <- as.data.frame(count(DataModified$team))
 colnames(Countries)= c("name","Goals")
 
-#Get the latitude and longitude data for all 32 countries and add to the Countries data frame
+# Add latitude and longitude data for all 32 countries to Countries data frame
 Countries$name= as.character(Countries$name)
 if (!file.exists("~/Team2/homework/LocationData.csv")){
-  
   ll.Countries <- geocode(Countries$name)
   write.csv(as.data.frame(ll.Countries), file="~/Team2/homework/LocationData.csv")
   }
 ll.Countries = read.csv("~/Team2/homework/LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
-
 ```
 
-```{r, echo=FALSE}
+```{r checkPackages2, echo=FALSE}
 if("rworldmap" %in% rownames(installed.packages()) == FALSE) {install.packages("rworldmap",  repos="http://cran.rstudio.com/")}
 if("RColorBrewer" %in% rownames(installed.packages()) == FALSE) {install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")}
-
 ```
 
-```{r, echo=FALSE}
+```{r bubbleMapSetup, echo=FALSE}
 library(rworldmap)
 library(RColorBrewer)
 
-
-#Plot bubble maps showing the world and separated regionwise with number of goals as size of the bubble
+# Plot bubble maps showing the world and separated regionwise. Goal quantity determines bubble size
 region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
 
+# Check for missing packages. If missing, install.
 if("png" %in% rownames(installed.packages()) == FALSE) {install.packages("png",  repos="http://cran.rstudio.com/")}
 library(png)
 if("grid" %in% rownames(installed.packages()) == FALSE) {install.packages("grid",  repos="http://cran.rstudio.com/")}
 library(grid)
+
 # download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
 # alg =readPNG("alg.png")
 # g = rasterGrob(alg)
+```
 
+A for loop is used to create one world map, and six regional maps.
+```{r makeMaps}
 for(i in 1:7){
-
-mapBubbles(dF=Countries, nameX="lon", nameY="lat"
-,nameZSize="Goals"
-,nameZColour="Goals"
-,colourPalette= rev(brewer.pal(12,"Paired"))
-,oceanCol="lightblue"
-,landCol="white"
-,main=region[i]
-,addLegend=FALSE
-,legendHoriz=FALSE
-,addColourLegend=TRUE
-,pch=16
-,alpha= I(.1)
-# ,maxZVal=18
-,catMethod="categorical"
-,mapRegion=region[i])
-
-
-if (i!=1){
-  for (j in 1:32){
-    text(Countries$lon[j],Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
+mapBubbles(dF=Countries, 
+  nameX="lon", 
+  nameY="lat",
+  nameZSize="Goals",
+  nameZColour="Goals",
+  colourPalette= rev(brewer.pal(12,"Paired")),
+  oceanCol="lightblue",
+  landCol="white",
+  main=region[i],
+  addLegend=FALSE,
+  legendHoriz=FALSE,
+  addColourLegend=TRUE,
+  pch=16,
+  alpha= I(.1),
+  catMethod="categorical",
+  mapRegion=region[i])      
+  # maxZVal=18
+  if (i!=1){
+    for (j in 1:32){text(Countries$lon[j],
+      Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
+    }
   }
-}
 }
 # identifyCountries(getMap(),nameColumnToPlot="country")
 
@@ -124,3 +139,4 @@ data2 <- read.csv("~aw236/Public/2014fifaPlayers.csv")
 
 ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goals") + geom_point(position = "jitter")
 ```
+
