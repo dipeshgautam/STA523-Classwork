@@ -52,27 +52,26 @@ colnames(Countries)= c("name","Goals")
 
 #Get the latitude and longitude data for all 32 countries and add to the Countries data frame
 Countries$name= as.character(Countries$name)
-ll.Countries <- geocode(Countries$name)
+if (!file.exists("~/Team2/homework/LocationData.csv")){
+  
+  ll.Countries <- geocode(Countries$name)
+  write.csv(as.data.frame(ll.Countries), file="~/Team2/homework/LocationData.csv")
+  }
+ll.Countries = read.csv("~/Team2/homework/LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
 
-# mp<-map("world", fill=TRUE, col="white", bg="grey", ylim=c(-60, 90), mar=c(0,0,0,0))
-# mapWorld <-borders("world",colour="gray50",fill="white")
-# mp <- ggplot() + mapWorld + geom_point(aes(x=Countries$lon,y=Countries$lat),color=c(2:33),pch=16,size=.7*Countries$Freq, alpha= I(0.6))
-# mp
-##+ geom_text(aes(visit.x,visit.y,label=visited$country)
 ```
 
 ```{r, echo=FALSE}
 if("rworldmap" %in% rownames(installed.packages()) == FALSE) {install.packages("rworldmap",  repos="http://cran.rstudio.com/")}
-#install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")
+if("RColorBrewer" %in% rownames(installed.packages()) == FALSE) {install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")}
 
-##+ geom_text(aes(visit.x,visit.y,label=Countries$name)
 ```
 
 ```{r, echo=FALSE}
-# install.packages("rworldmap")
 library(rworldmap)
+library(RColorBrewer)
 
 
 #Plot bubble maps showing the world and separated regionwise with number of goals as size of the bubble
@@ -82,16 +81,16 @@ if("png" %in% rownames(installed.packages()) == FALSE) {install.packages("png", 
 library(png)
 if("grid" %in% rownames(installed.packages()) == FALSE) {install.packages("grid",  repos="http://cran.rstudio.com/")}
 library(grid)
-download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
-alg =readPNG("alg.png")
-g = rasterGrob(alg)
+# download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
+# alg =readPNG("alg.png")
+# g = rasterGrob(alg)
 
 for(i in 1:7){
 
 mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,nameZSize="Goals"
 ,nameZColour="Goals"
-,colourPalette= "rainbow"
+,colourPalette= rev(brewer.pal(12,"Paired"))
 ,oceanCol="lightblue"
 ,landCol="white"
 ,main=region[i]
@@ -99,7 +98,7 @@ mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,legendHoriz=FALSE
 ,addColourLegend=TRUE
 ,pch=16
-,alpha= I(0.6)
+,alpha= I(.1)
 # ,maxZVal=18
 ,catMethod="categorical"
 ,mapRegion=region[i])
@@ -107,8 +106,7 @@ mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 
 if (i!=1){
   for (j in 1:32){
-    rasterImage(alg, xleft=Countries$lon[j]-2,xright=Countries$lon[j]+4, ybottom=Countries$lat[j]-2, ytop=Countries$lat[j]+3)
-    text(Countries$lon[j],Countries$lat[j], Countries$name[j], cex=.6, font=2)
+    text(Countries$lon[j],Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
   }
 }
 }
