@@ -1,11 +1,11 @@
 ---
-title: "Homework1"
+title: "Homework 1"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-Task 1: Parse the Data
+###Task 1: Parse the Data
 ```{r}
-d=readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+d <- readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
 
 Id <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
@@ -26,8 +26,9 @@ VerticalLocationFromTop <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,38
 
 Data <- data.frame(ID = Id, PointInGoal = PointInGoal, Class = Class, PlayerId=PlayerId, MatchId=MatchId, Name= Name,Team=Team, Time=Time, AddedTime=AddedTime, GoalType=GoalType, TeamImage=TeamImage, PMatch=PMatch, HorizontalLocation=HorizontalLocation, VerticalLocationFromTop=VerticalLocationFromTop) 
 ```
-###Task 2:Visualize the Data
+###Task 2: Visualize the Data
 ```{r, echo=FALSE}
+# Check for missing packages. If missing, install.
 if("ggmap" %in% rownames(installed.packages()) == FALSE) {install.packages("ggmap",  repos="http://cran.rstudio.com/")}
 library(ggmap)
 if("maptools" %in% rownames(installed.packages()) == FALSE) {install.packages("maptools",  repos="http://cran.rstudio.com/")}
@@ -37,36 +38,32 @@ library(maps)
 if("plyr" %in% rownames(installed.packages()) == FALSE) {install.packages("plyr",  repos="http://cran.rstudio.com/")}
 library(plyr)
 
-
-#Create new dataframe by removing "Own goal" and Class with "ispen"
+# Create new dataframe by removing "Own goal" and Class with "ispen"
 DataModified <-Data[Data$GoalType!="Own goal" & grepl(".+ispen$", Class)==FALSE, ]
 
-#Change the name for Ivory Coast and South Korea to match the geocode database
+# Change the name for Ivory Coast and South Korea to match the geocode database
 DataModified$Team=as.character(DataModified$Team)
 DataModified$Team[DataModified$Team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
 DataModified$Team[DataModified$Team=="Korea Republic"]= "South Korea"
 
-#Create a new dataframe with total goals scored by players from each country
+# Create a new dataframe with total goals scored by players from each country
 Countries <- as.data.frame(count(DataModified$Team))
 colnames(Countries)= c("name","Goals")
 
-#Get the latitude and longitude data for all 32 countries and add to the Countries data frame
+# Add latitude and longitude data for all 32 countries to Countries data frame
 Countries$name= as.character(Countries$name)
 if (!file.exists("~/Team2/homework/LocationData.csv")){
-  
   ll.Countries <- geocode(Countries$name)
   write.csv(as.data.frame(ll.Countries), file="~/Team2/homework/LocationData.csv")
   }
 ll.Countries = read.csv("~/Team2/homework/LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
-
 ```
 
 ```{r, echo=FALSE}
 if("rworldmap" %in% rownames(installed.packages()) == FALSE) {install.packages("rworldmap",  repos="http://cran.rstudio.com/")}
 if("RColorBrewer" %in% rownames(installed.packages()) == FALSE) {install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")}
-
 ```
 
 ```{r, echo=FALSE}
@@ -74,19 +71,23 @@ library(rworldmap)
 library(RColorBrewer)
 
 
-#Plot bubble maps showing the world and separated regionwise with number of goals as size of the bubble
+# Plot bubble maps showing the world and separated regionwise. Goal quantity determines bubble size
 region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
 
+# Check for missing packages. If missing, install.
 if("png" %in% rownames(installed.packages()) == FALSE) {install.packages("png",  repos="http://cran.rstudio.com/")}
 library(png)
 if("grid" %in% rownames(installed.packages()) == FALSE) {install.packages("grid",  repos="http://cran.rstudio.com/")}
 library(grid)
+
 # download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
 # alg =readPNG("alg.png")
 # g = rasterGrob(alg)
+```
 
+A for loop is used to create one world map, and six regional maps.
+```{r}
 for(i in 1:7){
-
 mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 ,nameZSize="Goals"
 ,nameZColour="Goals"
@@ -102,7 +103,6 @@ mapBubbles(dF=Countries, nameX="lon", nameY="lat"
 # ,maxZVal=18
 ,catMethod="categorical"
 ,mapRegion=region[i])
-
 
 if (i!=1){
   for (j in 1:32){
