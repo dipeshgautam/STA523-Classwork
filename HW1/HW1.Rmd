@@ -149,7 +149,7 @@ library(jsonlite)
 The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON through the single line of code below. The output below, excluding the "##" beginning on every line, can be copied and pasted into the the JSON validator: http://jsonlint.com/ to prove it is valid JSON. Unfortunately, `sink()` doesn't work with markdown, so it is difficult to `sink()` the easily copied and pastable JSON output to a .txt file.
 
 ```{r toJSON}
-toJSON(Data, pretty = TRUE)
+# toJSON(Data, pretty = TRUE)
 # list.Data <- as.list(data.frame(t(Data)))
 # toJSON(list.Data, pretty = TRUE)
 
@@ -157,3 +157,85 @@ toJSON(Data, pretty = TRUE)
 # toJSON(Data, pretty = TRUE)
 # sink()
 ```
+
+```{r JSON with country to goals hierarchy}
+countriesList<-as.data.frame(unique(Data$team))
+colnames(countriesList)<- c("country")
+goalDetails<-rep(NA, 10)
+goal<-list(goalDetails)
+jsonList<-list(list( list(),list(),goal))
+
+for (i in 1:32){
+  
+    subset <- Data[Data$team == as.character(countriesList$country[i]),]
+    goal<-rep( list(goalDetails), nrow(subset) )
+    jsonList[i]<-list(list(list(),list(),goal))
+    for (j in 1:nrow(subset)){
+        goal[[j]]<-list("name"=as.character(subset$name[j])
+                      ,"playerId"=as.character(subset$playerID[j])
+                      ,"goalType"=as.character(subset$goalType[j])
+                      ,"class"=as.character(subset$class[j])
+                      ,"time"=as.character(subset$time[j])
+                      ,"addTime"=as.character(subset$addTime[j])
+                      ,"vertLoc"=as.character(subset$vertLoc[j])
+                      ,"horiLoc"=as.character(subset$horiLoc[j])
+                      ,"pointInGoal"=as.character(subset$pointInGoal[j])
+                      ,"matchId"=as.character(subset$matchID[j]))
+    }
+
+    jsonList[i] <- list(list("Country"=as.character(subset$team[1])
+                      ,"Flag"=as.character(subset$teamImg[1])
+                      , "Goals"=goal))
+    
+        
+}
+convertedJSON=rjson::toJSON(jsonList)
+jsonlite::prettify(convertedJSON)
+
+```
+
+
+```{r with country player and goals hierarchy}
+countriesList <- as.data.frame(unique(Data$team))
+colnames(countriesList)<- c("country")
+goalDetails<-rep(NA, 8)
+goal<- list(goalDetails)
+player<-list( list( list(), list(), goal))
+jsonList<-list( list( list( list(),list(), player)))
+
+for (i in 1:32){
+  
+    subset <- Data[Data$team == as.character(countriesList$country[i]),]
+    goal<-list(goalDetails)
+    player <- list( list( list(), list(), goal))
+#     jsonList<-list( list( list( list(),list(), player)))
+    jsonList[i]<-list( list( list(),list(), player))
+    playerList<-as.data.frame(unique(subset$name))
+    colnames(playerList)<- c("name")
+    
+    for (j in 1:nrow(playerList)){
+        playerSubset <- subset[subset$name == as.character(playerList$name[j]),]
+        goal<-rep( list(goalDetails), nrow(playerSubset) )
+        player[j] <- list( list( list(), list(), goal))
+        for (k in 1:nrow(playerSubset)){
+            goal[[k]]<-list("goalType"=as.character(playerSubset$goalType[k])
+                      ,"class"=as.character(playerSubset$class[k])
+                      ,"time"=as.character(playerSubset$time[k])
+                      ,"addTime"=as.character(playerSubset$addTime[k])
+                      ,"vertLoc"=as.character(playerSubset$vertLoc[k])
+                      ,"horiLoc"=as.character(playerSubset$horiLoc[k])
+                      ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
+                      ,"matchId"=as.character(playerSubset$matchID[k]))
+        }
+        player[j]<-list(list("name"=as.character(playerSubset$name[1]),
+                        "playerID"= as.character(playerSubset$playerID[1])
+                        ,"goals"=goal))
+    }    
+    jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
+                      ,"Flag"=as.character(subset$teamImg[1])
+                      , "goalScorers"=player)))
+}
+convertedJSON=rjson::toJSON(jsonList)
+jsonlite::prettify(convertedJSON)
+
+``
