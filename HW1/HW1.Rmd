@@ -158,7 +158,7 @@ The original data frame built from the raw data of  `world_cup_goals_raw.txt` ha
 # sink()
 ```
 
-# ```{r toJSON with country to goals hierarchy}
+ ```{r toJSON with country to goals hierarchy}
 # countriesList<-as.data.frame(unique(Data$team))
 # colnames(countriesList)<- c("country")
 # goalDetails<-rep(NA, 10)
@@ -196,6 +196,7 @@ The original data frame built from the raw data of  `world_cup_goals_raw.txt` ha
 
 
 ```{r toJSON with country to player to goals hierarchy}
+library(jsonlite)
 countriesList <- as.data.frame(unique(Data$team))
 colnames(countriesList)<- c("country")
 goalDetails<-rep(NA, 8)
@@ -235,7 +236,39 @@ for (i in 1:32){
                       ,"Flag"=as.character(subset$teamImg[1])
                       , "goalScorers"=player)))
 }
-convertedJSON <- rjson::toJSON(jsonList)
-jsonlite::prettify(convertedJSON)
+jsonConverted <- rjson::toJSON(jsonList)
+jsonPrettified <- prettify(jsonConverted)
+
+```
+
+
+```{r truncate json output, echo=FALSE}
+truncate_prettify = function(s, n)
+{
+  # s - json character string
+  # n - number of lines
+ 
+  library(stringr)
+  
+  stopifnot(length(s)==1)
+  stopifnot(is.character(s))
+  
+  # find carraige returns
+  pos = str_locate_all(s,"\n")[[1]]
+  
+  #
+  n = min(c(nrow(pos),n))
+ 
+  # truncate prettify string
+  new_s = str_sub(s,1,pos[n, 2]+1)
+  
+  # avoid ellipsis if not truncating
+  if (n != nrow(pos))
+    new_s = paste0(new_s, "\n...\n\n")
+  
+  return(new_s)
+  }
+cat(truncate_prettify(jsonPrettified, 300))
+
 
 ```
