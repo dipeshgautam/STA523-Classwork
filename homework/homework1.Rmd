@@ -4,7 +4,6 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 ###Task 1: Parse the Data
-
 The stringr library is loaded to give us the "str_match_all" function, which returns a matrix with one column for the complete match and one column for each group matching the specified criteria. The "unlist" function used in conjuction with the "seq" function draws information from the second column of the aforementioned matrix. It does so by retrieving the information at position 2 and continuing on to grab every other item until the end of the matrix.
 ```{r parseData}
 d <- readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
@@ -100,6 +99,7 @@ library(grid)
 ```
 
 A for loop is used to create one world map, and six regional maps.
+<<<<<<< HEAD
 ```{r makeMaps}
 for(i in 1:7){
 mapBubbles(dF=Countries, 
