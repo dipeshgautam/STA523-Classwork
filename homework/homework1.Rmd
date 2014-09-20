@@ -4,7 +4,7 @@ author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 ###Task 1: Parse the Data
-The stringr library is loaded to give us the "str_match_all" function, which returns a matrix with one column for the complete match and one column for each group matching the specified criteria. The "unlist" function used in conjuction with the "seq" function draws information from the second column of the aforementioned matrix. It does so by retrieving the information at position 2 and continuing on to grab every other item until the end of the matrix.
+The stringr library is loaded to give us the `str_match_all` function, which returns a matrix with one column for the complete match and one column for each group matching the specified criteria. The `unlist` function used in conjuction with the "seq" function draws information from the second column of the aforementioned matrix. It does so by retrieving the information at position 2 and continuing on to grab every other item until the end of the matrix.
 ```{r parseData}
 d <- readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
 library(stringr)
@@ -20,7 +20,7 @@ time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
 addTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
 goalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
 teamImg <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
-pMatch <- unlist(str_match_all(d," pMatch=\"([0-9]*)\""))[seq(2,386,2)]
+pMatch <- unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
 horiLoc <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
 horiLoc[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
 vertLoc <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
@@ -131,7 +131,7 @@ mapBubbles(dF=Countries,
 
 The following dataset is provided freely by David Bauer of DataHub, recording a number of characteristics, including height, for all 726 2014 FIFA players. Height is often associated with greater strength and speed, and usually considered an easily appreciable metric of one's athletic potential to the layperson. The scatterplot below seeks to examine the relationship between height and one dimension of athletic ability as measured by goals scored. While height is a continuous variable, it takes on discrete values due to rounding. Since the data is plotted with discrete values on both axes, jitter was used to compensate for overplotting and to increase the visibility of more observations. The scatterplot below suggests that there is a quadratic relationship between height and goals scored. As the height of players increases to 180 cm, the number of goals scored increases. But as a player's height exceeds 180 cm, a negative relationship between the two variables takes hold.
 
-```{r echo=FALSE}
+```{r scatterPlot, echo=FALSE}
 library(ggplot2)
 
 # Source: David Bauer. http://datahub.io/dataset/fifa-world-cup-2014-all-players
@@ -140,3 +140,18 @@ data2 <- read.csv("~aw236/Public/2014fifaPlayers.csv")
 ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goals") + geom_point(position = "jitter")
 ```
 
+```{r loadJSON}
+library(plyr)
+library(jsonlite)
+```
+
+
+```{r toJSON}
+#list.Data <- as.list(data.frame(t(Data)))
+#toJSON(list.Data, pretty = TRUE)
+toJSON(Data, pretty = TRUE)
+
+#sink("JSON.txt", type=c("output"))
+#  toJSON(Data, pretty = TRUE)
+#sink()
+```
