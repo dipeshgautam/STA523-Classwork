@@ -144,13 +144,15 @@ library(plyr)
 library(jsonlite)
 ```
 
+###Task 3: Translate
+The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON through the single line of code below. The output below, excluding the "##" beginning on every line, can be copied and pasted into the the JSON validator: http://jsonlint.com/ to prove it is valid JSON. Unfortunately, `sink()` doesn't work with markdown, so it is difficult to `sink()` the easily copied and pastable JSON output to a .txt file.
 
 ```{r toJSON}
-#list.Data <- as.list(data.frame(t(Data)))
-#toJSON(list.Data, pretty = TRUE)
 toJSON(Data, pretty = TRUE)
+# list.Data <- as.list(data.frame(t(Data)))
+# toJSON(list.Data, pretty = TRUE)
 
-#sink("JSON.txt", type=c("output"))
-#  toJSON(Data, pretty = TRUE)
-#sink()
+# sink("JSON.txt", type=c("output"))
+# toJSON(Data, pretty = TRUE)
+# sink()
 ```
