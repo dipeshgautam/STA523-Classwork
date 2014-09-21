@@ -93,9 +93,6 @@ library(png)
 if("grid" %in% rownames(installed.packages()) == FALSE) {install.packages("grid",  repos="http://cran.rstudio.com/")}
 library(grid)
 
-# download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
-# alg =readPNG("alg.png")
-# g = rasterGrob(alg)
 ```
 
 A for loop is used to create one world map, and six regional maps.
@@ -124,7 +121,6 @@ mapBubbles(dF=Countries,
     }
   }
 }
-# identifyCountries(getMap(),nameColumnToPlot="country")
 
 ```
 
