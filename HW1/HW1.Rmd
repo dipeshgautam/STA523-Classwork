@@ -66,11 +66,11 @@ colnames(Countries)= c("name","Goals")
 
 # Add latitude and longitude data for all 32 countries to Countries data frame
 Countries$name= as.character(Countries$name)
-if (!file.exists("~/Team2/homework/LocationData.csv")){
+if (!file.exists("~/Team2/HW1/LocationData.csv")){
   ll.Countries <- geocode(Countries$name)
-  write.csv(as.data.frame(ll.Countries), file="~/Team2/homework/LocationData.csv")
+  write.csv(as.data.frame(ll.Countries), file="~/Team2/HW1/LocationData.csv")
   }
-ll.Countries = read.csv("~/Team2/homework/LocationData.csv")
+ll.Countries = read.csv("~/Team2/HW1/LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
 ```
@@ -93,13 +93,9 @@ library(png)
 if("grid" %in% rownames(installed.packages()) == FALSE) {install.packages("grid",  repos="http://cran.rstudio.com/")}
 library(grid)
 
-# download.file("http://ejoh.se/worldcup2014/goals/flags/alg.png", destfile="alg.png", mode="wb")
-# alg =readPNG("alg.png")
-# g = rasterGrob(alg)
 ```
 
 A for loop is used to create one world map, and six regional maps.
-<<<<<<< HEAD
 ```{r makeMaps}
 for(i in 1:7){
 mapBubbles(dF=Countries, 
@@ -125,7 +121,6 @@ mapBubbles(dF=Countries,
     }
   }
 }
-# identifyCountries(getMap(),nameColumnToPlot="country")
 
 ```
 
@@ -142,16 +137,134 @@ ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goa
 
 ```{r loadJSON}
 library(plyr)
+if("jsonlite" %in% rownames(installed.packages()) == FALSE) {install.packages("jsonlite",  repos="http://cran.rstudio.com/")}
 library(jsonlite)
 ```
 
+###Task 3: Translate
+The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON through the single line of code below. The output below, excluding the "##" beginning on every line, can be copied and pasted into the the JSON validator: http://jsonlint.com/ to prove it is valid JSON. Unfortunately, `sink()` doesn't work with markdown, so it is difficult to `sink()` the easily copied and pastable JSON output to a .txt file.
 
 ```{r toJSON}
-#list.Data <- as.list(data.frame(t(Data)))
-#toJSON(list.Data, pretty = TRUE)
-toJSON(Data, pretty = TRUE)
+# toJSON(Data, pretty = TRUE)
+# list.Data <- as.list(data.frame(t(Data)))
+# toJSON(list.Data, pretty = TRUE)
 
-#sink("JSON.txt", type=c("output"))
-#  toJSON(Data, pretty = TRUE)
-#sink()
+# sink("JSON.txt", type=c("output"))
+# toJSON(Data, pretty = TRUE)
+# sink()
+```
+
+ ```{r toJSON with country to goals hierarchy}
+# countriesList<-as.data.frame(unique(Data$team))
+# colnames(countriesList)<- c("country")
+# goalDetails<-rep(NA, 10)
+# goal<-list(goalDetails)
+# jsonList<-list(list( list(),list(),goal))
+# 
+# for (i in 1:32){
+#   
+#     subset <- Data[Data$team == as.character(countriesList$country[i]),]
+#     goal<-rep( list(goalDetails), nrow(subset) )
+#     jsonList[i]<-list(list(list(),list(),goal))
+#     for (j in 1:nrow(subset)){
+#         goal[[j]]<-list("name"=as.character(subset$name[j])
+#                       ,"playerId"=as.character(subset$playerID[j])
+#                       ,"goalType"=as.character(subset$goalType[j])
+#                       ,"class"=as.character(subset$class[j])
+#                       ,"time"=as.character(subset$time[j])
+#                       ,"addTime"=as.character(subset$addTime[j])
+#                       ,"vertLoc"=as.character(subset$vertLoc[j])
+#                       ,"horiLoc"=as.character(subset$horiLoc[j])
+#                       ,"pointInGoal"=as.character(subset$pointInGoal[j])
+#                       ,"matchId"=as.character(subset$matchID[j]))
+#     }
+# 
+#     jsonList[i] <- list(list("Country"=as.character(subset$team[1])
+#                       ,"Flag"=as.character(subset$teamImg[1])
+#                       , "Goals"=goal))
+#     
+#         
+# }
+# convertedJSON <- rjson::toJSON(jsonList)
+# jsonlite::prettify(convertedJSON)
+
+```
+
+
+```{r toJSON with country to player to goals hierarchy}
+library(jsonlite)
+countriesList <- as.data.frame(unique(Data$team))
+colnames(countriesList)<- c("country")
+goalDetails<-rep(NA, 8)
+goal<- list(goalDetails)
+player<-list( list( list(), list(), goal))
+jsonList<-list( list( list( list(),list(), player)))
+
+for (i in 1:32){
+  
+    subset <- Data[Data$team == as.character(countriesList$country[i]),]
+    goal<-list(goalDetails)
+    player <- list( list( list(), list(), goal))
+#     jsonList<-list( list( list( list(),list(), player)))
+    jsonList[i]<-list( list( list(),list(), player))
+    playerList<-as.data.frame(unique(subset$name))
+    colnames(playerList)<- c("name")
+    
+    for (j in 1:nrow(playerList)){
+        playerSubset <- subset[subset$name == as.character(playerList$name[j]),]
+        goal<-rep( list(goalDetails), nrow(playerSubset) )
+        player[j] <- list( list( list(), list(), goal))
+        for (k in 1:nrow(playerSubset)){
+            goal[[k]]<-list("goalType"=as.character(playerSubset$goalType[k])
+                      ,"class"=as.character(playerSubset$class[k])
+                      ,"time"=as.character(playerSubset$time[k])
+                      ,"addTime"=as.character(playerSubset$addTime[k])
+                      ,"vertLoc"=as.character(playerSubset$vertLoc[k])
+                      ,"horiLoc"=as.character(playerSubset$horiLoc[k])
+                      ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
+                      ,"matchId"=as.character(playerSubset$matchID[k]))
+        }
+        player[j]<-list(list("name"=as.character(playerSubset$name[1]),
+                        "playerID"= as.character(playerSubset$playerID[1])
+                        ,"goals"=goal))
+    }    
+    jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
+                      ,"Flag"=as.character(subset$teamImg[1])
+                      , "goalScorers"=player)))
+}
+jsonConverted <- rjson::toJSON(jsonList)
+jsonPrettified <- prettify(jsonConverted)
+
+```
+
+
+```{r truncate json output, echo=FALSE}
+truncate_prettify = function(s, n)
+{
+  # s - json character string
+  # n - number of lines
+ 
+  library(stringr)
+  
+  stopifnot(length(s)==1)
+  stopifnot(is.character(s))
+  
+  # find carraige returns
+  pos = str_locate_all(s,"\n")[[1]]
+  
+  #
+  n = min(c(nrow(pos),n))
+ 
+  # truncate prettify string
+  new_s = str_sub(s,1,pos[n, 2]+1)
+  
+  # avoid ellipsis if not truncating
+  if (n != nrow(pos))
+    new_s = paste0(new_s, "\n...\n\n")
+  
+  return(new_s)
+  }
+cat(truncate_prettify(jsonPrettified, 300))
+
+
 ```
