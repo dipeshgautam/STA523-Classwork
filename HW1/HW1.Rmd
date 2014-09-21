@@ -56,21 +56,22 @@ library(plyr)
 DataModified <-Data[Data$goalType!="Own goal" & grepl(".+ispen$", class)==FALSE, ]
 
 # Change the name for Ivory Coast and South Korea to match the geocode database
-DataModified$team=as.character(DataModified$team)
+DataModified$team <- as.character(DataModified$team)
 DataModified$team[DataModified$team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
 DataModified$team[DataModified$team=="Korea Republic"]= "South Korea"
 
 # Create a new dataframe with total goals scored by players from each country
 Countries <- as.data.frame(count(DataModified$team))
-colnames(Countries)= c("name","Goals")
+colnames(Countries) <- c("name","Goals")
 
 # Add latitude and longitude data for all 32 countries to Countries data frame
-Countries$name= as.character(Countries$name)
+Countries$name <- as.character(Countries$name)
 if (!file.exists("~/Team2/HW1/LocationData.csv")){
-  ll.Countries <- geocode(Countries$name)
-  write.csv(as.data.frame(ll.Countries), file="~/Team2/HW1/LocationData.csv")
-  }
-ll.Countries = read.csv("~/Team2/HW1/LocationData.csv")
+    ll.Countries <- geocode(Countries$name)
+    write.csv(as.data.frame(ll.Countries), file="~/Team2/HW1/LocationData.csv")
+    }
+
+ll.Countries <- read.csv("~/Team2/HW1/LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
 ```
@@ -85,7 +86,7 @@ library(rworldmap)
 library(RColorBrewer)
 
 # Plot bubble maps showing the world and separated regionwise. Goal quantity determines bubble size
-region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
+region <- c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
 
 # Check for missing packages. If missing, install.
 if("png" %in% rownames(installed.packages()) == FALSE) {install.packages("png",  repos="http://cran.rstudio.com/")}
@@ -98,29 +99,28 @@ library(grid)
 A for loop is used to create one world map, and six regional maps.
 ```{r makeMaps}
 for(i in 1:7){
-mapBubbles(dF=Countries, 
-  nameX="lon", 
-  nameY="lat",
-  nameZSize="Goals",
-  nameZColour="Goals",
-  colourPalette= rev(brewer.pal(12,"Paired")),
-  oceanCol="lightblue",
-  landCol="white",
-  main=region[i],
-  addLegend=FALSE,
-  legendHoriz=FALSE,
-  addColourLegend=TRUE,
-  pch=16,
-  alpha= I(.1),
-  catMethod="categorical",
-  mapRegion=region[i])      
-  # maxZVal=18
-  if (i!=1){
-    for (j in 1:32){text(Countries$lon[j],
-      Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
+    mapBubbles(dF=Countries, 
+    nameX="lon", 
+    nameY="lat",
+    nameZSize="Goals",
+    nameZColour="Goals",
+    colourPalette= rev(brewer.pal(12,"Paired")),
+    oceanCol="lightblue",
+    landCol="white",
+    main=region[i],
+    addLegend=FALSE,
+    legendHoriz=FALSE,
+    addColourLegend=TRUE,
+    pch=16,
+    alpha= I(.1),
+    catMethod="categorical",
+    mapRegion=region[i])
+    if (i!=1){
+        for (j in 1:32){
+            text(Countries$lon[j], Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
+            }
+        }
     }
-  }
-}
 
 ```
 
@@ -154,65 +154,27 @@ The original data frame built from the raw data of  `world_cup_goals_raw.txt` ha
 # sink()
 ```
 
- ```{r toJSON with country to goals hierarchy}
-# countriesList<-as.data.frame(unique(Data$team))
-# colnames(countriesList)<- c("country")
-# goalDetails<-rep(NA, 10)
-# goal<-list(goalDetails)
-# jsonList<-list(list( list(),list(),goal))
-# 
-# for (i in 1:32){
-#   
-#     subset <- Data[Data$team == as.character(countriesList$country[i]),]
-#     goal<-rep( list(goalDetails), nrow(subset) )
-#     jsonList[i]<-list(list(list(),list(),goal))
-#     for (j in 1:nrow(subset)){
-#         goal[[j]]<-list("name"=as.character(subset$name[j])
-#                       ,"playerId"=as.character(subset$playerID[j])
-#                       ,"goalType"=as.character(subset$goalType[j])
-#                       ,"class"=as.character(subset$class[j])
-#                       ,"time"=as.character(subset$time[j])
-#                       ,"addTime"=as.character(subset$addTime[j])
-#                       ,"vertLoc"=as.character(subset$vertLoc[j])
-#                       ,"horiLoc"=as.character(subset$horiLoc[j])
-#                       ,"pointInGoal"=as.character(subset$pointInGoal[j])
-#                       ,"matchId"=as.character(subset$matchID[j]))
-#     }
-# 
-#     jsonList[i] <- list(list("Country"=as.character(subset$team[1])
-#                       ,"Flag"=as.character(subset$teamImg[1])
-#                       , "Goals"=goal))
-#     
-#         
-# }
-# convertedJSON <- rjson::toJSON(jsonList)
-# jsonlite::prettify(convertedJSON)
-
-```
-
 
 ```{r toJSON with country to player to goals hierarchy}
-library(jsonlite)
 countriesList <- as.data.frame(unique(Data$team))
-colnames(countriesList)<- c("country")
-goalDetails<-rep(NA, 8)
-goal<- list(goalDetails)
-player<-list( list( list(), list(), goal))
-jsonList<-list( list( list( list(),list(), player)))
+colnames(countriesList) <- c("country")
+goalDetails <-rep(NA, 8)
+goal <- list(goalDetails)
+player <-list( list( list(), list(), goal))
+jsonList <-list( list( list( list(),list(), player)))
 
 for (i in 1:32){
   
     subset <- Data[Data$team == as.character(countriesList$country[i]),]
-    goal<-list(goalDetails)
+    goal <-list(goalDetails)
     player <- list( list( list(), list(), goal))
-#     jsonList<-list( list( list( list(),list(), player)))
-    jsonList[i]<-list( list( list(),list(), player))
-    playerList<-as.data.frame(unique(subset$name))
-    colnames(playerList)<- c("name")
+    jsonList[i] <- list( list( list(),list(), player))
+    playerList <- as.data.frame(unique(subset$name))
+    colnames(playerList) <- c("name")
     
     for (j in 1:nrow(playerList)){
         playerSubset <- subset[subset$name == as.character(playerList$name[j]),]
-        goal<-rep( list(goalDetails), nrow(playerSubset) )
+        goal <- rep( list(goalDetails), nrow(playerSubset) )
         player[j] <- list( list( list(), list(), goal))
         for (k in 1:nrow(playerSubset)){
             goal[[k]]<-list("goalType"=as.character(playerSubset$goalType[k])
@@ -223,15 +185,15 @@ for (i in 1:32){
                       ,"horiLoc"=as.character(playerSubset$horiLoc[k])
                       ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
                       ,"matchId"=as.character(playerSubset$matchID[k]))
-        }
-        player[j]<-list(list("name"=as.character(playerSubset$name[1]),
+            }
+        player[j] <- list(list("name"=as.character(playerSubset$name[1]),
                         "playerID"= as.character(playerSubset$playerID[1])
                         ,"goals"=goal))
-    }    
+        }    
     jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
                       ,"Flag"=as.character(subset$teamImg[1])
                       , "goalScorers"=player)))
-}
+    }
 jsonConverted <- rjson::toJSON(jsonList)
 jsonPrettified <- prettify(jsonConverted)
 
@@ -250,17 +212,17 @@ truncate_prettify = function(s, n)
   stopifnot(is.character(s))
   
   # find carraige returns
-  pos = str_locate_all(s,"\n")[[1]]
+  pos <- str_locate_all(s,"\n")[[1]]
   
   #
-  n = min(c(nrow(pos),n))
+  n <- min(c(nrow(pos),n))
  
   # truncate prettify string
-  new_s = str_sub(s,1,pos[n, 2]+1)
+  new_s <- str_sub(s,1,pos[n, 2]+1)
   
   # avoid ellipsis if not truncating
   if (n != nrow(pos))
-    new_s = paste0(new_s, "\n...\n\n")
+    new_s <- paste0(new_s, "\n...\n\n")
   
   return(new_s)
   }
