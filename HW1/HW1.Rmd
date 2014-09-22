@@ -79,7 +79,7 @@ DataModified$team[DataModified$team=="Korea Republic"]= "South Korea"
 Countries <- as.data.frame(count(DataModified$team))
 colnames(Countries) <- c("name","Goals")
 
-# Add latitude and longitude data for all 32 countries to Countries data frame
+# Add latitude and longitude data for all 32 countries to Countries data frame. First, check if the file with the location data exists, if not download the data and write to the file.
 Countries$name <- as.character(Countries$name)
 if (!file.exists("~/Team2/HW1/LocationData.csv")){
     ll.Countries <- geocode(Countries$name)
@@ -136,19 +136,19 @@ ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goa
 ```
 
 ```{r loadJSON}
-library(plyr)
 if("jsonlite" %in% rownames(installed.packages()) == FALSE) {install.packages("jsonlite",  repos="http://cran.rstudio.com/")}
 library(jsonlite)
 ```
 
 ###Task 3: Translate
-  The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON through the single line of code below. The output below, excluding the "##" beginning on every line, can be copied and pasted into the the JSON validator: http://jsonlint.com/ to prove it is valid JSON. Unfortunately, `sink()` doesn't work with markdown, so it is difficult to `sink()` the easily copied and pastable JSON output to a .txt file.
-
+  The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON with country to player to goals hierarchy. This hierarchy relates to the visualization we did for task 2 as it looks as goals scored by each country. It further looks at who scored the goals for each country and the number of goals scored by each player.
+  
+  Prettify function was used to add indentation to JSON formatted data and make it readable. The output was truncated to show keep the output at reasonable length. 
 
 ```{r toJSON with country to player to goals hierarchy}
 countriesList <- as.data.frame(unique(Data$team))
 colnames(countriesList) <- c("country")
-goalDetails <-rep(NA, 8)
+goalDetails <-rep(NA, 10)
 goal <- list(goalDetails)
 player <-list( list( list(), list(), goal))
 jsonList <-list( list( list( list(),list(), player)))
@@ -174,7 +174,9 @@ for (i in 1:32){
                       ,"vertLoc"=as.character(playerSubset$vertLoc[k])
                       ,"horiLoc"=as.character(playerSubset$horiLoc[k])
                       ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
-                      ,"matchId"=as.character(playerSubset$matchID[k]))
+                      ,"matchId"=as.character(playerSubset$matchID[k])
+                      ,"pMatch"=as.character(playerSubset$pMatch[k])
+                      ,"ID"=as.character(playerSubset$ID[k]))
             }
         player[j] <- list(list("name"=as.character(playerSubset$name[1]),
                         "playerID"= as.character(playerSubset$playerID[1])
@@ -216,7 +218,7 @@ truncate_prettify = function(s, n)
   
   return(new_s)
   }
-cat(truncate_prettify(jsonPrettified, 300))
+cat(truncate_prettify(jsonPrettified, 400))
 
 
 ```
