@@ -81,12 +81,12 @@ colnames(Countries) <- c("name","Goals")
 
 # Add latitude and longitude data for all 32 countries to Countries data frame. First, check if the file with the location data exists, if not download the data and write to the file.
 Countries$name <- as.character(Countries$name)
-if (!file.exists("~/Team2/HW1/LocationData.csv")){
+if (!file.exists("LocationData.csv")){
     ll.Countries <- geocode(Countries$name)
-    write.csv(as.data.frame(ll.Countries), file="~/Team2/HW1/LocationData.csv")
+    write.csv(as.data.frame(ll.Countries), file="LocationData.csv")
     }
 
-ll.Countries <- read.csv("~/Team2/HW1/LocationData.csv")
+ll.Countries <- read.csv("LocationData.csv")
 Countries$lon <- ll.Countries$lon
 Countries$lat <- ll.Countries$lat
 ```
