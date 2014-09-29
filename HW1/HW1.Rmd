@@ -51,18 +51,19 @@ Data <- data.frame(ID = ID,
 ####Checking for installed packages
 ```{r checkPackages, echo=FALSE}
 # Check for missing packages. If missing, install.
-if("ggmap" %in% rownames(installed.packages()) == FALSE) {install.packages("ggmap",  repos="http://cran.rstudio.com/")}
-library(ggmap)
-if("maptools" %in% rownames(installed.packages()) == FALSE) {install.packages("maptools",  repos="http://cran.rstudio.com/")}
-library(maptools)
-if("maps" %in% rownames(installed.packages()) == FALSE) {install.packages("maps",  repos="http://cran.rstudio.com/")}
-library(maps)
-if("plyr" %in% rownames(installed.packages()) == FALSE) {install.packages("plyr",  repos="http://cran.rstudio.com/")}
-library(plyr)
-if("rworldmap" %in% rownames(installed.packages()) == FALSE) {install.packages("rworldmap",  repos="http://cran.rstudio.com/")}
-if("RColorBrewer" %in% rownames(installed.packages()) == FALSE) {install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")}
-library(rworldmap)
-library(RColorBrewer)
+
+check_load = function(pkgs)
+{
+  for(pkg in pkgs)
+  {
+    if(pkg %in% rownames(installed.packages()) == FALSE) 
+      install.packages(pkg,  repos="http://cran.rstudio.com/")
+    
+    library(pkg, character.only=TRUE, quietly=TRUE)
+  }
+}
+
+check_load(c("ggmap","maptools","maps","plyr","rworldmap","RColorBrewer"))
 ```
 ####Creating the modified dataframes
 ```{r echo Creating modified dataframes}
@@ -136,8 +137,7 @@ ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goa
 ```
 
 ```{r loadJSON}
-if("jsonlite" %in% rownames(installed.packages()) == FALSE) {install.packages("jsonlite",  repos="http://cran.rstudio.com/")}
-library(jsonlite)
+check_load("jsonlite")
 ```
 
 ###Task 3: Translate
