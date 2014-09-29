@@ -85,7 +85,7 @@ Countries$name <- as.character(Countries$name)
 if (!file.exists("LocationData.csv")){
     ll.Countries <- geocode(Countries$name)
     write.csv(as.data.frame(ll.Countries), file="LocationData.csv")
-    }
+}
 
 ll.Countries <- read.csv("LocationData.csv")
 Countries$lon <- ll.Countries$lon
@@ -153,8 +153,8 @@ goal <- list(goalDetails)
 player <-list( list( list(), list(), goal))
 jsonList <-list( list( list( list(),list(), player)))
 
-for (i in 1:32){
-  
+for (i in 1:length(countriesList$country)) 
+{  
     subset <- Data[Data$team == as.character(countriesList$country[i]),]
     goal <-list(goalDetails)
     player <- list( list( list(), list(), goal))
@@ -185,7 +185,7 @@ for (i in 1:32){
     jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
                       ,"Flag"=as.character(subset$teamImg[1])
                       , "goalScorers"=player)))
-    }
+}
 jsonConverted <- rjson::toJSON(jsonList)
 jsonPrettified <- prettify(jsonConverted)
 
@@ -217,8 +217,6 @@ truncate_prettify = function(s, n)
     new_s <- paste0(new_s, "\n...\n\n")
   
   return(new_s)
-  }
+}
 cat(truncate_prettify(jsonPrettified, 400))
-
-
 ```
