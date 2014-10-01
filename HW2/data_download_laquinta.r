@@ -1,11 +1,15 @@
 source("check_packages.R")
 check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools","stringr"))
+
+dir.create("lq/", showWarnings = FALSE)
+
+
 url= "http://www.lq.com/en/findandbook.html"
 d=GET(url)
 s = content(d, as="text")
-a <- str_match_all(s, "push(.*countryDisplay: \"[a-zA-Z ]*\")") 
-file = paste0("data/", "laquinta.txt")
-write(s, file=file)
+# a <- str_match_all(s, "push(.*countryDisplay: \"[a-zA-Z ]*\")") 
+file = paste0(laquinta.txt")
+write(s, file="lq/laqinta_list.html")
 
       
 {title: "La Quinta Inn & Suites St. George",
