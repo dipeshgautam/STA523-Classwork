@@ -1,0 +1,57 @@
+---
+title: "In Class Exercises - Oct. 1, 2014"
+authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+Exercise
+
+Load the roads data from roads-unmerged.shp, note that this is a largish file and may take a while to load into R.
+
+```{r}
+suppressMessages(library(rgdal))
+ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged")
+roads <- readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged", stringsAsFactors=FALSE)
+class(roads)
+```
+
+Create a plot of the interstate highway system (this shapefile contains many additional road line segments) overlayed on a map of the lower 48 states.
+
+```{r}
+states <- readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered"
+  , stringsAsFactors=FALSE)
+ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered")
+states <- states[!duplicated(states$STATE),] # remove duplicates
+
+# Class method: assign "" to NA
+head(roads@data, n = 10)
+interstate = roads@data[,c("INTERSTATE")]
+interstate[is.na(interstate[])] = ""
+sum(is.na(roads$INTERSTATE))
+
+# Alternate method: assign "" to NA
+roads[is.na(roads$INTERSTATE)] <- ""
+
+plot(states[states$ORDER_ADM %in% 1:48,], border="lightgrey", axes=TRUE)
+plot(roads$INTERSTATE != "", lwd = 2)
+# > plot(roads$INTERSTATE != "", lwd = 2, add = TRUE)
+# Warning messages:
+# 1: In plot.window(...) : "add" is not a graphical parameter
+# 2: In plot.xy(xy, type, ...) : "add" is not a graphical parameter
+# 3: In axis(side = side, at = at, labels = labels, ...) :
+#   "add" is not a graphical parameter
+# 4: In axis(side = side, at = at, labels = labels, ...) :
+#   "add" is not a graphical parameter
+# 5: In box(...) : "add" is not a graphical parameter
+# 6: In title(...) : "add" is not a graphical parameter
+```
+
+Use a spatial predicate function to figure out which states I-10 passes through.
+```{r}
+up_i = roads$INTERSTATE == "10"
+up_roads <- roads[up_i,]
+sec = gIntersects(states,)
+states$STATE[apply(sec,2,any)]
+
+head(roads$INTERSTATE != NA, n=10)
+```
