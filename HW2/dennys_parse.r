@@ -33,18 +33,6 @@ for(k in 1:N){
   dennys_data = rbind(dennys_data, list)
 }
 
+dennys_datamod = dennys_data[!duplicated(dennys_data$uid),]
 
-
-
-
-
-
-
-
-
-
-
-
-dennys = data.frame("DATA!!!")
-
-save(dennys, file="dennys/dennys_data.Rdata")
+save(dennys_datamod, file="dennys/dennys_data.Rdata")
