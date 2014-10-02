@@ -1,9 +1,7 @@
 # History files
 .Rhistory
-
 # Example code in package build process
 *-Ex.R
-
 # R data files from past sessions
 .Rdata
 .Rproj.user
@@ -14,4 +12,4 @@ HW1/HW1.html
 exercise1.html
 sta601/lab2.R
 sta601/lab2.Rmd
-
+Homework2-Task1.R
