@@ -27,31 +27,21 @@ states <- states[!duplicated(states$STATE),] # remove duplicates
 head(roads@data, n = 10)
 interstate = roads@data[,c("INTERSTATE")]
 interstate[is.na(interstate[])] = ""
-sum(is.na(roads$INTERSTATE))
 
-# Alternate method: assign "" to NA
-roads[is.na(roads$INTERSTATE)] <- ""
+interstate_i= roads$INTERSTATE != ""
+
+interstate_all = roads[interstate_i,]
 
 plot(states[states$ORDER_ADM %in% 1:48,], border="lightgrey", axes=TRUE)
-plot(roads$INTERSTATE != "", lwd = 2)
-# > plot(roads$INTERSTATE != "", lwd = 2, add = TRUE)
-# Warning messages:
-# 1: In plot.window(...) : "add" is not a graphical parameter
-# 2: In plot.xy(xy, type, ...) : "add" is not a graphical parameter
-# 3: In axis(side = side, at = at, labels = labels, ...) :
-#   "add" is not a graphical parameter
-# 4: In axis(side = side, at = at, labels = labels, ...) :
-#   "add" is not a graphical parameter
-# 5: In box(...) : "add" is not a graphical parameter
-# 6: In title(...) : "add" is not a graphical parameter
+plot(interstate_all, lwd = 2,add=TRUE)
+
 ```
 
 Use a spatial predicate function to figure out which states I-10 passes through.
 ```{r}
-up_i = roads$INTERSTATE == "10"
+up_i = roads$INTERSTATE == '10'
 up_roads <- roads[up_i,]
-sec = gIntersects(states,)
+sec = gIntersects(states,up_roads,byid=TRUE)
+dim(sec)
 states$STATE[apply(sec,2,any)]
-
-head(roads$INTERSTATE != NA, n=10)
 ```
