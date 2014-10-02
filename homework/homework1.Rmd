@@ -65,7 +65,7 @@ Countries <- as.data.frame(count(DataModified$team))
 colnames(Countries)= c("name","Goals")
 
 # Add latitude and longitude data for all 32 countries to Countries data frame
-Countries$name= as.character(Countries$name)
+Countries$name = as.character(Countries$name)
 if (!file.exists("~/Team2/homework/LocationData.csv")){
   ll.Countries <- geocode(Countries$name)
   write.csv(as.data.frame(ll.Countries), file="~/Team2/homework/LocationData.csv")
@@ -154,4 +154,75 @@ toJSON(Data, pretty = TRUE)
 #sink("JSON.txt", type=c("output"))
 #  toJSON(Data, pretty = TRUE)
 #sink()
+```
+
+```{r}
+countriesList <- as.data.frame(unique(Data$team))
+colnames(countriesList) <- c("country")
+goalDetails <-rep(NA, 8)
+goal <- list(goalDetails)
+player <-list( list( list(), list(), goal))
+jsonList <-list( list( list( list(),list(), player)))
+
+for (i in 1:32){
+
+    subset <- Data[Data$team == as.character(countriesList$country[i]),]
+    goal <-list(goalDetails)
+    player <- list( list( list(), list(), goal))
+    jsonList[i] <- list( list( list(),list(), player))
+    playerList <- as.data.frame(unique(subset$name))
+    colnames(playerList) <- c("name")
+
+    for (j in 1:nrow(playerList)){
+        playerSubset <- subset[subset$name == as.character(playerList$name[j]),]
+        goal <- rep( list(goalDetails), nrow(playerSubset) )
+        player[j] <- list( list( list(), list(), goal))
+        for (k in 1:nrow(playerSubset)){
+            goal[[k]]<-list("goalType"=as.character(playerSubset$goalType[k])
+                      ,"class"=as.character(playerSubset$class[k])
+                      ,"time"=as.character(playerSubset$time[k])
+                      ,"addTime"=as.character(playerSubset$addTime[k])
+                      ,"vertLoc"=as.character(playerSubset$vertLoc[k])
+                      ,"horiLoc"=as.character(playerSubset$horiLoc[k])
+                      ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
+                      ,"matchId"=as.character(playerSubset$matchID[k]))
+            }
+        player[j] <- list(list("name"=as.character(playerSubset$name[1]),
+                        "playerID"= as.character(playerSubset$playerID[1])
+                        ,"goals"=goal))
+        }    
+    jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
+                      ,"Flag"=as.character(subset$teamImg[1])
+                      , "goalScorers"=player)))
+    }
+jsonConverted <- rjson::toJSON(jsonList)
+jsonPrettified <- prettify(jsonConverted)
+
+
+truncate_prettify = function(s, n)
+{
+  # s - json character string
+  # n - number of lines
+
+  library(stringr)
+
+  stopifnot(length(s)==1)
+  stopifnot(is.character(s))
+
+  # find carraige returns
+  pos <- str_locate_all(s,"\n")[[1]]
+
+  #
+  n <- min(c(nrow(pos),n))
+
+  # truncate prettify string
+  new_s <- str_sub(s,1,pos[n, 2]+1)
+
+  # avoid ellipsis if not truncating
+  if (n != nrow(pos))
+    new_s <- paste0(new_s, "\n...\n\n")
+
+  return(new_s)
+  }
+cat(truncate_prettify(jsonPrettified, 300))
 ```
