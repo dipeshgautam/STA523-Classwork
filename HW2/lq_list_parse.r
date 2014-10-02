@@ -1,10 +1,7 @@
 source("check_packages.R")
 check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools","stringr"))
 
-dir.create("lq/", showWarnings = FALSE)
-
-url= "http://www.lq.com/en/findandbook.html"
-s = content(GET(url), as="text")
+s = load("lq/laqinta_list.Rdata")
 
 name <- unlist(str_match_all(s, "title: \"([a-zA-Z0-9 &-/]*)\", "))[880:1758]
 innNumber <- unlist(str_match_all(s, "innNumber: \"([0-9]*)\", "))[880:1758]
@@ -27,7 +24,3 @@ lq_data <- data.frame(name=name,
                       country=country
 )
 
-
-
-
-write(s, file="lq/laqinta_list.html")
