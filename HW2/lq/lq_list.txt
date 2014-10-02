@@ -145,7 +145,7 @@
 </script>
 </div>
 
-    <script src="//s3.amazonaws.com/searchdiscovery-satellite-production/a00d249e6757e1b85b326b3ed2288c6455699134/satelliteLib-5b98525e38d8dd614f811d4b2d24e1e813571687.js"></script>
+    <script src="//assets.adobedtm.com/a00d249e6757e1b85b326b3ed2288c6455699134/satelliteLib-5b98525e38d8dd614f811d4b2d24e1e813571687.js"></script>
     <div id="main-wrapper">
         
 
@@ -978,12 +978,12 @@ LQcom.ready(function() {
 </div>
                             
                 
-                <ul class="nav nav-tabs levenshtein" id="tabs_1951285424" data-tabs="tabs">
+                <ul class="nav nav-tabs levenshtein" id="tabs_1688714942" data-tabs="tabs">
                     
                         
                         
                         <li class='active'>
-                            <a href="#tab_1_1951285424" alt="By Address, City, State or Zip" data-toggle="tab">
+                            <a href="#tab_1_1688714942" alt="By Address, City, State or Zip" data-toggle="tab">
                                 By Address, City, State or Zip
                             </a>
                         </li>
@@ -991,7 +991,7 @@ LQcom.ready(function() {
                         
                         
                         <li >
-                            <a href="#tab_2_1951285424" alt="By Interactive Map" data-toggle="tab">
+                            <a href="#tab_2_1688714942" alt="By Interactive Map" data-toggle="tab">
                                 By Interactive Map
                             </a>
                         </li>
@@ -999,7 +999,7 @@ LQcom.ready(function() {
                         
                         
                         <li >
-                            <a href="#tab_3_1951285424" alt="By Travel Route" data-toggle="tab">
+                            <a href="#tab_3_1688714942" alt="By Travel Route" data-toggle="tab">
                                 By Travel Route
                             </a>
                         </li>
@@ -1007,7 +1007,7 @@ LQcom.ready(function() {
                         
                         
                         <li >
-                            <a href="#tab_4_1951285424" alt="By Attraction or Landmark" data-toggle="tab">
+                            <a href="#tab_4_1688714942" alt="By Attraction or Landmark" data-toggle="tab">
                                 By Attraction or Landmark
                             </a>
                         </li>
@@ -1023,7 +1023,7 @@ LQcom.ready(function() {
             </div>
             <div class="tab-content">
                 
-                    <div class="tab-pane active" id="tab_1_1951285424">
+                    <div class="tab-pane active" id="tab_1_1688714942">
                         
                             
                             
@@ -1496,7 +1496,7 @@ LQcom.ready(function() {
 
                     </div>
                 
-                    <div class="tab-pane " id="tab_2_1951285424">
+                    <div class="tab-pane " id="tab_2_1688714942">
                         
                             
                             
@@ -1520,19 +1520,19 @@ LQcom.ready(function() {
 <script type="text/javascript">
     LQcom.googleMaps.loadGoogleMapsLib = true;
     LQcom.googleMaps.loadMapClustererLib = true;
-    map_2071626438 = new LQcom.googleMap();
-    map_2071626438.lang = "en";
+    map_1931983579 = new LQcom.googleMap();
+    map_1931983579.lang = "en";
     var hotelList = [];
 
     LQcom.ready(function() {
 
         try {
-            map_2071626438.displayDiv = $(".map-canvas").get(0);
-            map_2071626438.zoomLevel = 2;
-            map_2071626438.initLat = 7;
-            map_2071626438.initLong = -80;
-            map_2071626438.txtBookNow = "BOOK NOW";
-            map_2071626438.txtRatesFrom = "Rates From";
+            map_1931983579.displayDiv = $(".map-canvas").get(0);
+            map_1931983579.zoomLevel = 2;
+            map_1931983579.initLat = 7;
+            map_1931983579.initLong = -80;
+            map_1931983579.txtBookNow = "BOOK NOW";
+            map_1931983579.txtRatesFrom = "Rates From";
 
             // create an array of hotelDetails JSON object from the Services Cache
     
@@ -6811,15 +6811,15 @@ LQcom.ready(function() {
 
     
 
-            map_2071626438.initMapOptions();
-            map_2071626438.displayMap();
+            map_1931983579.initMapOptions();
+            map_1931983579.displayMap();
 
             // trigger google map display again when the "Interactive" tab is displayed
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
                 var altText = e.target.getAttribute("alt");
-                map_2071626438.displayMap();
-                map_2071626438.setHotelMarkers(hotelList);
-                map_2071626438.displayMapCluster();
+                map_1931983579.displayMap();
+                map_1931983579.setHotelMarkers(hotelList);
+                map_1931983579.displayMapCluster();
             });
         } catch (err) {
             console.log(err.message);
@@ -6827,9 +6827,9 @@ LQcom.ready(function() {
     });
 
     LQcom.ready(function() {
-        map_2071626438.displayMap();
-        map_2071626438.setHotelMarkers(hotelList);
-        map_2071626438.displayMapCluster();
+        map_1931983579.displayMap();
+        map_1931983579.setHotelMarkers(hotelList);
+        map_1931983579.displayMapCluster();
     })
 </script>
 <div class="findHotelByMap" >
@@ -6837,7 +6837,7 @@ LQcom.ready(function() {
     <div class="row">
         <div class="blurb col-md-7  col-xs-7">
             <p>Use the scroll wheel on your mouse to zoom in or out, click on the map and drag to change its position, or double-click to re-center.
-                <a href="#" style="text-decoration: underline;" onclick="javascript:map_2071626438.displayReset();
+                <a href="#" style="text-decoration: underline;" onclick="javascript:map_1931983579.displayReset();
                                 return false;">Reset the map</a> to its original position.</p>
         </div>
         <div class="legend col-md-5  col-xs-5">
@@ -6857,7 +6857,7 @@ LQcom.ready(function() {
 
                     </div>
                 
-                    <div class="tab-pane " id="tab_3_1951285424">
+                    <div class="tab-pane " id="tab_3_1688714942">
                         
                             
                             
@@ -7308,7 +7308,7 @@ LQcom.ready(function() {
 
                     </div>
                 
-                    <div class="tab-pane " id="tab_4_1951285424">
+                    <div class="tab-pane " id="tab_4_1688714942">
                         
                             
                             
@@ -8885,7 +8885,7 @@ LQcom.ready(function() {
 
 
 <script type="text/javascript">
-    var customerIp = "157.55.39.230, 67.131.104.62";
+    var customerIp = "207.46.13.2, 96.17.15.77";
 
 	
 	
@@ -8931,7 +8931,7 @@ LQcom.ready(function() {
 <!--
 More detailed timing info is available by uncommenting some code in the timing.jsp component
 Timing chart URL:
-http://chart.apis.google.com/chart?chtt=findandbook.html+%28248ms%29&cht=bhs&chxt=x&chco=c6d9fd,4d89f9&chbh=a&chds=0,248,0,248&chxr=0,0,248&chd=t:18,20,20,23,25,26,26,31,38,60,60,62,163,174,174,175,176,178,182,183,183,186,189,190,202,203,206,208,211,212,214,215,216,217,247|5,0,1,0,0,0,34,29,22,0,113,100,10,0,43,39,37,1,0,5,5,2,12,11,7,6,0,1,2,1,0,2,0,0,1&chly=head.jsp|init.jsp|servicelibs.jsp|clientcontext.jsp|parsys.jsp|clientcontext.jsp|header.jsp|header.jsp|headerLinks.jsp|language-switcher.jsp|nav.jsp|globalSiteNav.jsp|lqreturnslogin.jsp|errorContainer.jsp|content.jsp|parsys.jsp|tabs.jsp|section-header.jsp|parsys.jsp|findHotelByAddress.jsp|parsys.jsp|statesDropDown.jsp|parsys.jsp|findHotelByMap.jsp|parsys.jsp|findHotelByRoute.jsp|statesDropDown.jsp|statesDropDown.jsp|parsys.jsp|findHotelByAttraction.jsp|parsys.jsp|iparsys.jsp|new.jsp|par.jsp|footerlibs.jsp&chs=600x500
+http://chart.apis.google.com/chart?chtt=findandbook.html+%28501ms%29&cht=bhs&chxt=x&chco=c6d9fd,4d89f9&chbh=a&chds=0,501,0,501&chxr=0,0,501&chd=t:28,31,31,36,39,41,41,49,60,93,94,96,256,272,273,274,279,283,287,289,293,297,308,313,407,411,415,426,428,433,442,444,445,447,499|9,0,2,1,0,0,53,45,34,1,176,159,14,1,174,167,162,1,0,18,14,9,97,92,20,16,0,0,13,8,0,3,0,0,2&chly=head.jsp|init.jsp|servicelibs.jsp|clientcontext.jsp|parsys.jsp|clientcontext.jsp|header.jsp|header.jsp|headerLinks.jsp|language-switcher.jsp|nav.jsp|globalSiteNav.jsp|lqreturnslogin.jsp|errorContainer.jsp|content.jsp|parsys.jsp|tabs.jsp|section-header.jsp|parsys.jsp|parsys.jsp|findHotelByAddress.jsp|statesDropDown.jsp|parsys.jsp|findHotelByMap.jsp|parsys.jsp|findHotelByRoute.jsp|statesDropDown.jsp|statesDropDown.jsp|parsys.jsp|findHotelByAttraction.jsp|parsys.jsp|iparsys.jsp|new.jsp|par.jsp|footerlibs.jsp&chs=600x500
 -->
 
 
