@@ -4,6 +4,7 @@ check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools","stringr")
 dir.create("lq/", showWarnings = FALSE)
 
 url= "http://www.lq.com/en/findandbook.html"
+
 s = content(GET(url), as="text")
 
 name <- unlist(str_match_all(s, "title: \"([a-zA-Z0-9 &-/]*)\", "))[880:1758]
@@ -26,8 +27,5 @@ lq_data <- data.frame(name=name,
                       stateProv=stateProv,
                       country=country
 )
-
-
-
 
 write(s, file="lq/laqinta_list.html")
