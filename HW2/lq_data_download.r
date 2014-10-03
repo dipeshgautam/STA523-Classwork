@@ -6,7 +6,11 @@ dir.create("lq/", showWarnings = FALSE)
 url= "http://www.lq.com/en/findandbook.html"
 page = GET(url)
 s = content(page, as="text")
-write(s, file="lq/lq_list.txt")
+
+push = unlist(str_match_all(s, "hotelList.push?.+?}"))
+push=substring(push,16, length(push))
+
+saveRDS(push, file="lq/lq_list.Rdata")
 
 
 
