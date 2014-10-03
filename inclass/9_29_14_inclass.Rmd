@@ -4,15 +4,14 @@ authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
-```{r, echo = False}
+```{r, echo = FALSE}
 library(sp)
-library(rgoes)
+library(rgeos)
 library(rgdal)
 library(maptools)
 library(raster)
 ##GeoJson
 dir("~/Sta523/data/us-atlas/shp/us/","*.shp")
-states = readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered", stringsAsFactors=FALSE)
 s = '{
       "type": "MultiPolygon", 
       "coordinates": [[  [[0,0], [0,1000], [1000,1000], [1000,0], [0,0]]
@@ -36,7 +35,7 @@ s = '{
                     ]
 
 }'
-sp = readOGR(s, verbose = FALSE)
+sp = readOGR(s, "OGRGeoJson",verbose = FALSE)
 
 par(mar=c(4,4,1,1))
 plot(sp, axes=TRUE, col="lightgrey")
@@ -49,11 +48,11 @@ p2 = Polygon(data.frame(x=c(430.7,219,233.9,305.8,338.2,378.6,434.8,566,757.5,82
                         y=c(195.2,285.5,551,697.3,742.4,781.6,818.4,839,744.8,488.5,375.5,345.4,303.5,237.1,195.2)))
 p3 = Polygon(data.frame(x=c(438,414.3,383.5,374.6,357.6,368.4,395.5,471,516.2,636.8,671.1,651.1,564.1,525.2,438), 
                         y=c(343.5,366.1,429.6,454.3,507.7,563.2,594,627,644.7,577.1,502.4,417.9,375.7,358,343.5)))
-p4 = Polygon(data.frame(x=c(464.2,444.3,428.9,421.6,464.3,539.1,580.9,586.1,574.8,530,464.2)
+p4 = Polygon(data.frame(x=c(464.2,444.3,428.9,421.6,464.3,539.1,580.9,586.1,574.8,530,464.2),
                         y=c(418.4,445.6,473,508.6,592.9,577.1,502.7,491.7,472.2,420.3,418.4)))
-p5 = Polygon(data.frame(x=c(482.9,467.1,465.9,484.6,494.1,496.3,508.4,519.8,532.8,520.8,515.6,482.9))
+p5 = Polygon(data.frame(x=c(482.9,467.1,465.9,484.6,494.1,496.3,508.4,519.8,532.8,520.8,515.6,482.9)),
                         y=c(461.5,495.2,506.5,528.5,528.6,528.2,526.3,521.6,499.3,479.8,473.1,461.5)))
-ps = Polygons(list(p1,p2,p3), ID=1)
+ps = Polygons(list(p1,p2,p3,p4,p5), ID=1)
 sp = SpatialPolygons(list(ps))
 
 par(mar=c(4,4,1,1))
