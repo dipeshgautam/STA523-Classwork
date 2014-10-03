@@ -10,8 +10,12 @@ library(rgeos)
 library(rgdal)
 library(maptools)
 library(raster)
-##GeoJson
+
 dir("~/Sta523/data/us-atlas/shp/us/","*.shp")
+suppressMessages(library(rgdal))
+ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered")
+states = readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered", stringsAsFactors=FALSE)
+##GeoJson
 s = '{
       "type": "MultiPolygon", 
       "coordinates": [[  [[0,0], [0,1000], [1000,1000], [1000,0], [0,0]]
