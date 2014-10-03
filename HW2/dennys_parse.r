@@ -11,6 +11,10 @@ N <- length(files)
 for(k in 1:N){
   data <- xmlParse(files[k])
   xml_data <- xmlToList(data)
+## another way to parse the data  
+#   data = xmlRoot(xmlParse(files[1]))
+#   pois = getNodeSet(data,"//poi")
+#   xml_data = xmlSApply(data,function(x) xmlSApply(x,xmlValue))
   
   n <- length(xml_data$collection)-1
   
