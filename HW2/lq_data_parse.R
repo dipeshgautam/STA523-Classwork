@@ -1,7 +1,7 @@
 source("check_packages.R")
 check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools","stringr", "RJSONIO"))
 
-push = readRDS("~/Desktop/stat programming/Team2/HW2/lq/lq_list.Rdata")
+push = readRDS("lq/lq_list.Rdata")
 hotels <- data.frame(Title=character(), InnNumber=character(), Latitude=character(),Longitude= character(),
                      ImagePath=character(), SearchImage = character(), isInnAndSuites= character(),   
                      street = character(), street2=character(), city = character(), stateProv=character(),
