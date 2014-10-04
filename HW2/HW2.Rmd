@@ -6,10 +6,10 @@ output: html_document
 
 ###Data Analysis
 ```{r}
-load("dennys/dennys_data.Rdata")
-lq= readRDS("lq/lq_URLS.Rdata")
+dennys=readRDS("dennys/dennys_data.Rdata")
+lq= readRDS("lq/hotel_list_final.Rdata")
 
-mean(as.numeric(dennys_datamod$latitude))
+mean(as.numeric(dennys$latitude))
 
 mean(as.numeric(lq$Latitude))
 
