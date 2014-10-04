@@ -1,0 +1,16 @@
+---
+title: "Homework 2"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+###Data Analysis
+```{r}
+load("dennys/dennys_data.Rdata")
+lq= readRDS("lq/lq_URLS.Rdata")
+
+mean(as.numeric(dennys_datamod$latitude))
+
+mean(as.numeric(lq$Latitude))
+
+```

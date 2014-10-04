@@ -1,0 +1,29 @@
+# La Quinta files
+HW2.html: HW2.Rmd lq/lq_URLS.Rdata dennys/dennys_data.Rdata
+	Rscript -e "library(rmarkdown);render('HW2.Rmd')"
+
+
+lq/lq_URLS.Rdata: lq_data_parse.R lq/lq_list.Rdata
+	Rscript lq_data_parse.R
+
+lq/lq_list.Rdata: lq_data_download.R
+	Rscript lq_data_download.R
+
+
+# Denny's files
+
+dennys/dennys_data.Rdata: dennys_parse.R dennys/dc.xml dennys/thmb.xml dennys/fbak.xml dennys/slc.xml dennys/hi.xml
+	Rscript dennys_parse.R
+
+dennys/dc.xml dennys/thmb.xml dennys/fbak.xml dennys/slc.xml dennys/hi.xml: dennys_download.R
+	Rscript dennys_download.R
+
+
+# Helper
+
+
+.PHONY: clean
+clean:
+	rm -rf dennys/
+	rm -rf lq/
+	rm -f hw2.html
