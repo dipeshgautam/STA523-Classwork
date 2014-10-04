@@ -39,4 +39,4 @@ for(k in 1:N){
 
 dennys_datamod = dennys_data[!duplicated(dennys_data$uid),]
 
-save(dennys_datamod, file="dennys/dennys_data.Rdata")
+saveRDS(dennys_datamod, file="dennys/dennys_data.Rdata")
