@@ -30,4 +30,7 @@ hotels = tmp[!duplicated(tmp$nnNumbe),]
 colnames(hotels)= c("Title","InnNumber","Latitude","Longitude", "ImagePath", "isInnAndSuites","street","street2", "city", "stateProv",
                     "postalCode", "countryDisplay")
 
+urlFirst = "http://www.lq.com/content/lq/lq-com/en/navigation/findandbook/dynamic-pages/hotel-details."
+urlLast= ".address.html"
+hotels$urls= paste0(urlFirst,hotels$InnNumber,urlLast)
 saveRDS(hotels,file = "lq/lq_URLS.Rdata")
