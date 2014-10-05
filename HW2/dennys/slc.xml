@@ -7143,7 +7143,7 @@
   <_distance>530.79</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>1991 LANDERS AVE</address1>
+  <address1>1991 LANDER AVE</address1>
   <address2></address2>
   <city>TURLOCK</city>
   <clientkey>246984</clientkey>
@@ -8431,34 +8431,6 @@
   <_distance>544.63</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>33540 YUCAIPA BLVD</address1>
-  <address2></address2>
-  <city>YUCAIPA</city>
-  <clientkey>247784</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>34.0340390434816</latitude>
-  <longitude>-117.072170173773</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7784</other>
-  <phone>(909) 790-0790</phone>
-  <postalcode>92399</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920174</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>544.63</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>1851 E FLORENCE BLVD</address1>
   <address2></address2>
   <city>CASA GRANDE</city>
@@ -8481,6 +8453,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919502</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>544.63</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>33540 YUCAIPA BLVD</address1>
+  <address2></address2>
+  <city>YUCAIPA</city>
+  <clientkey>247784</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>34.0340390434816</latitude>
+  <longitude>-117.072170173773</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7784</other>
+  <phone>(909) 790-0790</phone>
+  <postalcode>92399</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920174</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -9859,34 +9859,6 @@
   <_distance>562.71</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>2955 VAN BUREN BLVD</address1>
-  <address2></address2>
-  <city>RIVERSIDE</city>
-  <clientkey>247239</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>33.9085710843374</latitude>
-  <longitude>-117.436822349398</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7239</other>
-  <phone>(951) 352-2994</phone>
-  <postalcode>92503-5674</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981919789</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>562.71</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>2483 HISTORIC RT 66</address1>
   <address2></address2>
   <city>SANTA ROSA</city>
@@ -9909,6 +9881,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919365</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>562.71</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>2955 VAN BUREN BLVD</address1>
+  <address2></address2>
+  <city>RIVERSIDE</city>
+  <clientkey>247239</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>33.9085710843374</latitude>
+  <longitude>-117.436822349398</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7239</other>
+  <phone>(951) 352-2994</phone>
+  <postalcode>92503-5674</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919789</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -11399,28 +11399,28 @@
   <_distance>576.89</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>807 CAMINO RAMON</address1>
+  <address1>1435 E 16TH ST.</address1>
   <address2></address2>
-  <city>DANVILLE</city>
-  <clientkey>247414</clientkey>
+  <city>YUMA</city>
+  <clientkey>248708</clientkey>
   <country>US</country>
   <fax></fax>
   <icon>default</icon>
   <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
   <jobpostings_spanish></jobpostings_spanish>
-  <latitude>37.81019</latitude>
-  <longitude>-121.99095</longitude>
+  <latitude>32.6985</latitude>
+  <longitude>-114.60548</longitude>
   <loyalty_program></loyalty_program>
   <onlineordering></onlineordering>
-  <other>7414</other>
-  <phone>(925) 820-8240</phone>
-  <postalcode>94526</postalcode>
+  <other>8708</other>
+  <phone>(928) 782-2202</phone>
+  <postalcode>85365</postalcode>
   <province></province>
   <rank></rank>
-  <state>CA</state>
+  <state>AZ</state>
   <status>0</status>
   <travelplaza>0</travelplaza>
-  <uid>981919891</uid>
+  <uid>1190530354</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -11455,28 +11455,28 @@
   <_distance>576.89</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>1435 E 16TH ST.</address1>
+  <address1>807 CAMINO RAMON</address1>
   <address2></address2>
-  <city>YUMA</city>
-  <clientkey>248708</clientkey>
+  <city>DANVILLE</city>
+  <clientkey>247414</clientkey>
   <country>US</country>
   <fax></fax>
   <icon>default</icon>
   <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
   <jobpostings_spanish></jobpostings_spanish>
-  <latitude>32.6985</latitude>
-  <longitude>-114.60548</longitude>
+  <latitude>37.81019</latitude>
+  <longitude>-121.99095</longitude>
   <loyalty_program></loyalty_program>
   <onlineordering></onlineordering>
-  <other>8708</other>
-  <phone>(928) 782-2202</phone>
-  <postalcode>85365</postalcode>
+  <other>7414</other>
+  <phone>(925) 820-8240</phone>
+  <postalcode>94526</postalcode>
   <province></province>
   <rank></rank>
-  <state>AZ</state>
+  <state>CA</state>
   <status>0</status>
   <travelplaza>0</travelplaza>
-  <uid>1190530354</uid>
+  <uid>981919891</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -12043,34 +12043,6 @@
   <_distance>579.68</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>15540 ROSCOE BOULEVA</address1>
-  <address2></address2>
-  <city>VAN NUYS</city>
-  <clientkey>200205</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>34.20028</latitude>
-  <longitude>-118.49241</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>0205</other>
-  <phone>(818) 892-2860</phone>
-  <postalcode>91406</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981919024</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>579.68</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>16575 SHERMAN WAY</address1>
   <address2></address2>
   <city>VAN NUYS</city>
@@ -12093,6 +12065,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919907</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>579.68</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>15540 ROSCOE BOULEVA</address1>
+  <address2></address2>
+  <city>VAN NUYS</city>
+  <clientkey>200205</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>34.20028</latitude>
+  <longitude>-118.49241</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>0205</other>
+  <phone>(818) 892-2860</phone>
+  <postalcode>91406</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919024</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -12183,34 +12183,6 @@
   <_distance>580.34</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>1101 S HARBOR BLVD</address1>
-  <address2></address2>
-  <city>FULLERTON</city>
-  <clientkey>247585</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>33.86105</latitude>
-  <longitude>-117.92428</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7585</other>
-  <phone>(714) 526-2654</phone>
-  <postalcode>92832</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920013</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>580.34</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>8425 SAN YSIDRO AVE</address1>
   <address2></address2>
   <city>GILROY</city>
@@ -12233,6 +12205,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919039</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>580.34</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>1101 S HARBOR BLVD</address1>
+  <address2></address2>
+  <city>FULLERTON</city>
+  <clientkey>247585</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>33.86105</latitude>
+  <longitude>-117.92428</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7585</other>
+  <phone>(714) 526-2654</phone>
+  <postalcode>92832</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920013</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -15907,34 +15907,6 @@
   <_distance>603.03</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>2273 EL CAMINO REAL</address1>
-  <address2></address2>
-  <city>OCEANSIDE</city>
-  <clientkey>248039</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>33.1854865283157</latitude>
-  <longitude>-117.328136769487</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>8039</other>
-  <phone>(760) 757-0345</phone>
-  <postalcode>92054</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920408</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>603.03</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>1255 N OXNARD</address1>
   <address2></address2>
   <city>OXNARD</city>
@@ -15957,6 +15929,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919518</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>603.03</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>2273 EL CAMINO REAL</address1>
+  <address2></address2>
+  <city>OCEANSIDE</city>
+  <clientkey>248039</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>33.1854865283157</latitude>
+  <longitude>-117.328136769487</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>8039</other>
+  <phone>(760) 757-0345</phone>
+  <postalcode>92054</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920408</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -16691,34 +16691,6 @@
   <_distance>615.23</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>140 TOWN CENTER PKWY</address1>
-  <address2></address2>
-  <city>SANTEE</city>
-  <clientkey>247287</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>32.8421317823922</latitude>
-  <longitude>-116.987976435216</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7287</other>
-  <phone>(619) 562-8403</phone>
-  <postalcode>92071</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981919817</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>615.23</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>5677 CALLE REAL</address1>
   <address2></address2>
   <city>GOLETA</city>
@@ -16741,6 +16713,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981920202</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>615.23</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>140 TOWN CENTER PKWY</address1>
+  <address2></address2>
+  <city>SANTEE</city>
+  <clientkey>247287</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>32.8421317823922</latitude>
+  <longitude>-116.987976435216</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7287</other>
+  <phone>(619) 562-8403</phone>
+  <postalcode>92071</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919817</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -17027,34 +17027,6 @@
   <_distance>621.28</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>4280 CLAIREMONT MESA BLVD</address1>
-  <address2></address2>
-  <city>SAN DIEGO</city>
-  <clientkey>247780</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>32.8326802023733</latitude>
-  <longitude>-117.201094822923</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7780</other>
-  <phone>(858) 270-5059</phone>
-  <postalcode>92117</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>CA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920170</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>621.28</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>4235 SPRING ST</address1>
   <address2></address2>
   <city>LA MESA</city>
@@ -17077,6 +17049,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919391</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>621.28</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>4280 CLAIREMONT MESA BLVD</address1>
+  <address2></address2>
+  <city>SAN DIEGO</city>
+  <clientkey>247780</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>32.8326802023733</latitude>
+  <longitude>-117.201094822923</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7780</other>
+  <phone>(858) 270-5059</phone>
+  <postalcode>92117</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>CA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920170</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -18959,34 +18959,6 @@
   <_distance>691.75</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>17206 PACIFIC HWY</address1>
-  <address2></address2>
-  <city>SEATAC</city>
-  <clientkey>247875</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>47.448495664898</latitude>
-  <longitude>-122.296341536715</longitude>
-  <loyalty_program>1</loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7875</other>
-  <phone>(206) 246-6076</phone>
-  <postalcode>98188</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>WA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920256</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>691.75</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>4750 NE LK WASHINGTON</address1>
   <address2></address2>
   <city>RENTON</city>
@@ -19009,6 +18981,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981920255</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>691.75</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>17206 PACIFIC HWY</address1>
+  <address2></address2>
+  <city>SEATAC</city>
+  <clientkey>247875</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>47.448495664898</latitude>
+  <longitude>-122.296341536715</longitude>
+  <loyalty_program>1</loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7875</other>
+  <phone>(206) 246-6076</phone>
+  <postalcode>98188</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>WA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920256</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -19183,34 +19183,6 @@
   <_distance>695.24</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>108 COLLEGE STREET SE</address1>
-  <address2></address2>
-  <city>LACEY</city>
-  <clientkey>247873</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>47.0484940872502</latitude>
-  <longitude>-122.823173734437</longitude>
-  <loyalty_program>1</loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7873</other>
-  <phone>(360) 438-0220</phone>
-  <postalcode>98516</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>WA</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920254</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>695.24</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>11045 GATEWAY W</address1>
   <address2></address2>
   <city>EL PASO</city>
@@ -19233,6 +19205,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919613</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>695.24</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>108 COLLEGE STREET SE</address1>
+  <address2></address2>
+  <city>LACEY</city>
+  <clientkey>247873</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>47.0484940872502</latitude>
+  <longitude>-122.823173734437</longitude>
+  <loyalty_program>1</loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7873</other>
+  <phone>(360) 438-0220</phone>
+  <postalcode>98516</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>WA</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920254</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -25623,34 +25623,6 @@
   <_distance>1087.53</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>903 E COMMERCE ST</address1>
-  <address2></address2>
-  <city>SAN ANTONIO</city>
-  <clientkey>201516</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>29.4227373469388</latitude>
-  <longitude>-98.4832485714286</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>1516</other>
-  <phone>(210) 223-4321</phone>
-  <postalcode>78205</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>TX</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981919169</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>1087.53</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>6000 N. PANAM</address1>
   <address2></address2>
   <city>SAN ANTONIO</city>
@@ -25673,6 +25645,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981920490</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>1087.53</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>903 E COMMERCE ST</address1>
+  <address2></address2>
+  <city>SAN ANTONIO</city>
+  <clientkey>201516</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>29.4227373469388</latitude>
+  <longitude>-98.4832485714286</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>1516</other>
+  <phone>(210) 223-4321</phone>
+  <postalcode>78205</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>TX</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919169</uid>
 </poi>
 <poi>
   <name>Denny's</name>

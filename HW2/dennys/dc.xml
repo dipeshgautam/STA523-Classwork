@@ -1008,6 +1008,34 @@
 </poi>
 <poi>
   <name>Denny's</name>
+  <_distance>86.36</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>100 EAST CEDAR LANE</address1>
+  <address2></address2>
+  <city>FRUITLAND</city>
+  <clientkey>249235</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>38.3255070588235</latitude>
+  <longitude>-75.6125682352941</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>9235</other>
+  <phone></phone>
+  <postalcode>21826</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>MD</state>
+  <status>1</status>
+  <travelplaza>0</travelplaza>
+  <uid>-955760125</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
   <_distance>86.82</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
@@ -4959,34 +4987,6 @@
   <_distance>295.69</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>3105 MEDINA ROAD</address1>
-  <address2></address2>
-  <city>MEDINA TOWNSHIP</city>
-  <clientkey>247228</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>41.1363526923077</latitude>
-  <longitude>-81.7981692307692</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7228</other>
-  <phone>330 7221600</phone>
-  <postalcode>44256</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>OH</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981919780</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>295.69</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>655 S MAIN ST, RT 17</address1>
   <address2></address2>
   <city>MIDDLETOWN</city>
@@ -5009,6 +5009,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919685</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>295.69</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>3105 MEDINA ROAD</address1>
+  <address2></address2>
+  <city>MEDINA TOWNSHIP</city>
+  <clientkey>247228</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>41.1363526923077</latitude>
+  <longitude>-81.7981692307692</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7228</other>
+  <phone>330 7221600</phone>
+  <postalcode>44256</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>OH</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919780</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -9719,34 +9747,6 @@
   <_distance>528.65</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>4700 SCOTTSVILLE RD</address1>
-  <address2></address2>
-  <city>BOWLING GREEN</city>
-  <clientkey>248767</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>36.93145</latitude>
-  <longitude>-86.4148</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>8767</other>
-  <phone>(270) 782-9827</phone>
-  <postalcode>42104</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>KY</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>1548986672</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>528.65</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>715 44TH ST S W</address1>
   <address2></address2>
   <city>WYOMING</city>
@@ -9769,6 +9769,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919162</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>528.65</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>4700 SCOTTSVILLE RD</address1>
+  <address2></address2>
+  <city>BOWLING GREEN</city>
+  <clientkey>248767</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>36.93145</latitude>
+  <longitude>-86.4148</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>8767</other>
+  <phone>(270) 782-9827</phone>
+  <postalcode>42104</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>KY</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1548986672</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -15347,34 +15375,6 @@
   <_distance>773.08</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>4783 W. IRLO BRONSON HWY</address1>
-  <address2></address2>
-  <city>KISSIMMEE</city>
-  <clientkey>248799</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>28.32937</latitude>
-  <longitude>-81.47244</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>8799</other>
-  <phone>(407) 390-0941</phone>
-  <postalcode>34746</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>FL</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>1392571507</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>773.08</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>950 N WICKHAM RD</address1>
   <address2></address2>
   <city>MELBOURNE</city>
@@ -15397,6 +15397,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981920087</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>773.08</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>4783 W. IRLO BRONSON HWY</address1>
+  <address2></address2>
+  <city>KISSIMMEE</city>
+  <clientkey>248799</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>28.32937</latitude>
+  <longitude>-81.47244</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>8799</other>
+  <phone>(407) 390-0941</phone>
+  <postalcode>34746</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>FL</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1392571507</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -19130,34 +19158,6 @@
   <address1>2209 SE WALTON BLVD</address1>
   <address2></address2>
   <city>BENTONVILLE</city>
-  <clientkey>247615</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>36.3351585714286</latitude>
-  <longitude>-94.1883771428571</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7615</other>
-  <phone>(479) 464-7010</phone>
-  <postalcode>72712</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>AR</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920036</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>953.76</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
-  <address1>2209 SE WALTON BLVD</address1>
-  <address2></address2>
-  <city>BENTONVILLE</city>
   <clientkey>249243</clientkey>
   <country>US</country>
   <fax></fax>
@@ -19177,6 +19177,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>-965699109</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>953.76</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>2209 SE WALTON BLVD</address1>
+  <address2></address2>
+  <city>BENTONVILLE</city>
+  <clientkey>247615</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>36.3351585714286</latitude>
+  <longitude>-94.1883771428571</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7615</other>
+  <phone>(479) 464-7010</phone>
+  <postalcode>72712</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>AR</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920036</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -22571,34 +22599,6 @@
   <_distance>1215.67</_distance>
   <_distanceuom>mile</_distanceuom>
   <aaa></aaa>
-  <address1>7707 STEUBNER AIRLINE RD</address1>
-  <address2></address2>
-  <city>HOUSTON</city>
-  <clientkey>247754</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>29.8714009395973</latitude>
-  <longitude>-95.4096838255034</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>7754</other>
-  <phone>(281) 445-5828</phone>
-  <postalcode>77088</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>TX</state>
-  <status>0</status>
-  <travelplaza>0</travelplaza>
-  <uid>981920149</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>1215.67</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
   <address1>7720 LOUETTA RD</address1>
   <address2></address2>
   <city>SPRING</city>
@@ -22621,6 +22621,34 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>981919731</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>1215.67</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>7707 STEUBNER AIRLINE RD</address1>
+  <address2></address2>
+  <city>HOUSTON</city>
+  <clientkey>247754</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>29.8714009395973</latitude>
+  <longitude>-95.4096838255034</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7754</other>
+  <phone>(281) 445-5828</phone>
+  <postalcode>77088</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>TX</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920149</uid>
 </poi>
 <poi>
   <name>Denny's</name>
@@ -27969,33 +27997,5 @@
   <status>0</status>
   <travelplaza>0</travelplaza>
   <uid>1134087520</uid>
-</poi>
-<poi>
-  <name>Denny's</name>
-  <_distance>1721.42</_distance>
-  <_distanceuom>mile</_distanceuom>
-  <aaa></aaa>
-  <address1>3001 MOUNTAIN PASS BLVD</address1>
-  <address2></address2>
-  <city>ANTHONY</city>
-  <clientkey>248664</clientkey>
-  <country>US</country>
-  <fax></fax>
-  <icon>default</icon>
-  <jobpostings_english>http://dennys.com/en/corporate/careers</jobpostings_english>
-  <jobpostings_spanish></jobpostings_spanish>
-  <latitude>31.99757</latitude>
-  <longitude>-106.58076</longitude>
-  <loyalty_program></loyalty_program>
-  <onlineordering></onlineordering>
-  <other>8664</other>
-  <phone>(915) 886-9032</phone>
-  <postalcode>79821</postalcode>
-  <province></province>
-  <rank></rank>
-  <state>TX</state>
-  <status>0</status>
-  <travelplaza>1</travelplaza>
-  <uid>1130079127</uid>
 </poi>
 </collection></response>
