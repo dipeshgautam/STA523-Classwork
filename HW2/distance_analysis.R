@@ -2,16 +2,16 @@ source("check_packages.R")
 check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
-dennys.data= readRDS("~/Team2/HW2/dennys/dennys_data.Rdata")
+dennys.data <- readRDS("~/Team2/HW2/dennys/dennys_data.Rdata")
 ## Store latitude and longitude, convert from degrees to radians for rdist.earth(), combine into matrix.
 dennys.lati <- NULL
 dennys.long <- NULL
 dennys.loc <- NULL
 dennys.lati <- as.matrix(as.numeric(dennys_datamod$latitude))
-dennys.lati <- deg2rad(dennys.lati)
+#dennys.lati <- deg2rad(dennys.lati)
 dennys.long <- as.matrix(as.numeric(dennys_datamod$longitude))
-dennys.long <- deg2rad(dennys.long)
-dennys.loc <- matrix(c(dennys.lati, dennys.long), ncol = 2)
+#dennys.long <- deg2rad(dennys.long)
+dennys.loc <- matrix(c(dennys.long, dennys.lati), ncol = 2)
 
 ## Store latitude and longitude, convert from degrees to radians for rdist.earth(), combine into matrix.
 ## Need different code to retrieve lat. & long from hotels, since La Quinta data is stored as a data.frame.
@@ -20,27 +20,25 @@ hotels.data <- subset(hotels, select = -c(5, 6)) # Drop "ImagePath", "isInnAndSu
 colnames(hotels.data) <- c("name", "uid", "lati", "long", "add1", "add2", "city", "state", "post", "country", "phone", "fax")
 hotels.data$lati <- as.numeric(levels(hotels.data$lati))[hotels.data$lati]
 hotels.data$long <- as.numeric(levels(hotels.data$long))[hotels.data$long]
-hotels.data$post <- as.numeric(levels(hotels.data$long))[hotels.data$post]
+hotels.data$post <- as.numeric(levels(hotels.data$post))[hotels.data$post]
+hotels.data$city <- as.character(levels(hotels.data$city))[hotels.data$city]
+hotels.data$state <- as.character(levels(hotels.data$state))[hotels.data$state]
+hotels.data$country <- as.character(levels(hotels.data$country))[hotels.data$country]
 
 hotels.lati <- NULL
 hotels.long <- NULL
 hotels.loc <- NULL
 for (i in 1:dim(hotels.data)[1]) {
-  hotels.lati <- matrix(c(hotels.lati, hotels.data$lati[i]))
   hotels.long <- matrix(c(hotels.long, hotels.data$long[i]))
+  hotels.lati <- matrix(c(hotels.lati, hotels.data$lati[i]))
 }
-
-#for (i in 1:dim(as.matrix(hotels$lati))[1]) {
-#  hotels.lati <- matrix(c(hotels.lati, as.numeric(as.matrix(hotels$Latitude)[i])))
-#  hotels.long <- matrix(c(hotels.long, as.numeric(as.matrix(hotels$Longitude)[i])))
-#}
-head(hotels.lati)
 head(hotels.long)
-hotels.lati <- deg2rad(hotels.lati)
-hotels.long <- deg2rad(hotels.long)
 head(hotels.lati)
+#hotels.long <- deg2rad(hotels.long)
+#hotels.lati <- deg2rad(hotels.lati)
 head(hotels.long)
-hotels.loc <- matrix(c(hotels.lati, hotels.long), ncol = 2)
+head(hotels.lati)
+hotels.loc <- matrix(c(hotels.long, hotels.lati), ncol = 2)
 head(hotels.loc)
 
 ## The following code works
@@ -67,9 +65,10 @@ head(hotels.loc)
     }
     distances.min <- matrix(c(distances.min, min(distances.all))) # returns matrix size of # dennys
     index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
-    distances.all <- NULL
+    # print(matrix(distances.all, ncol = 4))
+    # distances.all <- NULL
   }
-  
+
   # Find latitude and longitude of matched Denny's.
   dennys.index.loc <- NULL
   for (j in 1:dim(index)[1]) { # 1:875
@@ -81,29 +80,38 @@ head(hotels.loc)
   hotels.index.loc <- NULL
   #for (i in 1:dim(hotels.loc)[1]) { # 1:875
   for (i in 1:dim(index)[1]) { # 1:875
+    print(i)
     hotels.index.loc <- matrix(c(hotels.index.loc, as.numeric(hotels.data$lati[i]), as.numeric(hotels.data$lati[i])), ncol = 2)
   }
   dim(hotels.index.loc)
   head(hotels.index.loc)
 
-  distances.min.km <- signif(distances.min*6371, 4)
-  distances.min.miles <- signif(distances.min*6371*0.621371, 3)
+  distances.km <- NULL
+  distances.miles <- NULL
+  distances.km <- signif(distances.min, 4)
+  distances.miles <- signif(distances.min*0.621371, 4)
   all.matrix <- NULL
   #all.matrix <- matrix(c(seq(1, 875, by=1), index, distances.min, distances.min.km, distances.min.miles, dennys.index.loc, hotels.index.loc), ncol = 9)
-  all.matrix <- matrix(c(seq(1, dim(index)[1], by=1), index, distances.min, distances.min.km, distances.min.miles, dennys.index.loc, hotels.index.loc), ncol = 9)
+  all.matrix <- matrix(c(seq(1, dim(index)[1], by=1), index, distances.km, distances.miles, dennys.index.loc, hotels.index.loc), ncol = 8)
   # s = r*theta where s is arc length, r is radius and theta is the subtended angle in radians.
-  colnames(all.matrix) <- c("Dennys", "LQ", "DLQ_Dist_Radians", "DLQ_Dist_km", "DLQ_Dist_mi", "dennys.lati", "dennys.long", "lq.lati", "lq.long")
+  colnames(all.matrix) <- c("LQ", "Dennys", "DLQ_Dist_km", "DLQ_Dist_mi", "dennys.lati", "dennys.long", "lq.lati", "lq.long")
   head(all.matrix)
 
 # Troubleshooting functions
   lqInfo <- function (id) {
-    cat(hotels.data[id,"city"],",", hotels.data[id,"state"], "\n")
-    which(dennys.data$state == hotels.data[id,"state"])
+    cat(hotels.data$city[id],",", hotels.data$state[id], "\n")
+    cat(hotels.data$long[id],",", hotels.data$lati[id], "\n")
+    #which(dennys.data$state == hotels.data$state[id])
   }
   
   dInfo <- function (id) {
-    cat(dennys.data$city[id],", ", dennys.data$state[id])
+    cat(dennys.data$city[id],", ", dennys.data$state[id], "\n")
+    cat(dennys.data$long[id],", ", dennys.data$lati[id])
   }
+
+calc <- function(a, b, x, y) {
+  rdist.earth(matrix(c(a, b), ncol = 2), matrix(c(x, y), ncol = 2), miles = FALSE, R = 6371)
+}
 #}
 #library(ggmap)
 #library(mapproj)
@@ -119,4 +127,18 @@ ylim <- c(12.039321, 71.856229)
 map("world", col="white", fill=TRUE, bg="lightblue", lwd=0.05, xlim=xlim, ylim=ylim)
 hotels$lat
 
-
+calc(-84.31723, 39.29413, -76.979365 ,  38.90626)
+[,1]
+[1,] 634.4921
+calc(-1.471613, 0.6858119, -1.343543, 0.6790423)
+> deg2rad(39.29413)
+[1] 0.6858119
+> deg2rad(-84.31723)
+[1] -1.471613
+> deg2rad(-76.979365)
+[1] -1.343543
+> deg2rad(38.90626)
+[1] 0.6790423
+> calc(-1.471613, 0.6858119, -1.343543, 0.6790423)
+[,1]
+[1,] 14.25961
