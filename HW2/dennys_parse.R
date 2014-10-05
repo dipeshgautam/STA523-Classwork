@@ -38,5 +38,6 @@ for(k in 1:N){
 }
 
 dennys_datamod = dennys_data[!duplicated(dennys_data$uid),]
+dennys_datamod = dennys_datamod[dennys_datamod$country != "DO" & dennys_datamod$country!="PR", ]
 
 saveRDS(dennys_datamod, file="dennys/dennys_data.Rdata")
