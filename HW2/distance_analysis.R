@@ -2,7 +2,7 @@ source("check_packages.R")
 check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
-dennys <- readRDS("~/Desktop/stat programming/Team2/HW2/dennys/dennys_data.Rdata")
+dennys <- readRDS("~/Desktop/stat programming/Team2/HW2/dennys/dennys_data.Rdata") 
 dennys.data <- subset(dennys, select = -c(12, 14, 15, 16))
 colnames(dennys.data) <- c("name", "uid", "lati", "long", "city", "add1", "add2", "post", "state", "country", "phone", "fax")
 ## Store latitude and longitude, convert from degrees to radians for rdist.earth(), combine into matrix.
