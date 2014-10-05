@@ -1,7 +1,9 @@
 # La Quinta files
-HW2.html: HW2.Rmd lq/hotel_list_final.Rdata dennys/dennys_data.Rdata
+HW2.html: HW2.Rmd Data/analysis.Rdata
 	Rscript -e "library(rmarkdown);render('HW2.Rmd')"
 
+Data/analysis.Rdata: distance_analysis.R lq/hotel_list_final.Rdata dennys/dennys_data.Rdata
+	Rscript distance_analysis.R
 
 lq/hotel_list_final.Rdata: lq_data_parse2.R lq/lq_URLS.Rdata lq/all_urls.Rdata
 	Rscript lq_data_parse2.R

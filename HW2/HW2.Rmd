@@ -3,14 +3,49 @@ title: "Homework 2"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
-
 ###Data Analysis
-```{r}
-dennys=readRDS("dennys/dennys_data.Rdata")
-lq= readRDS("lq/hotel_list_final.Rdata")
+Check the validity of data analysis by comparing the nuber of Denny's and La Quinta combo within 100 and 150 meters of each other. We got 29 that are within 100m of each other which is the same as that found by Mitch Hedberg. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
+```{r load data, echo=FALSE}
+source("check_packages.R")
+check_packages(c("data.table", "xtable"))
+load("Data/analysis.Rdata")
 
-mean(as.numeric(dennys$latitude))
+verify.data= data.frame("Within 100m"=length(all.df$distanceKm[all.df$distanceKm<=.1]), "Within 150m"=length(all.df$distanceKm[all.df$distanceKm<=.15]))
+c("within 100m: ", length(all.df$distanceKm[all.df$distanceKm<=.1]),  ", Within 150m: ", length(all.df$distanceKm[all.df$distanceKm<=.15])) 
 
-mean(as.numeric(lq$Latitude))
+```
+
+
+###Create a histogram
+
+We created a histogram that shows total number of Denny's-La Quinta combinations that are within certain distance of each other. We excluded the combination where the nearest one is more than 25 miles away. Histogram 
+```{r, create histogram, echo=FALSE, fig.align='center'}
+
+par(mar=c(4,4,4,1) + 0.1)
+hist(all.df$distanceMiles[all.df$distanceMiles<=25], breaks = 100,
+     main = "Number of Denny's at certain distance of a La Quinta",
+     xlab = "Distance", ylab= "Number of Denny's")
+```
+
+
+###Distances
+Here we look at the cumulative percentage of combinations within certain distance. We also see that 90% of the time there will be a Denny's within 40 miles of a La Quinta.
+```{r, echo=FALSE, fig.align='center'}
+
+sortedDistance= sort(all.df$distanceMiles)
+CDF = NULL
+vertical=NULL
+for (i in 1:200){
+  CDF[i] = length(sortedDistance[sortedDistance<=i])/length(sortedDistance)
+  if (CDF[i]>=.9){
+    vertical=c(vertical,i)
+  }
+}
+par(mar=c(4,5,4,1) + 0.1)
+plot(1:length(CDF), CDF, type ="l", xlab= "Distance between Dennys and LQ", ylab="Cumulitive percentage within the distance")
+
+
+abline(v = vertical[1], col="red" )
+vertical[1]
 
 ```
