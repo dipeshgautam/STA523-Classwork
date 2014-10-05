@@ -78,7 +78,7 @@ library(fields)
   colnames(all.matrix) <- c("LQ", "Dennys", "DLQ_Dist_km", "DLQ_Dist_mi", "dennys.lati", "dennys.long", "lq.lati", "lq.long")
   all.df <- as.data.frame(all.matrix)
   all.df <- c(all.df, lq.data)
-
+ 
 # Troubleshooting functions
   lqInfo <- function (id) {
     cat(lq.data$city[id],",", lq.data$state[id], "\n")
