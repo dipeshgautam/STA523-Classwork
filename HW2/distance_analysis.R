@@ -1,5 +1,5 @@
 source("check_packages.R")
-check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr"))
+check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr", "RgoogleMaps"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
 
@@ -72,12 +72,33 @@ colors <- pal(100)
 max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
-xlim <- c(as.numeric(dsub$dennysLong[1])+1, as.numeric(dsub$dennysLong[1])-1.5)
-ylim <- c(as.numeric(dsub$dennysLat[1])+1, as.numeric(dsub$dennysLat[1])-1)
-map('state', region= "Louisiana", col="white", fill=TRUE, bg="lightblue", lwd=0.05)
 
-for (j in 1:nrow(dsub$dennys)) {
-  inter <-gcIntermediate(c(as.numeric(dsub$dennysLong[j]),as.numeric(dsub$dennysLat[j])), c(as.numeric(dsub$lqLong[j]),as.numeric(dsub$lqLat[j])), n=100,addStartEnd=TRUE)  
-  lines(inter, col="black", lwd=0.8)
+max(as.numeric(dsub$lqLat))
+min(as.numeric(dsub$lqLat))
+max(as.numeric(dsub$lqLon))
+min(as.numeric(dsub$lqLon))
+
+lat <- c(25,35) #define our map's ylim
+lon <- c(-88,-94) #define our map's xlim
+center = c(mean(lat), mean(lon))  #tell what point to center on
+zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
+Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain", destfile = "terrain.png") 
+
+##with color gradient, with the larger index of darker color
+pal <- colorRampPalette(c("#f2f2f2", "red"))
+colors <- pal(100)
+
+PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[1]),as.numeric(dsub$lqLat[1])),lon = c(as.numeric(dsub$dennysLong[1]),as.numeric(dsub$lqLong[1])),
+                lwd = 1.5, col = 'red', FUN = lines, add = F)
+
+maxcnt <- length(dsub$dennys)
+for(j in 2:nrow(dsub$dennys)){
+  colindex <- round((j/maxcnt) * length(colors) )
+  PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[j]),as.numeric(dsub$lqLat[j])),lon = c(as.numeric(dsub$dennysLong[j]),as.numeric(dsub$lqLong[j])),
+                  lwd = 1.5, col = colors[colindex], FUN = lines, add = T)
+  PlotOnStaticMap(MyMap = Loumap,lat=as.numeric(dsub$lqLat[j]),lon = as.numeric(dsub$lqLong[j]),lwd = 1.5, col = 'blue', add = T)
 }
+TextOnStaticMap(MyMap = Loumap,lat= as.numeric(dsub$dennysLat[1])+0.1, lon = as.numeric(dsub$dennysLong[1])+0.1,
+                labels = "Dennys", FUN = text,add = T)
+legend("bottomright",legend = "LaQuinta",fill = "blue",cex = 0.8)
 
