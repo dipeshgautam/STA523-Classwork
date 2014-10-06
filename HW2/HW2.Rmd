@@ -72,6 +72,7 @@ vertical[1]
 ```
 
 ### Map
+The below map shows an application of our distance metrics. For any given La Quinta hotel, we found the closest Denny's location. The map displays the Denny's that is closest to the most La Quinta hotels, and shows the connections between the restaurant and each hotel. 
 <div style="text-align:center">
 ![Map](Data/plot.png)
 </div>
