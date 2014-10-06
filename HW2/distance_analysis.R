@@ -1,5 +1,5 @@
 source("check_packages.R")
-check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr"))
+check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr", "RgoogleMaps"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
 
@@ -37,9 +37,9 @@ distances.all <- NULL
 index.loc <- NULL
 for (j in 1:dim(lq.loc)[1]) {
   for (i in 1:dim(dennys.loc)[1]) { # Find the distance between LQ[j] and 1691 Denny's, store the minimum.
-#     if (i %% 800 == 0) {
-#       cat("LQ:", j, "/", dim(lq.loc)[1]," | ", "Denny's:", i, "/", dim(dennys.loc)[1], "\n")
-#     }
+    if (i %% 800 == 0) {
+      cat("LQ:", j, "/", dim(lq.loc)[1]," | ", "Denny's:", i, "/", dim(dennys.loc)[1], "\n")
+    }
     distances.one <- rdist.earth(matrix(lq.loc[j,], ncol = 2), matrix(dennys.loc[i,], ncol = 2), miles = FALSE, R = 6371)
     distances.all <- matrix(c(distances.all, distances.one))
   }
@@ -50,34 +50,44 @@ for (j in 1:dim(lq.loc)[1]) {
 all.df = data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
-                    distanceMiles= distances.min*.6214,
-                    dennysLat= dennys.data$lati[index],
-                    dennysLong= dennys.data$long[index])
+                    distanceMiles= distances.min*.6214)
 
 for (i in 1:nrow(lq.data)){
+  all.df$dennysLat[i]=as.numeric(dennys.data$lati[index[i]])
+  all.df$dennysLong[i]=as.numeric(dennys.data$long[index[i]])
   all.df$lqLat[i]=lq.data$lati[i]
   all.df$lqLong[i]=lq.data$long[i]
-}
+  }
+
 save(all.df, file="Data/analysis.Rdata")
 
-#examples
+#Plot the map and save it to the file
 
-pal <- colorRampPalette(c("#f2f2f2", "black"))
-pal <- colorRampPalette(c("#f2f2f2", "red"))
-colors <- pal(100)
-
-
-# map('state',col="white", fill=TRUE, bg="lightblue", lwd=0.05)
-
+png("Data/plot.png")
 max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
-xlim <- c(as.numeric(dsub$dennysLong[1])+1, as.numeric(dsub$dennysLong[1])-1.5)
-ylim <- c(as.numeric(dsub$dennysLat[1])+1, as.numeric(dsub$dennysLat[1])-1)
-map('state', region= "Louisiana", col="white", fill=TRUE, bg="lightblue", lwd=0.05)
+lat <- c(25,35) #define our map's ylim
+lon <- c(-88,-94) #define our map's xlim
+center = c(mean(lat), mean(lon))  #tell what point to center on
+zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
+Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
 
-for (j in 1:nrow(dsub$dennys)) {
-  inter <-gcIntermediate(c(as.numeric(dsub$dennysLong[j]),as.numeric(dsub$dennysLat[j])), c(as.numeric(dsub$lqLong[j]),as.numeric(dsub$lqLat[j])), n=100,addStartEnd=TRUE)  
-  lines(inter, col="black", lwd=0.8)
+##with color gradient, with the larger index of darker color
+pal <- colorRampPalette(c("#f2f2f2", "red"))
+colors <- pal(100)
+
+PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[1]),as.numeric(dsub$lqLat[1])),lon = c(as.numeric(dsub$dennysLong[1]),as.numeric(dsub$lqLong[1])),
+                lwd = 1.5, col = 'red', FUN = lines, add = F)
+
+maxcnt <- length(dsub$dennys)
+for(j in 2:length(dsub$dennys)){
+  colindex <- round((j/maxcnt) * length(colors) )
+  PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[j]),as.numeric(dsub$lqLat[j])),lon = c(as.numeric(dsub$dennysLong[j]),as.numeric(dsub$lqLong[j])),
+                  lwd = 1.5, col = colors[colindex], FUN = lines, add = T)
+  PlotOnStaticMap(MyMap = Loumap,lat=as.numeric(dsub$lqLat[j]),lon = as.numeric(dsub$lqLong[j]),lwd = 1.5, col = 'blue', add = T)
 }
-
+TextOnStaticMap(MyMap = Loumap,lat= as.numeric(dsub$dennysLat[1])+0.1, lon = as.numeric(dsub$dennysLong[1])+0.1,
+                labels = "Dennys", FUN = text,add = T)
+legend("bottomright",legend = "LaQuinta",fill = "blue",cex = 0.8)
+dev.off()

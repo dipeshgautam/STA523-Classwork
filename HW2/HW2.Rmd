@@ -6,19 +6,19 @@ output: html_document
 ###Data Analysis
 Check the validity of data analysis by comparing the nuber of Denny's and La Quinta combo within 100 and 150 meters of each other. We got 29 that are within 100m of each other which is the same as that found by Mitch Hedberg. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
 ```{r load data, echo=FALSE}
-source("check_packages.R")
-check_packages(c("data.table", "xtable"))
+# source("check_packages.R")
+# check_packages(c("data.table", "xtable"))
 load("Data/analysis.Rdata")
 
 verify.data= data.frame("Within 100m"=length(all.df$distanceKm[all.df$distanceKm<=.1]), "Within 150m"=length(all.df$distanceKm[all.df$distanceKm<=.15]))
-c("within 100m: ", length(all.df$distanceKm[all.df$distanceKm<=.1]),  ", Within 150m: ", length(all.df$distanceKm[all.df$distanceKm<=.15])) 
+c("within 100m:", length(all.df$distanceKm[all.df$distanceKm<=.1]),  "Within 150m:", length(all.df$distanceKm[all.df$distanceKm<=.15])) 
 
 ```
 
 
 ###Create a histogram
 
-We created a histogram that shows total number of Denny's-La Quinta combinations that are within certain distance of each other. We excluded the combination where the nearest one is more than 25 miles away. Histogram 
+We created a histogram that shows total number of Denny's-La Quinta combinations that are within certain distance of each other. We excluded the combination where the nearest one is more than 25 miles away.
 ```{r, create histogram, echo=FALSE, fig.align='center'}
 
 par(mar=c(4,4,4,1) + 0.1)
@@ -49,3 +49,6 @@ abline(v = vertical[1], col="red" )
 vertical[1]
 
 ```
+###Map
+
+![Map](Data/plot.png)
