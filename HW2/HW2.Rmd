@@ -29,7 +29,7 @@ We used `rdist.earth` within two `for` loops. Since La Quinta is only in North A
 A data frame, `all.df`, is created to store the indices of the La Quintas and Denny's and the distance data in terms of kilometers and miles. The longitudes and latitudes of each of the matched La Quintas and Denny's are also stored in `all.df` by a different `for` loop. We used a new `for` loop to do this with the idea of modular programming in mind, which allows easier debugging during the programming process. The data is then saved as the `analysis.Rdata` file, and graphically analyzed below.
 
 ###Data Analysis
-We initially tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments within 100 and 150 meters of each other. We find 29 pairs within 100m of each other, the same amount found by John Reiser. Within 150m, we get 50 pairs, which is 1 more than Mitch found. This discrepancy can be due to a newly established location since Mitch's analysis.
+We initially tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments within 100 and 150 meters of each other. We find 29 pairs within 100m of each other, the same amount found by John Reiser. Within 150m, we get 50 pairs, which is 1 more than Mitch found. This discrepancy can be due to a newly established location since John's analysis.
 ```{r load data, echo=FALSE}
 # source("check_packages.R")
 # check_packages(c("data.table", "xtable"))
