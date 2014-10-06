@@ -67,14 +67,6 @@ png("Data/plot.png")
 max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
-<<<<<<< HEAD
-lat <- c(25,35) #define our map's ylim
-lon <- c(-88,-94) #define our map's xlim
-center = c(mean(lat), mean(lon))  #tell what point to center on
-zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
-Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
-
-=======
 
 max(as.numeric(dsub$lqLat))
 min(as.numeric(dsub$lqLat))
@@ -85,29 +77,15 @@ lat <- c(25,35) #define our map's ylim
 lon <- c(-88,-94) #define our map's xlim
 center = c(mean(lat), mean(lon))  #tell what point to center on
 zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
-Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain", destfile = "terrain.png") 
+Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
 
->>>>>>> 3f4e1c1b4f0408065cc34b2ede5006e86db8f095
 ##with color gradient, with the larger index of darker color
 pal <- colorRampPalette(c("#f2f2f2", "red"))
 colors <- pal(100)
 
 PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[1]),as.numeric(dsub$lqLat[1])),lon = c(as.numeric(dsub$dennysLong[1]),as.numeric(dsub$lqLong[1])),
                 lwd = 1.5, col = 'red', FUN = lines, add = F)
-<<<<<<< HEAD
-=======
 
-maxcnt <- length(dsub$dennys)
-for(j in 2:nrow(dsub$dennys)){
-  colindex <- round((j/maxcnt) * length(colors) )
-  PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[j]),as.numeric(dsub$lqLat[j])),lon = c(as.numeric(dsub$dennysLong[j]),as.numeric(dsub$lqLong[j])),
-                  lwd = 1.5, col = colors[colindex], FUN = lines, add = T)
-  PlotOnStaticMap(MyMap = Loumap,lat=as.numeric(dsub$lqLat[j]),lon = as.numeric(dsub$lqLong[j]),lwd = 1.5, col = 'blue', add = T)
-}
-TextOnStaticMap(MyMap = Loumap,lat= as.numeric(dsub$dennysLat[1])+0.1, lon = as.numeric(dsub$dennysLong[1])+0.1,
-                labels = "Dennys", FUN = text,add = T)
-legend("bottomright",legend = "LaQuinta",fill = "blue",cex = 0.8)
->>>>>>> 3f4e1c1b4f0408065cc34b2ede5006e86db8f095
 
 maxcnt <- length(dsub$dennys)
 for(j in 2:length(dsub$dennys)){
