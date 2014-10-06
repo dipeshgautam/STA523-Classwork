@@ -16,6 +16,10 @@ In order to get the La Quinta data, we searched through the website to find the 
 
 We took our parsing one step further in order to get the phone and fax numbers for each individual hotel. All of the hotels have their own inn number, which we could then use to go to each specific hotel webpage. We scraped each of these individual webpages, and then split each page to find both of these numbers. Surprisingly, many of the hotels listed on La Quinta's site do not have their own sites, despite having links to them, and instead direct you back to the La Quinta Inn & Suites Chicago Downtown location. Thus, many of the points have the same phone and fax numbers. 
 
+### Denny's Data Download
+We downloaded denny's data using the same method described in John Reiser's blog. In the blog, he downloads the data for the continental US by using Washington, DC and Salt Lake City, UT as centers of two search radius. To obtain complete list of Denny's restaurants we added three more locations, Fairbanks, AK, Kahului, HI and Thompson, MB. We were able to get locations in Alaska, Hawaii and all of Canada using these locations.
+We parsed the required information on all Denny's location including latitude and longitude, address and phone number from the downloaded XML files. We then removed Denny's locations in Dominican Republic and Puerto Rico as there are no La Quintas in those locations.
+
 ###Data Analysis
 We initially tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments that are within 100 and 150 meters of each other. We got 29 that are within 100m of each other, which is the same as what was found by John Reiser. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
 ```{r load data, echo=FALSE}
@@ -23,7 +27,7 @@ We initially tried to check the validity of the comedians claim by furthering Re
 # check_packages(c("data.table", "xtable"))
 load("Data/analysis.Rdata")
 
-verify.data= data.frame("Within 100m"=length(all.df$distanceKm[all.df$distanceKm<=.1]), "Within 150m"=length(all.df$distanceKm[all.df$distanceKm<=.15]))
+verify.data <- data.frame("Within 100m"=length(all.df$distanceKm[all.df$distanceKm<=.1]), "Within 150m"=length(all.df$distanceKm[all.df$distanceKm<=.15]))
 c("within 100m:", length(all.df$distanceKm[all.df$distanceKm<=.1]),  "Within 150m:", length(all.df$distanceKm[all.df$distanceKm<=.15])) 
 
 ```
@@ -46,12 +50,12 @@ Here we look at the cumulative percentage of combinations within certain distanc
 ```{r, echo=FALSE, fig.align='center'}
 
 sortedDistance= sort(all.df$distanceMiles)
-CDF = NULL
+CDF <- NULL
 vertical=NULL
 for (i in 1:200){
-  CDF[i] = length(sortedDistance[sortedDistance<=i])/length(sortedDistance)
+  CDF[i] <- length(sortedDistance[sortedDistance<=i])/length(sortedDistance)
   if (CDF[i]>=.9){
-    vertical=c(vertical,i)
+    vertical <- c(vertical,i)
   }
 }
 par(mar=c(4,5,4,1) + 0.1)
@@ -63,5 +67,6 @@ vertical[1]
 
 ```
 ###Map
-
+<div style="text-align:center">
 ![Map](Data/plot.png)
+</div>
