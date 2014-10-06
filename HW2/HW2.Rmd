@@ -20,8 +20,16 @@ We took our parsing one step further in order to get the phone and fax numbers f
 We downloaded denny's data using the same method described in John Reiser's blog. In the blog, he downloads the data for the continental US by using Washington, DC and Salt Lake City, UT as centers of two search radius. To obtain complete list of Denny's restaurants we added three more locations, Fairbanks, AK, Kahului, HI and Thompson, MB. We were able to get locations in Alaska, Hawaii and all of Canada using these locations.
 We parsed the required information on all Denny's location including latitude and longitude, address and phone number from the downloaded XML files. We then removed Denny's locations in Dominican Republic and Puerto Rico as there are no La Quintas in those locations.
 
+
+###Distance Analysis
+After scraping Denny's and La Quinta's respective websites then parsing the downloaded data, we used the `rdist.earth` function from the `fields` package to calculate the "great-circle" distance rather than Euclidean distance between each element of the La Quinta and Denny's sets. Such a calculation accounts for the ellipsoidal shape of the earth. There are nuances `rdist.earth` that informed the parameters chosen for it. A close examination of the `rdist.earth` source code reveals the assumption that the equitorial radius of the earth is 6378 km, which Wikipedia states is actually the the maximum radius of Earth if it was a perfect sphere. A quick Google search shows that the mean radius for earth is actually 6371 km so it is what we use for our calculations. Additionally, while the World Geodetic System (WGS) put forth standard EPSG:4326, stating latitude should be put before longitude when referenced, the `rdist.earth` function requires inputs in the reverse order. Incorrect ordering of input gives different results. Having explained the package used for our distance analysis, we proceed to describe the code used for the calculation.
+
+We used `rdist.earth` within two `for` loops. Since La Quinta is only in North America, it is in a subset of the total geographic expanse of Denny's, which is international. Therefore, we should use La Quinta's as our point of reference and be put in the first `for` loop. This guarantees that every La Quinta will be matched to a Denny's, rather than the converse. Denny's in the United Arab Emirates and New Zealand, for example, will be left matchless. The second `for` loop cycles through each of the Denny's and stores the distance between it with the selected La Quinta in a vector, `distances.all`. After all Denny's have been checked, the minimum distance in the `distances.all` is returned and stored in `distances.min`. Also, the index number for the Denny's is stored in a matrix, `index`, so we can reference the points that give this distance. La Quinta is given by the row number of `index`, since it runs sequentially from 1 to 875. `distances.all` is reset to `NULL` and the process repeats with the next La Quinta.
+
+A data frame, `all.df`, is created to store the indices of the La Quintas and Denny's and the distance data in terms of kilometers and miles. The longitudes and latitudes of each of the matched La Quintas and Denny's are also stored in `all.df` by a different `for` loop. We used a new `for` loop to do this with the idea of modular programming in mind, which allows easier debugging during the programming process. The data is then saved as the `analysis.Rdata` file, and graphically analyzed below.
+
 ###Data Analysis
-We initially tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments that are within 100 and 150 meters of each other. We got 29 that are within 100m of each other, which is the same as what was found by John Reiser. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
+We initially tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments within 100 and 150 meters of each other. We find 29 pairs within 100m of each other, the same amount found by John Reiser. Within 150m, we get 50 pairs, which is 1 more than Mitch found. This discrepancy can be due to a newly established location since Mitch's analysis.
 ```{r load data, echo=FALSE}
 # source("check_packages.R")
 # check_packages(c("data.table", "xtable"))
@@ -35,7 +43,7 @@ c("within 100m:", length(all.df$distanceKm[all.df$distanceKm<=.1]),  "Within 150
 
 ###Create a histogram
 
-We created a histogram that shows total number of Denny's-La Quinta combinations that are within certain distances of each other. We excluded the combination where the nearest one is more than 25 miles away.
+The histogram below shows the total number of Denny's-La Quinta permutations within certain distances of each other. We excluded pairings with distances greater than 25 miles.
 ```{r, create histogram, echo=FALSE, fig.align='center'}
 
 par(mar=c(4,4,4,1) + 0.1)
