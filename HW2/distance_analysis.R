@@ -68,10 +68,10 @@ max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
 
-max(as.numeric(dsub$lqLat))
-min(as.numeric(dsub$lqLat))
-max(as.numeric(dsub$lqLon))
-min(as.numeric(dsub$lqLon))
+#max(as.numeric(dsub$lqLat))
+#min(as.numeric(dsub$lqLat))
+#max(as.numeric(dsub$lqLon))
+#min(as.numeric(dsub$lqLon))
 
 lat <- c(25,35) #define our map's ylim
 lon <- c(-88,-94) #define our map's xlim
