@@ -72,6 +72,7 @@ vertical[1]
 ```
 
 ### Map
+The below map shows an application of our distance metrics. For any given La Quinta hotel, we found the closest Denny's location. The map displays the Denny's that is closest to the most La Quinta hotels, and shows the connections between the restaurant and each hotel. Currently, the Denny's that was matched to the most La Quinta hotels is located in Metairie, Louisiana, with 19 hotel connections. 
 <div style="text-align:center">
 ![Map](Data/plot.png)
 </div>
