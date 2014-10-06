@@ -64,7 +64,7 @@ for (i in 1:200){
   }
 }
 par(mar=c(4,5,4,1) + 0.1)
-plot(1:length(CDF), CDF, type ="l", xlab = "Distance between Dennys and LQ", ylab = "Cumulitive percentage within the distance")
+plot(1:length(CDF), CDF, type ="l", xlab = "Distance between Dennys and LQ", ylab = "Cumulative percentage within the distance")
 
 abline(v = vertical[1], col="red" )
 vertical[1]
@@ -72,6 +72,7 @@ vertical[1]
 ```
 
 ### Map
+The following map shows the Denny's paired with the greatest number of La Quinta's. In other words, for 19 La Quinta's, this is the closest Denny's. 
 <div style="text-align:center">
 ![Map](Data/plot.png)
 </div>
