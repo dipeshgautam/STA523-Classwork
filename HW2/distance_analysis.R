@@ -47,7 +47,7 @@ for (j in 1:dim(lq.loc)[1]) {
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
-all.df = data.frame(lq= 1:length(distances.min),
+all.df = data.frame(lq = 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
                     distanceMiles= distances.min*.6214)
@@ -61,31 +61,30 @@ for (i in 1:nrow(lq.data)){
 
 save(all.df, file="Data/analysis.Rdata")
 
-#Plot the map and save it to the file
-
+## Plot the map and save it to the file, plot.png
 png("Data/plot.png")
-max <- max(count(all.df$dennys)$freq)
-max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
-dsub <- all.df[all.df$dennys == max$x,]
+max <- max(count(all.df$dennys)$freq) 
+max <- count(all.df$dennys)[count(all.df$dennys)$freq == max,] # Calculate the Denny's with the max number of LQ's.
+dsub <- all.df[all.df$dennys == max$x,] # Return each LQ matching with the single nearest Denny's.
 
-max(as.numeric(dsub$lqLat))
-min(as.numeric(dsub$lqLat))
+## Find the max. and min. latitude and longitude values to determin our maps ylim and xlim.
+max(as.numeric(dsub$lqLat)) 
+min(as.numeric(dsub$lqLat)) 
 max(as.numeric(dsub$lqLon))
 min(as.numeric(dsub$lqLon))
 
-lat <- c(25,35) #define our map's ylim
-lon <- c(-88,-94) #define our map's xlim
-center = c(mean(lat), mean(lon))  #tell what point to center on
-zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
-Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
+lat <- c(25,35) # Define our map's ylim.
+lon <- c(-88,-94) # Define our map's xlim.
+center <- c(mean(lat), mean(lon))  # Tell what point to center on.
+zoom <- 8 # Zoom: 1 = furthest out (entire globe), larger numbers = closer in
+Loumap <- GetMap(center=center, zoom = zoom, maptype = "terrain") 
 
-##with color gradient, with the larger index of darker color
+## With color gradient, with the larger index of darker color
 pal <- colorRampPalette(c("#f2f2f2", "red"))
 colors <- pal(100)
 
 PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[1]),as.numeric(dsub$lqLat[1])),lon = c(as.numeric(dsub$dennysLong[1]),as.numeric(dsub$lqLong[1])),
                 lwd = 1.5, col = 'red', FUN = lines, add = F)
-
 
 maxcnt <- length(dsub$dennys)
 for(j in 2:length(dsub$dennys)){
