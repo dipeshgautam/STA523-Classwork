@@ -3,8 +3,11 @@ title: "Homework 2"
 author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
+
+#Introduction
+According to the late comedian, Mitch Hedberg, "La Quinta is Spanish for next to Denny’s". In order to assess this claim, John Reiser scraped the location data for all US locations of La Quinta hotels and Denny's restaurants and applied certain analyses on the scraped data. 
 ###Data Analysis
-Check the validity of data analysis by comparing the nuber of Denny's and La Quinta combo within 100 and 150 meters of each other. We got 29 that are within 100m of each other which is the same as that found by Mitch Hedberg. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
+We tried to check the validity of the comedians claim by furthering Reiser's analysis and comparing the number of Denny's and La Quinta establishments that are within 100 and 150 meters of each other. We got 29 that are within 100m of each other, which is the same as what was found by John Reiser. As for within 150m, we got 50 which is 1 more than Mitch got. This can be accounted for by the newly established locations.
 ```{r load data, echo=FALSE}
 # source("check_packages.R")
 # check_packages(c("data.table", "xtable"))
