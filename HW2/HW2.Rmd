@@ -72,7 +72,11 @@ vertical[1]
 ```
 
 ### Map
+<<<<<<< HEAD
 The following map shows the Denny's paired with the greatest number of La Quinta's. In other words, for 19 La Quinta's, this is the closest Denny's. 
+=======
+The below map shows an application of our distance metrics. For any given La Quinta hotel, we found the closest Denny's location. The map displays the Denny's that is closest to the most La Quinta hotels, and shows the connections between the restaurant and each hotel. 
+>>>>>>> 4d54b5bcccd94eefd9d72858b687bf34b74c8f4d
 <div style="text-align:center">
 ![Map](Data/plot.png)
 </div>
