@@ -1,0 +1,12 @@
+---
+title: "10_08_14_inclass"
+author: "Jessie"
+date: "10/8/2014"
+output: html_document
+---
+
+
+```{r}
+
+```
+
