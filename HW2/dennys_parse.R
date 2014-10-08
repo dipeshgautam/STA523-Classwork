@@ -3,14 +3,17 @@ source("check_packages.R")
 check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools"))
 
 # Get files
-files <- dir("dennys",pattern = "[a-z]*.xml",full.names=TRUE)
 
+files <- dir("dennys",pattern = "[a-z]*.xml",full.names=TRUE)
 dennys_data <- NULL
+
+
 N <- length(files)
 
 for(k in 1:N){
   data <- xmlParse(files[k])
   xml_data <- xmlToList(data)
+  
   n <- length(xml_data$collection)-1
   
   list <- matrix(NA, nrow = n, ncol = 16)
@@ -29,10 +32,12 @@ for(k in 1:N){
       }
     }
   }
+
   dennys_data <- rbind(dennys_data, list)
 }
 
 dennys_datamod <- dennys_data[!duplicated(dennys_data$uid),]
 dennys_datamod <- dennys_datamod[dennys_datamod$country != "DO" & dennys_datamod$country!="PR", ]
+
 
 saveRDS(dennys_datamod, file="dennys/dennys_data.Rdata")

@@ -5,6 +5,7 @@ check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "ply
 
 dir.create("Data/", showWarnings = FALSE)
 dennys <- readRDS("dennys/dennys_data.Rdata")
+
 dennys.data <- subset(dennys, select = -c(12, 14, 15, 16))
 colnames(dennys.data) <- c("name", "uid", "lati", "long", "city", "add1", "add2", "post", "state", "country", "phone", "fax")
 ## Store latitude and longitude, convert from degrees to radians for rdist.earth(), combine into matrix.
@@ -47,7 +48,7 @@ for (j in 1:dim(lq.loc)[1]) {
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
-all.df = data.frame(lq = 1:length(distances.min),
+all.df = data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
                     distanceMiles= distances.min*.6214)
