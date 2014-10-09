@@ -1,13 +1,14 @@
 ---
 title: "10_08_14_inclass"
-author: "Jessie"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 date: "10/8/2014"
 output: html_document
 ---
 
 ###Task 1
+
 ```{r}
-source("check_packages.R")
+source("~/Team2/check_packages.R")
 check_packages(c("dplyr", "data.table", "lubridate"))
 
 park = read.csv("/home/vis/cr173/Sta523/data/parking/NYParkingViolations_small.csv",
@@ -16,7 +17,8 @@ park = read.csv("/home/vis/cr173/Sta523/data/parking/NYParkingViolations_small.c
   tbl_df()
 
 
-address = transmute(park, Violation.Precinct, Address=paste(House.Number, Street.Name), Intersecting.Street)
+location = transmute(park, Violation.Precinct, Address=paste(House.Number, Street.Name), Intersecting.Street)
+head(location)
 
 ```
 
