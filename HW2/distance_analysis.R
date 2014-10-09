@@ -50,7 +50,10 @@ for (j in 1:dim(lq.loc)[1]) {
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e7d63f4d66784790682160d001ed91974a1aa14c
 all.df = data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,

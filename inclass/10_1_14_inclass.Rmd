@@ -17,4 +17,28 @@ plot(roads, col="red", axes=TRUE)
 
 ```
 
+<<<<<<< HEAD
+=======
+Use a spatial predicate function to figure out which states I-10 passes through.
+```{r}
+up_i = roads$INTERSTATE == '10'
+up_roads <- roads[up_i,]
+sec = gIntersects(states,up_roads,byid=TRUE)
+dim(sec)
+states$STATE[apply(sec,2,any)]
+```
+
+```{r}
+dir("~/Sta523/data/us-atlas/shp/us/","*.shp")
+suppressMessages(library(rgdal))
+ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged")
+
+roads = readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged", stringsAsFactors=FALSE)
+save(roads, file = "roads.RData")
+load("roads.Rdata",verbose = FALSE)
+plot(roads, col="red", axes=TRUE)
+
+
+```
+>>>>>>> e7d63f4d66784790682160d001ed91974a1aa14c
 
