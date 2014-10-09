@@ -15,10 +15,22 @@ park = read.csv("/home/vis/cr173/Sta523/data/parking/NYParkingViolations_small.c
                 stringsAsFactors=FALSE) %>% 
   as.data.frame() %>%
   tbl_df()
-
+park$Issue.Date = mdy(park$Issue.Date)
 
 location = transmute(park, Violation.Precinct, Address=paste(House.Number, Street.Name), Intersecting.Street)
 head(location)
 
 ```
 
+###Task2
+```{r}
+# Christmas = filter(park, Issue.Date > "2013/09/01", Issue.Date < "2014/6/30")
+park = fread("/home/vis/cr173/Sta523/data/parking/NYParkingViolations.csv",sep=",")
+StateDateTime = transmute(park, Registration.State, DateTime=ymd_hms(paste0(Issue.Date, Violation.Time)))
+Christmas= filter(StateDateTime, DateTime <  "2014-01-05", DateTime > "2011-12-22")
+
+
+# Christmas = filter(Christmas, DateTime > "2011-12-22" )
+# 
+# Christmas = filter(Christmas, DateTime <  "2014-01-05 23:59:59")
+```
