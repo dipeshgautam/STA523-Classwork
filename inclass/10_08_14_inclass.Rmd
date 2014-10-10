@@ -28,13 +28,13 @@ head(location)
 # park = fread("/home/vis/cr173/Sta523/data/parking/NYParkingViolations.csv",sep=",")
 StateDateTime = transmute(park, Registration.State, DateTime=mdy_hm(paste0(Issue.Date, Violation.Time)))
 Christmas <- filter(StateDateTime, DateTime <  "2014-01-05", DateTime > "2013-12-22")
-State <- group_by(Christmas, Registration.State, DateTime)%>%
-  summarize(totalViolations= n())%>%
-  arrange(DateTime)
-# plot(State$DateTime[State$Registration.State=="NY"], State$totalViolations[State$Registration.State=="NY"], type ="p", xlab="Date and time", ylab="Number of Violations")
+State <- group_by(Christmas, Registration.State, day = day_hour(DateTime))%>%
+  summarize(totalViolations= n())
+
+plot(State$day[State$Registration.State=="NY"], State$totalViolations[State$Registration.State=="NY"], type ="p", xlab="Date and time", ylab="Number of Violations")
 
 #Group by day of week and find the day of most citations
-day = group_by(StateDateTime, day=wday(DateTime))%>% summarize(totalViolations= n())
+day = group_by(StateDateTime, day=wday(DateTime, label=TRUE))%>% summarize(totalViolations= n())
 day[which.max(day$totalViolations),]
 
 
@@ -43,7 +43,7 @@ hour = group_by(StateDateTime, hour=hour(DateTime))%>% summarize(totalViolations
 hour[which.max(hour$totalViolations),]
 
 #hour and day of most citations
-hourDay = group_by(StateDateTime, hour=hour(DateTime), day=wday(DateTime))%>% summarize(totalViolations= n())
+hourDay = group_by(StateDateTime, hour=hour(DateTime), day=wday(DateTime, label=TRUE))%>% summarize(totalViolations= n())
 hourDay[which.max(hourDay$totalViolations),]
 
 ```
