@@ -50,11 +50,8 @@ for (j in 1:dim(lq.loc)[1]) {
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> e7d63f4d66784790682160d001ed91974a1aa14c
-all.df = data.frame(lq= 1:length(distances.min),
+all.df <- data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
                     distanceMiles= distances.min*.6214)
@@ -75,14 +72,9 @@ max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
 
-#max(as.numeric(dsub$lqLat))
-#min(as.numeric(dsub$lqLat))
-#max(as.numeric(dsub$lqLon))
-#min(as.numeric(dsub$lqLon))
-
 lat <- c(25,35) #define our map's ylim
 lon <- c(-88,-94) #define our map's xlim
-center = c(mean(lat), mean(lon))  #tell what point to center on
+center <- c(mean(lat), mean(lon))  #tell what point to center on
 zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
 Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
 
@@ -92,7 +84,6 @@ colors <- pal(100)
 
 PlotOnStaticMap(MyMap = Loumap,lat=c(as.numeric(dsub$dennysLat[1]),as.numeric(dsub$lqLat[1])),lon = c(as.numeric(dsub$dennysLong[1]),as.numeric(dsub$lqLong[1])),
                 lwd = 1.5, col = 'red', FUN = lines, add = F)
-
 
 maxcnt <- length(dsub$dennys)
 for(j in 2:length(dsub$dennys)){

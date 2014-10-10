@@ -1,12 +1,10 @@
 # Load Required packages
 source("check_packages.R")
-check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools"))
+check_packages(c("httr","XML","stringr"))
 
 # Get files
-
 files <- dir("dennys",pattern = "[a-z]*.xml",full.names=TRUE)
 dennys_data <- NULL
-
 
 N <- length(files)
 
@@ -32,7 +30,6 @@ for(k in 1:N){
       }
     }
   }
-  
   dennys_data <- rbind(dennys_data, list)
 }
 
