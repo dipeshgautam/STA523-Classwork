@@ -2,8 +2,6 @@ source("check_packages.R")
 check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr", "RgoogleMaps"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
-dennys <- readRDS("dennys_data.Rdata")
-
 dir.create("Data/", showWarnings = FALSE)
 dennys <- readRDS("dennys/dennys_data.Rdata")
 
