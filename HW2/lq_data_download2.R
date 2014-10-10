@@ -1,6 +1,3 @@
-source("check_packages.R")
-check_packages(c("httr","XML","stringr","jsonlite","rgeos","maptools","stringr"))
-
 hotels <- readRDS("lq/lq_URLS.Rdata")
 
 s <- vector(length=nrow(hotels))

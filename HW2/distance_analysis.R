@@ -47,7 +47,7 @@ for (j in 1:dim(lq.loc)[1]) {
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
-all.df = data.frame(lq= 1:length(distances.min),
+all.df <- data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
                     distanceMiles= distances.min*.6214)
@@ -68,14 +68,9 @@ max <- max(count(all.df$dennys)$freq)
 max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
 dsub <- all.df[all.df$dennys == max$x,]
 
-#max(as.numeric(dsub$lqLat))
-#min(as.numeric(dsub$lqLat))
-#max(as.numeric(dsub$lqLon))
-#min(as.numeric(dsub$lqLon))
-
 lat <- c(25,35) #define our map's ylim
 lon <- c(-88,-94) #define our map's xlim
-center = c(mean(lat), mean(lon))  #tell what point to center on
+center <- c(mean(lat), mean(lon))  #tell what point to center on
 zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
 Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
 
