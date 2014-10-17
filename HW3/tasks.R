@@ -1,24 +1,36 @@
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R")
-check_packages(c("dplyr", "stringr", "rgdal", "rgeos", "data.table"))
-# 
-# library(dplyr) # http://cran.r-project.org/web/packages/dplyr/dplyr.pdf
-# library(stringr) # http://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf
-# library(rgdal) # readOGR(): Read OGR vector maps into Spatial objects. http://cran.r-project.org/web/packages/rgdal/rgdal.pdf
-# library(rgeos) # gCentroid(): Function calculates the centroid of the given geometry. http://cran.r-project.org/web/packages/rgeos/rgeos.pdf
-# library(data.table) # fread(): Load data more quickly. http://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.pdf
+check_packages(c("devtools", "stringr", "rgdal", "rgeos", "data.table"))
+install_github("hadley/dplyr")
 
 base = '/home/vis/cr173/Sta523/data/parking' # Set to Dr. Rundel's Saxon directory containing NYParking data
-park = tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors=FALSE)) # Create subset for proof-of-concept testing
-# park.full = tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors=FALSE)) # Full data set using fread() for speed and convenience 
+# Small Data, Use this for testing
+# park = tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors=FALSE)) # Create subset for proof-of-concept testing
+# addr = filter(park, Violation.Precinct <= 34) %>% 
+#   mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>%
+#   filter(House.Number != "" & Street.Name != "") %>%
+#   filter(str_detect(House.Number,"[0-9]+")) %>%
+#   transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>%
+#   mutate(addr = tolower(addr))
 
-addr = filter(park, Violation.Precinct <= 34) %>% 
+
+#Full Data
+park.full = tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors=FALSE)) # Full data set using fread() for speed and convenience 
+park.full$'Summons Number'= as.numeric(park.full$'Summons Number')
+setnames(park.full, 'Violation Precinct', 'Violation.Precinct')
+setnames(park.full, 'House Number', 'House.Number')
+setnames(park.full, 'Street Name', 'Street.Name')
+
+addr = filter(park.full, Violation.Precinct <= 34) %>% 
   mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>%
   filter(House.Number != "" & Street.Name != "") %>%
   filter(str_detect(House.Number,"[0-9]+")) %>%
   transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>%
   mutate(addr = tolower(addr))
+
+
 rm(park)
+rm(park.full)
 
 pl = readOGR(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO") # Takes 3 minutes. Manhattan shapefile connecting property boundary polygons and addresses. 
 
@@ -36,3 +48,4 @@ addr$addr = str_replace_all(addr$addr, "2nd", "2")
 addr$addr = str_replace_all(addr$addr, "3rd", "3")
 
 z = inner_join(tax, addr)
+#plot(z$y, z$x)
