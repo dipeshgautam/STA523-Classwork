@@ -2,9 +2,9 @@ source("check_packages.R")
 check_packages(c("pracma","fields", "ggmap", "mapproj", "maps","geosphere", "plyr", "RgoogleMaps"))
 #library(pracma) ## Gives deg2rad() to convert latitudes and longitudes from degrees to radians.
 
-
 dir.create("Data/", showWarnings = FALSE)
 dennys <- readRDS("dennys/dennys_data.Rdata")
+
 dennys.data <- subset(dennys, select = -c(12, 14, 15, 16))
 colnames(dennys.data) <- c("name", "uid", "lati", "long", "city", "add1", "add2", "post", "state", "country", "phone", "fax")
 ## Store latitude and longitude, convert from degrees to radians for rdist.earth(), combine into matrix.
@@ -43,11 +43,13 @@ for (j in 1:dim(lq.loc)[1]) {
     distances.one <- rdist.earth(matrix(lq.loc[j,], ncol = 2), matrix(dennys.loc[i,], ncol = 2), miles = FALSE, R = 6371)
     distances.all <- matrix(c(distances.all, distances.one))
   }
+  
   distances.min <- matrix(c(distances.min, min(distances.all))) # returns matrix size of # dennys
   index <- matrix(c(index, which.min(distances.all))) # returns matrix size = # LQ stores. row # = dennys row # in original df.
   distances.all <- NULL
 }
-all.df = data.frame(lq = 1:length(distances.min),
+
+all.df <- data.frame(lq= 1:length(distances.min),
                     dennys = index,
                     distanceKm = distances.min,
                     distanceMiles= distances.min*.6214)
@@ -61,25 +63,20 @@ for (i in 1:nrow(lq.data)){
 
 save(all.df, file="Data/analysis.Rdata")
 
-## Plot the map and save it to the file, plot.png
+#Plot the map and save it to the file
+
 png("Data/plot.png")
-max <- max(count(all.df$dennys)$freq) 
-max <- count(all.df$dennys)[count(all.df$dennys)$freq == max,] # Calculate the Denny's with the max number of LQ's.
-dsub <- all.df[all.df$dennys == max$x,] # Return each LQ matching with the single nearest Denny's.
+max <- max(count(all.df$dennys)$freq)
+max <- count(all.df$dennys)[count(all.df$dennys)$freq==max,]
+dsub <- all.df[all.df$dennys == max$x,]
 
-## Find the max. and min. latitude and longitude values to determin our maps ylim and xlim.
-max(as.numeric(dsub$lqLat)) 
-min(as.numeric(dsub$lqLat)) 
-max(as.numeric(dsub$lqLon))
-min(as.numeric(dsub$lqLon))
+lat <- c(25,35) #define our map's ylim
+lon <- c(-88,-94) #define our map's xlim
+center <- c(mean(lat), mean(lon))  #tell what point to center on
+zoom <- 8  #zoom: 1 = furthest out (entire globe), larger numbers = closer in
+Loumap <- GetMap(center=center, zoom=zoom, maptype= "terrain") 
 
-lat <- c(25,35) # Define our map's ylim.
-lon <- c(-88,-94) # Define our map's xlim.
-center <- c(mean(lat), mean(lon))  # Tell what point to center on.
-zoom <- 8 # Zoom: 1 = furthest out (entire globe), larger numbers = closer in
-Loumap <- GetMap(center=center, zoom = zoom, maptype = "terrain") 
-
-## With color gradient, with the larger index of darker color
+##with color gradient, with the larger index of darker color
 pal <- colorRampPalette(c("#f2f2f2", "red"))
 colors <- pal(100)
 

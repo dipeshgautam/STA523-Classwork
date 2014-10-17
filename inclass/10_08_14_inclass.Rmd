@@ -1,0 +1,49 @@
+---
+title: "10_08_14_inclass"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+date: "10/8/2014"
+output: html_document
+---
+
+###Part 1
+
+```{r}
+source("~/Team2/check_packages.R")
+check_packages(c("dplyr", "data.table", "lubridate"))
+
+park <- read.csv("/home/vis/cr173/Sta523/data/parking/NYParkingViolations_small.csv",
+                stringsAsFactors=FALSE) %>% 
+  as.data.frame() %>%
+  tbl_df()
+# park$Issue.Date <- mdy(park$Issue.Date)
+
+location <- transmute(park, Violation.Precinct, Address=paste(House.Number, Street.Name), Intersecting.Street)
+head(location)
+
+```
+
+###Part2
+```{r}
+# Christmas = filter(park, Issue.Date > "2013/09/01", Issue.Date < "2014/6/30")
+# park = fread("/home/vis/cr173/Sta523/data/parking/NYParkingViolations.csv",sep=",")
+StateDateTime = transmute(park, Registration.State, DateTime=mdy_hm(paste0(Issue.Date, Violation.Time)))
+Christmas <- filter(StateDateTime, DateTime <  "2014-01-05", DateTime > "2013-12-22")
+State <- group_by(Christmas, Registration.State, day = day_hour(DateTime))%>%
+  summarize(totalViolations= n())
+
+plot(State$day[State$Registration.State=="NY"], State$totalViolations[State$Registration.State=="NY"], type ="p", xlab="Date and time", ylab="Number of Violations")
+
+#Group by day of week and find the day of most citations
+day = group_by(StateDateTime, day=wday(DateTime, label=TRUE))%>% summarize(totalViolations= n())
+day[which.max(day$totalViolations),]
+
+
+#Group by hours and find the hour of most citations
+hour = group_by(StateDateTime, hour=hour(DateTime))%>% summarize(totalViolations= n())
+hour[which.max(hour$totalViolations),]
+
+#hour and day of most citations
+hourDay = group_by(StateDateTime, hour=hour(DateTime), day=wday(DateTime, label=TRUE))%>% summarize(totalViolations= n())
+hourDay[which.max(hourDay$totalViolations),]
+
+```

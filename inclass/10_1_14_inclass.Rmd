@@ -1,42 +1,24 @@
 ---
-title: "In Class Exercises - Oct. 1, 2014"
+title: "In Class Exercises - Sep 29, 2014"
 authors: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
 output: html_document
 ---
 
-Exercise
-
-Load the roads data from roads-unmerged.shp, note that this is a largish file and may take a while to load into R.
-
 ```{r}
+dir("~/Sta523/data/us-atlas/shp/us/","*.shp")
 suppressMessages(library(rgdal))
 ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged")
-roads <- readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged", stringsAsFactors=FALSE)
-class(roads)
-```
 
-Create a plot of the interstate highway system (this shapefile contains many additional road line segments) overlayed on a map of the lower 48 states.
+roads = readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged", stringsAsFactors=FALSE)
+save(roads, file = "roads.RData")
+load("roads.Rdata",verbose = FALSE)
+plot(roads, col="red", axes=TRUE)
 
-```{r}
-states <- readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered"
-  , stringsAsFactors=FALSE)
-ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","states-unfiltered")
-states <- states[!duplicated(states$STATE),] # remove duplicates
-
-# Class method: assign "" to NA
-head(roads@data, n = 10)
-interstate = roads@data[,c("INTERSTATE")]
-interstate[is.na(interstate[])] = ""
-
-interstate_i= roads$INTERSTATE != ""
-
-interstate_all = roads[interstate_i,]
-
-plot(states[states$ORDER_ADM %in% 1:48,], border="lightgrey", axes=TRUE)
-plot(interstate_all, lwd = 2,add=TRUE)
 
 ```
 
+<<<<<<< HEAD
+=======
 Use a spatial predicate function to figure out which states I-10 passes through.
 ```{r}
 up_i = roads$INTERSTATE == '10'
@@ -45,3 +27,18 @@ sec = gIntersects(states,up_roads,byid=TRUE)
 dim(sec)
 states$STATE[apply(sec,2,any)]
 ```
+
+```{r}
+dir("~/Sta523/data/us-atlas/shp/us/","*.shp")
+suppressMessages(library(rgdal))
+ogrInfo("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged")
+
+roads = readOGR("/home/vis/cr173/Sta523/data/us-atlas/shp/us/","roads-unmerged", stringsAsFactors=FALSE)
+save(roads, file = "roads.RData")
+load("roads.Rdata",verbose = FALSE)
+plot(roads, col="red", axes=TRUE)
+
+
+```
+>>>>>>> e7d63f4d66784790682160d001ed91974a1aa14c
+
