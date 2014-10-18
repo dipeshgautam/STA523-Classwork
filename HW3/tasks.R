@@ -1,25 +1,25 @@
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
-check_packages(c("devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools")) # Ensures listed packages are installed and load them. 
+check_packages(c("devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
 install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
 library(dplyr) # 
 
 base <- '/home/vis/cr173/Sta523/data/parking' # Set to Dr. Rundel's Saxon directory containing NYParking data
 # Small data set for testing.
 park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors=FALSE)) # Create subset for proof-of-concept testing
-addr <- filter(park, Violation.Precinct <= 34) %>% 
-  mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>%
-  filter(House.Number != "" & Street.Name != "") %>%
-  filter(str_detect(House.Number,"[0-9]+")) %>%
-  transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>%
-  mutate(addr = tolower(addr))
+addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation precincts less than or equal to precinct 34.
+  mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>% # Add new columns without white space.
+  filter(House.Number != "" & Street.Name != "") %>% # Pick rows without missing house numbers and street names.
+  filter(str_detect(House.Number,"[0-9]+")) %>% # Pick rows including house numbers with digits
+  transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>% # Create new data frame with variables.
+  mutate(addr = tolower(addr)) # Convert addr variable to lower case.
 
 ## Full data.
 park.full <- tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors=FALSE)) # Full data set using fread() for speed and convenience 
 park.full$'Summons Number' <- as.numeric(park.full$'Summons Number') # Need to set as numeric if using fread() on data. 
 setnames(park.full, 'Violation Precinct', 'Violation.Precinct') # Rename variable.
-setnames(park.full, 'House Number', 'House.Number') 
-setnames(park.full, 'Street Name', 'Street.Name') 
+setnames(park.full, 'House Number', 'House.Number')
+setnames(park.full, 'Street Name', 'Street.Name')
 
 
 addr <- filter(park.full, Violation.Precinct <= 34) %>% # Send subset: park's violation precincts less than or equal to precinct 34.
@@ -74,4 +74,18 @@ addr$addr <- str_replace_all(addr$addr, "boradwya", "broadway")
 addr$addr <- str_replace_all(addr$addr, "th", "")
 
 z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data frames.
-plot(z$y, z$x)
+plot(z$y, z$x) # Plot centroids on map of Manhattan.
+ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
+police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14-16, Midtown No. Pct == 18, Central Park Pct == 21|22 (http://www.nyc.gov/html/nypd/html/home/precincts.shtml)
+
+## Plot police precincts.
+z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts.
+sort(unique(z.sub$Violation.Precinct))
+
+find_hull <- function(z) z[chull(z$x, z$y), ]
+hulls <- ddply(z.sub, "Violation.Precinct", find_hull)
+plot <- ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
+plot
+
+plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
+
