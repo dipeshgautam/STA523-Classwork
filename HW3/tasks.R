@@ -6,7 +6,7 @@ library(dplyr) #
 
 base <- '/home/vis/cr173/Sta523/data/parking' # Set to Dr. Rundel's Saxon directory containing NYParking data
 # Small data set for testing.
-park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors=FALSE)) # Create subset for proof-of-concept testing
+park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors = FALSE)) # Create subset for proof-of-concept testing
 addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation precincts less than or equal to precinct 34.
   mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>% # Add new columns without white space.
   filter(House.Number != "" & Street.Name != "") %>% # Pick rows without missing house numbers and street names.
@@ -15,7 +15,7 @@ addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation pr
   mutate(addr = tolower(addr)) # Convert addr variable to lower case.
 
 ## Full data.
-park.full <- tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors=FALSE)) # Full data set using fread() for speed and convenience 
+park.full <- tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors = FALSE)) # Full data set using fread() for speed and convenience 
 park.full$'Summons Number' <- as.numeric(park.full$'Summons Number') # Need to set as numeric if using fread() on data. 
 setnames(park.full, 'Violation Precinct', 'Violation.Precinct') # Rename variable.
 setnames(park.full, 'House Number', 'House.Number')
@@ -76,16 +76,19 @@ addr$addr <- str_replace_all(addr$addr, "th", "")
 z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data frames.
 plot(z$y, z$x) # Plot centroids on map of Manhattan.
 ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
-police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 21, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14-16, Midtown No. Pct == 18, Central Park Pct == 21|22 (http://www.nyc.gov/html/nypd/html/home/precincts.shtml)
-
+police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 22, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14, Midtown No. Pct == 18, Central Park Pct == 22: see http://unhp.org/crg/indy-maps_police_mn.html
+police.precincts <- c(1, 5) # Testing purposes
 ## Plot police precincts.
-z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts.
-sort(unique(z.sub$Violation.Precinct))
+z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
+ggplot(data = z.sub, aes(x = x, y = y, colour = factor(Violation.Precinct))) + geom_point() + labs(x = "Longitude", y = "Latitude") # Reference: R Graphics Cookbook (254)
+# system.time(z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)))
+# sort(unique(z.sub$Violation.Precinct))
 
-find_hull <- function(z) z[chull(z$x, z$y), ]
-hulls <- ddply(z.sub, "Violation.Precinct", find_hull)
-plot <- ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
-plot
+## chull() calculates the center of a set of points, then finds the furthest points. This gives a convex hull.
+find_hull <- function(z) z[chull(z$x, z$y), ] # Create find_hull function using chull(x, y) to compute the convex hull of a set of points with argument x as coordinate vectors of points. 
+hulls <- ddply(z.sub, "Violation.Precinct", find_hull) # 
+ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
+
 
 plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
