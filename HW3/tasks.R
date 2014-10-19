@@ -1,18 +1,3 @@
-Skip to content
-This repository
-Explore
-Gist
-Blog
-Help
-jocelynayoga jocelynayoga
-
-5  Unwatch 
-Star 0
-Fork 0Sta523-Fa14/Team2 PRIVATE
-branch: master  Team2 / HW3 / tasks.R
-aw236aw236 18 hours ago More comments. Refined ggplot.
-2 contributors aw236dipeshgautam
-95 lines (80 sloc)  6.835 kb RawBlameHistory   
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
 check_packages(c("devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
@@ -106,4 +91,3 @@ ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Viola
 
 
 plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
-
