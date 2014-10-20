@@ -1,6 +1,6 @@
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
-check_packages(c('leafletR',"fields","devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
+check_packages(c('ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
 install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
 library(dplyr) # 
 
@@ -36,9 +36,9 @@ rm(park.full) # Improve speed by removing data set from memory.
 
 pl <- readOGR(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO") # Takes 2.5 minutes. Manhattan shapefile connecting property boundary polygons and addresses. 
 pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pl data frame.
-tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address)), pl$PolicePrct) # Add centroid coordinates and lowercase address of pl shapefile and police precinct.
+tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address))) # Add centroid coordinates and lowercase address of pl shapefile and police precinct.
 names(tax)[3] <- "addr" # Rename third column of tax data frame to addr.
-names(tax)[4] <- "Violation.Precinct" # Rename fourth column of tax data frame to Violation.Precinct.
+# names(tax)[4] <- "Violation.Precinct" # Rename fourth column of tax data frame to Violation.Precinct.
 # pl <- readShapeSpatial(paste0(base,"/pluto/Manhattan/","MNMapPLUTO"))
 # tax <- data.frame(addr=pl$Address, precinct= pl$PolicePrct, coordinates(pl))
 
@@ -98,34 +98,8 @@ ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Viola
 
 plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
-
-##geojson file plots the points but does not yet create polygons or boundaries
-require(sp)
 test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
 
-
-writeOGR(test.SP, 'precinct.json','precinct', driver='GeoJSON') #
-sp = readOGR('precinct.json', "OGRGeoJSON")
+writeOGR(test.SP, 'precinct.json','testMap', driver='GeoJSON')
+sp = readOGR('precinct.json', "OGRGeoJSON", verbose = FALSE)
 plot(sp)
-
-
-##geojson map attempt2 with interactive leaflet
-hullsTemp = as.data.frame(cbind(hulls$y,hulls$x,hulls$addr, hulls$Violation.Precinct))
-names(hullsTemp)= c("lat","long","addr","Precinct")
-sp.dat=toGeoJSON(hullsTemp, name='precinct')
-sp.style=  styleCat(prop="Precinct", val=levels(as.factor(hullsTemp$Precinct)),
-                    style.val=tim.colors(length(levels(as.factor(hullsTemp$Precinct)))), leg="Precinct")
-
-
-
-sp.map = leaflet(data=sp.ch, base.map="osm",style = sp.style,popup= c("Precinct", "addr"))
-
-sp.map
-
-###using convex hulls to draw boundaries
-
-plot(as.double(hullsTemp$long, hullsTemp$lat))
-hpts <- chull(hullsTemp$long, hullsTemp$lat)
-hpts <- c(hpts, hpts[1])
-lines(hullsTemp[hpts, ])
-
