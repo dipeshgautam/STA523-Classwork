@@ -36,7 +36,7 @@ rm(park.full) # Improve speed by removing data set from memory.
 
 pl <- readOGR(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO") # Takes 2.5 minutes. Manhattan shapefile connecting property boundary polygons and addresses. 
 pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pl data frame.
-tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address)), pl$PolicePrct) # Add centroid coordinates and lowercase address of pl shapefile.
+tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address)), pl$PolicePrct) # Add centroid coordinates and lowercase address of pl shapefile and police precinct.
 names(tax)[3] <- "addr" # Rename third column of tax data frame to addr.
 names(tax)[4] <- "Violation.Precinct" # Rename fourth column of tax data frame to Violation.Precinct.
 # pl <- readShapeSpatial(paste0(base,"/pluto/Manhattan/","MNMapPLUTO"))
@@ -75,7 +75,7 @@ addr$addr <- str_replace_all(addr$addr, "boradwya", "broadway")
 addr$addr <- str_replace_all(addr$addr, "th", "")
 
 z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data frames.
-z <- unique(z)
+z <- unique(z) # Get rid of duplicates
 # plot(z$y, z$x) # Plot centroids on map of Manhattan.
 # ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
 
@@ -95,4 +95,5 @@ ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Viola
 
 
 # plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
+
 
