@@ -1,6 +1,6 @@
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
-check_packages(c("devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
+check_packages(c('ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
 install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
 library(dplyr) # 
 
@@ -96,4 +96,10 @@ ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Viola
 
 # plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
+plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
+test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
+
+writeOGR(test.SP, 'precinct.json','testMap', driver='GeoJSON')
+sp = readOGR('precinct.json', "OGRGeoJSON", verbose = FALSE)
+plot(sp)
