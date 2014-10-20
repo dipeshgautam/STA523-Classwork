@@ -103,3 +103,38 @@ test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
 writeOGR(test.SP, 'precinct.json','testMap', driver='GeoJSON')
 sp = readOGR('precinct.json', "OGRGeoJSON", verbose = FALSE)
 plot(sp)
+
+##geojson file plots the points but does not yet create polygons or boundaries
+require(sp)
+test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
+
+
+writeOGR(test.SP, 'precinct.json','precinct', driver='GeoJSON') #
+sp = readOGR('precinct.json', "OGRGeoJSON")
+plot(sp)
+
+
+##geojson map attempt2 with interactive leaflet
+hullsTemp = as.data.frame(cbind(hulls$y,hulls$x,hulls$addr, hulls$Violation.Precinct))
+names(hullsTemp)= c("lat","long","addr","Precinct")
+sp.dat=toGeoJSON(hullsTemp, name='precinct')
+sp.style=  styleCat(prop="Precinct", val=levels(as.factor(hullsTemp$Precinct)),
+                    style.val=tim.colors(length(levels(as.factor(hullsTemp$Precinct)))), leg="Precinct")
+
+
+
+sp.map = leaflet(data=sp.dat, base.map="osm",style = sp.style,popup= c("Precinct", "addr"))
+
+sp.map
+
+###using convex hulls to draw boundaries
+
+plot(as.double(hullsTemp$long, hullsTemp$lat))
+hpts <- chull(hullsTemp$long, hullsTemp$lat)
+hpts <- c(hpts, hpts[1])
+lines(hullsTemp[hpts, ])
+
+
+
+
+
