@@ -6,13 +6,13 @@ library(dplyr) #
 
 base <- '/home/vis/cr173/Sta523/data/parking' # Set to Dr. Rundel's Saxon directory containing NYParking data
 # Small data set for testing.
-park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors = FALSE)) # Create subset for proof-of-concept testing
-addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation precincts less than or equal to precinct 34.
-  mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>% # Add new columns without white space.
-  filter(House.Number != "" & Street.Name != "") %>% # Pick rows without missing house numbers and street names.
-  filter(str_detect(House.Number,"[0-9]+")) %>% # Pick rows including house numbers with digits
-  transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>% # Create new data frame with variables.
-  mutate(addr = tolower(addr)) # Convert addr variable to lower case.
+# park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors = FALSE)) # Create subset for proof-of-concept testing
+# addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation precincts less than or equal to precinct 34.
+#   mutate(House.Number = str_trim(House.Number), Street.Name = str_trim(Street.Name)) %>% # Add new columns without white space.
+#   filter(House.Number != "" & Street.Name != "") %>% # Pick rows without missing house numbers and street names.
+#   filter(str_detect(House.Number,"[0-9]+")) %>% # Pick rows including house numbers with digits
+#   transmute(Violation.Precinct = Violation.Precinct, addr = paste(House.Number, Street.Name)) %>% # Create new data frame with variables.
+#   mutate(addr = tolower(addr)) # Convert addr variable to lower case.
 
 ## Full data.
 park.full <- tbl_df(fread(paste0(base,"/NYParkingViolations.csv"), stringsAsFactors = FALSE)) # Full data set using fread() for speed and convenience 
@@ -31,14 +31,15 @@ addr <- filter(park.full, Violation.Precinct <= 34) %>% # Send subset: park's vi
 
 # saveRDS(addr, ) # Save addr data frame locally.
 
-rm(park) # Improve speed by removing data set from memory.
+# rm(park) # Improve speed by removing data set from memory.
 rm(park.full) # Improve speed by removing data set from memory.
 
 pl <- readOGR(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO") # Takes 2.5 minutes. Manhattan shapefile connecting property boundary polygons and addresses. 
 pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pl data frame.
-tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address))) # Add centroid coordinates and lowercase address of pl shapefile.
+tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address)), pl$PolicePrct) # Add centroid coordinates and lowercase address of pl shapefile.
 names(tax)[3] <- "addr" # Rename third column of tax data frame to addr.
-# pl <- readShapeSpatial(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO")
+names(tax)[4] <- "Violation.Precinct" # Rename fourth column of tax data frame to Violation.Precinct.
+# pl <- readShapeSpatial(paste0(base,"/pluto/Manhattan/","MNMapPLUTO"))
 # tax <- data.frame(addr=pl$Address, precinct= pl$PolicePrct, coordinates(pl))
 
 ## Rename observations to follow arbitrary naming conventions and improve matches between tax and addr data frames.
@@ -74,13 +75,16 @@ addr$addr <- str_replace_all(addr$addr, "boradwya", "broadway")
 addr$addr <- str_replace_all(addr$addr, "th", "")
 
 z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data frames.
-plot(z$y, z$x) # Plot centroids on map of Manhattan.
-ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
+z <- unique(z)
+# plot(z$y, z$x) # Plot centroids on map of Manhattan.
+# ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
+
 police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 22, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14, Midtown No. Pct == 18, Central Park Pct == 22: see http://unhp.org/crg/indy-maps_police_mn.html
-police.precincts <- c(1, 5) # Testing purposes
+# police.precincts <- c(1, 5) # Testing purposes
+
 ## Plot police precincts.
 z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
-ggplot(data = z.sub, aes(x = x, y = y, colour = factor(Violation.Precinct))) + geom_point() + labs(x = "Longitude", y = "Latitude") # Reference: R Graphics Cookbook (254)
+# ggplot(data = z.sub, aes(x = x, y = y, colour = factor(Violation.Precinct))) + geom_point() + labs(x = "Longitude", y = "Latitude") # Reference: R Graphics Cookbook (254)
 # system.time(z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)))
 # sort(unique(z.sub$Violation.Precinct))
 
@@ -90,5 +94,5 @@ hulls <- ddply(z.sub, "Violation.Precinct", find_hull) #
 ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
 
 
-plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
+# plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
