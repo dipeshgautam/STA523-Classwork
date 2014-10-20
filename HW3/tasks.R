@@ -118,8 +118,14 @@ sp.style=  styleCat(prop="Precinct", val=levels(as.factor(hullsTemp$Precinct)),
 
 
 
-sp.map = leaflet(data=sp.dat, base.map="osm",style = sp.style,popup= c("Precinct", "addr"))
+sp.map = leaflet(data=sp.ch, base.map="osm",style = sp.style,popup= c("Precinct", "addr"))
 
 sp.map
 
+###using convex hulls to draw boundaries
+
+plot(as.double(hullsTemp$long, hullsTemp$lat))
+hpts <- chull(hullsTemp$long, hullsTemp$lat)
+hpts <- c(hpts, hpts[1])
+lines(hullsTemp[hpts, ])
 
