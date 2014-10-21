@@ -153,24 +153,26 @@ for (i in levels(as.factor(hulls$Violation.Precinct))){
               ",lst,"
             ]")
   geoFile=paste(geoFile,
-'{
+    '
+    {
       "type": "Feature",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
             ', lst,'
-         ]
+          ]
         },
         "properties": {
           "precinct":', i,'
         }
-    },
-    ', sep= "")
+    },', sep= "")
 }
-geoFile=substring(geoFile,1, nchar(geoFile)-6)         
+  
+geoFile=substring(geoFile,1, nchar(geoFile)-1)         
 geoFile=paste(geoFile,"
   ]
 }", sep= "")
+
 write(geoFile,'precinct.json')
 
 
