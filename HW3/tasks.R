@@ -98,36 +98,6 @@ ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Viola
 
 plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
-test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
-
-writeOGR(test.SP, 'precinct.json','testMap', driver='GeoJSON')
-sp = readOGR('precinct.json', "OGRGeoJSON", verbose = FALSE)
-plot(sp)
-
-##geojson file plots the points but does not yet create polygons or boundaries
-require(sp)
-test.SP = SpatialPointsDataFrame(hulls[,c(3,2)],hulls[,-c(3,2)])
-
-
-writeOGR(test.SP, 'precinct.json','precinct', driver='GeoJSON') #
-sp = readOGR('precinct.json', "OGRGeoJSON")
-plot(sp)
-
-
-##geojson map attempt2 with interactive leaflet
-hullsTemp = as.data.frame(cbind(hulls$y,hulls$x,hulls$addr, hulls$Violation.Precinct))
-names(hullsTemp)= c("lat","long","addr","Precinct")
-sp.dat=toGeoJSON(hullsTemp, name='precinct')
-sp.style=  styleCat(prop="Precinct", val=levels(as.factor(hullsTemp$Precinct)),
-                    style.val=tim.colors(length(levels(as.factor(hullsTemp$Precinct)))), leg="Precinct")
-
-
-
-sp.map = leaflet(data=sp.dat, base.map="osm",style = sp.style,popup= c("Precinct", "addr"))
-
-sp.map
-
-
 ##creating geojson boundaries
 for (i in levels(as.factor(hulls$Violation.Precinct))){
   precName = paste("p",i, sep= "")
@@ -173,4 +143,13 @@ geoFile=paste(geoFile,"
   ]
 }", sep= "")
 
-write(geoFile,'precinct.json')
+write(geoFile,'precinct.geojson')
+
+
+##Create interactive leaflet to differentiate between the precincts
+sp.style=  styleCat(prop="precinct", val=levels(as.factor(hulls$Violation.Precinct)),
+                    style.val=tim.colors(length(levels(as.factor(hulls$Violation.Precinct)))), leg="Precinct")
+
+sp.map = leaflet(data="precinct.geojson", base.map="osm",style = sp.style,popup= c("precinct"))
+
+sp.map
