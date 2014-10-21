@@ -127,14 +127,53 @@ sp.map = leaflet(data=sp.dat, base.map="osm",style = sp.style,popup= c("Precinct
 
 sp.map
 
-###using convex hulls to draw boundaries
 
-plot(as.double(hullsTemp$long, hullsTemp$lat))
-hpts <- chull(hullsTemp$long, hullsTemp$lat)
-hpts <- c(hpts, hpts[1])
-lines(hullsTemp[hpts, ])
+##creating geojson boundaries
+for (i in levels(as.factor(hulls$Violation.Precinct))){
+  precName = paste("p",i, sep= "")
+  assign(precName, list())
+  for (j in 1:nrow(hulls)){
+    if (hulls$Violation.Precinct[j]==i){
+      toAdd =paste('[',hulls$x[j],",",hulls$y[j],']', sep = "")
+      lst = get(precName)
+      lst[[length(lst)+1]] <- toAdd
+      assign(precName, lst)
+    }
+  }
+}
+
+geoFile = ""
+for (i in levels(as.factor(hulls$Violation.Precinct))){
+  precName = paste("p",i, sep= "")
+  lst = get(precName)
+  lst = paste(unlist(lst), collapse=",")
+  lst = paste("[
+              ",lst,"
+          ]")
+  geoFile=paste(geoFile,
+'{
+"type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Precinct": ', i,'
+     },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          ',lst,'
+        ]
+      }
+    },
+',sep = "")
+  
+}
+
+write(geoFile,'precinct.json')
 
 
-
-
-
+writeOGR(geoFile,'precinct.json','precinct', driver='GeoJSON') 
+sp = readLines('precinct.json')
+sp = readOGR('precinct.json', "OGRGeoJSON")
+plot(sp)
