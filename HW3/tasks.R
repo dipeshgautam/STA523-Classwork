@@ -150,6 +150,6 @@ write(geoFile,'precinct.geojson')
 sp.style=  styleCat(prop="precinct", val=levels(as.factor(hulls$Violation.Precinct)),
                     style.val=tim.colors(length(levels(as.factor(hulls$Violation.Precinct)))), leg="Precinct")
 
-sp.map = leaflet(data="precinct.geojson", base.map="osm",style = sp.style,popup= c("precinct"))
+sp.map = leaflet(data="precinct.geojson",base.map="osm",style = sp.style,popup= c("precinct"))
 
 sp.map
