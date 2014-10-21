@@ -169,7 +169,7 @@ for (i in levels(as.factor(hulls$Violation.Precinct))){
 ',sep = "")
   
 }
-
+geoFile=substring(geoFile,1, nchar(geoFile)-2)
 write(geoFile,'precinct.json')
 
 
@@ -177,3 +177,10 @@ writeOGR(geoFile,'precinct.json','precinct', driver='GeoJSON')
 sp = readLines('precinct.json')
 sp = readOGR('precinct.json', "OGRGeoJSON")
 plot(sp)
+
+fullGeo = data.frame(precinct= numeric(), coordinates = character())
+  
+  
+for (i in levels(as.factor(hulls$Violation.Precinct))){
+  fullGeo = cbind(fullGeo,paste(unlist(p1), collapse=","))
+}
