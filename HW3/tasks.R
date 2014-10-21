@@ -142,34 +142,35 @@ for (i in levels(as.factor(hulls$Violation.Precinct))){
   }
 }
 
-geoFile = ""
+geoFile = '{
+  "type": "FeatureCollection",
+  "features": ['
 for (i in levels(as.factor(hulls$Violation.Precinct))){
   precName = paste("p",i, sep= "")
   lst = get(precName)
   lst = paste(unlist(lst), collapse=",")
   lst = paste("[
               ",lst,"
-          ]")
+            ]")
   geoFile=paste(geoFile,
 '{
-"type": "FeatureCollection",
-  "features": [
-    {
       "type": "Feature",
-      "properties": {
-        "Precinct": ', i,'
-     },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
-          ',lst,'
-        ]
-      }
+            ', lst,'
+         ]
+        },
+        "properties": {
+          "precinct":', i,'
+        }
     },
-',sep = "")
-  
+    ', sep= "")
 }
-geoFile=substring(geoFile,1, nchar(geoFile)-2)
+geoFile=substring(geoFile,1, nchar(geoFile)-6)         
+geoFile=paste(geoFile,"
+  ]
+}", sep= "")
 write(geoFile,'precinct.json')
 
 
