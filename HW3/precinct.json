@@ -13,6 +13,7 @@
         },
         "properties": {
           "precinct":1
+          "color": 1
         }
     },
     {
@@ -27,6 +28,7 @@
         },
         "properties": {
           "precinct":5
+          "color": 5
         }
     },
     {
@@ -41,6 +43,7 @@
         },
         "properties": {
           "precinct":6
+          "color": 6
         }
     },
     {
@@ -55,6 +58,7 @@
         },
         "properties": {
           "precinct":7
+          "color": 7
         }
     },
     {
@@ -69,6 +73,7 @@
         },
         "properties": {
           "precinct":9
+          "color": 9
         }
     },
     {
@@ -83,6 +88,7 @@
         },
         "properties": {
           "precinct":10
+          "color": 10
         }
     },
     {
@@ -97,6 +103,7 @@
         },
         "properties": {
           "precinct":13
+          "color": 13
         }
     },
     {
@@ -111,6 +118,7 @@
         },
         "properties": {
           "precinct":14
+          "color": 14
         }
     },
     {
@@ -125,6 +133,7 @@
         },
         "properties": {
           "precinct":17
+          "color": 17
         }
     },
     {
@@ -139,6 +148,7 @@
         },
         "properties": {
           "precinct":18
+          "color": 18
         }
     },
     {
@@ -153,6 +163,7 @@
         },
         "properties": {
           "precinct":19
+          "color": 19
         }
     },
     {
@@ -167,6 +178,7 @@
         },
         "properties": {
           "precinct":20
+          "color": 20
         }
     },
     {
@@ -181,6 +193,7 @@
         },
         "properties": {
           "precinct":22
+          "color": 22
         }
     },
     {
@@ -195,6 +208,7 @@
         },
         "properties": {
           "precinct":23
+          "color": 23
         }
     },
     {
@@ -209,6 +223,7 @@
         },
         "properties": {
           "precinct":24
+          "color": 24
         }
     },
     {
@@ -223,6 +238,7 @@
         },
         "properties": {
           "precinct":25
+          "color": 25
         }
     },
     {
@@ -237,6 +253,7 @@
         },
         "properties": {
           "precinct":26
+          "color": 26
         }
     },
     {
@@ -251,6 +268,7 @@
         },
         "properties": {
           "precinct":28
+          "color": 28
         }
     },
     {
@@ -265,6 +283,7 @@
         },
         "properties": {
           "precinct":30
+          "color": 30
         }
     },
     {
@@ -279,6 +298,7 @@
         },
         "properties": {
           "precinct":32
+          "color": 32
         }
     },
     {
@@ -293,6 +313,7 @@
         },
         "properties": {
           "precinct":33
+          "color": 33
         }
     },
     {
@@ -307,6 +328,7 @@
         },
         "properties": {
           "precinct":34
+          "color": 34
         }
     }
   ]
