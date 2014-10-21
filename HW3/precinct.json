@@ -12,7 +12,8 @@
           ]
         },
         "properties": {
-          "precinct":1
+          "precinct":1,
+          "color": "black,"
         }
     },
     {
@@ -26,7 +27,8 @@
           ]
         },
         "properties": {
-          "precinct":5
+          "precinct":5,
+          "color": "black,"
         }
     },
     {
@@ -40,7 +42,8 @@
           ]
         },
         "properties": {
-          "precinct":6
+          "precinct":6,
+          "color": "black,"
         }
     },
     {
@@ -54,7 +57,8 @@
           ]
         },
         "properties": {
-          "precinct":7
+          "precinct":7,
+          "color": "black,"
         }
     },
     {
@@ -68,7 +72,8 @@
           ]
         },
         "properties": {
-          "precinct":9
+          "precinct":9,
+          "color": "black,"
         }
     },
     {
@@ -82,7 +87,8 @@
           ]
         },
         "properties": {
-          "precinct":10
+          "precinct":10,
+          "color": "black,"
         }
     },
     {
@@ -96,7 +102,8 @@
           ]
         },
         "properties": {
-          "precinct":13
+          "precinct":13,
+          "color": "black,"
         }
     },
     {
@@ -110,7 +117,8 @@
           ]
         },
         "properties": {
-          "precinct":14
+          "precinct":14,
+          "color": "black,"
         }
     },
     {
@@ -124,7 +132,8 @@
           ]
         },
         "properties": {
-          "precinct":17
+          "precinct":17,
+          "color": "black,"
         }
     },
     {
@@ -138,7 +147,8 @@
           ]
         },
         "properties": {
-          "precinct":18
+          "precinct":18,
+          "color": "black,"
         }
     },
     {
@@ -152,7 +162,8 @@
           ]
         },
         "properties": {
-          "precinct":19
+          "precinct":19,
+          "color": "black,"
         }
     },
     {
@@ -166,7 +177,8 @@
           ]
         },
         "properties": {
-          "precinct":20
+          "precinct":20,
+          "color": "black,"
         }
     },
     {
@@ -180,7 +192,8 @@
           ]
         },
         "properties": {
-          "precinct":22
+          "precinct":22,
+          "color": "black,"
         }
     },
     {
@@ -194,7 +207,8 @@
           ]
         },
         "properties": {
-          "precinct":23
+          "precinct":23,
+          "color": "black,"
         }
     },
     {
@@ -208,7 +222,8 @@
           ]
         },
         "properties": {
-          "precinct":24
+          "precinct":24,
+          "color": "black,"
         }
     },
     {
@@ -222,7 +237,8 @@
           ]
         },
         "properties": {
-          "precinct":25
+          "precinct":25,
+          "color": "black,"
         }
     },
     {
@@ -236,7 +252,8 @@
           ]
         },
         "properties": {
-          "precinct":26
+          "precinct":26,
+          "color": "black,"
         }
     },
     {
@@ -250,7 +267,8 @@
           ]
         },
         "properties": {
-          "precinct":28
+          "precinct":28,
+          "color": "black,"
         }
     },
     {
@@ -264,7 +282,8 @@
           ]
         },
         "properties": {
-          "precinct":30
+          "precinct":30,
+          "color": "black,"
         }
     },
     {
@@ -278,7 +297,8 @@
           ]
         },
         "properties": {
-          "precinct":32
+          "precinct":32,
+          "color": "black,"
         }
     },
     {
@@ -292,7 +312,8 @@
           ]
         },
         "properties": {
-          "precinct":33
+          "precinct":33,
+          "color": "black,"
         }
     },
     {
@@ -306,7 +327,8 @@
           ]
         },
         "properties": {
-          "precinct":34
+          "precinct":34,
+          "color": "black,"
         }
     }
   ]
