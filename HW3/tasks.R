@@ -164,7 +164,6 @@ for (i in levels(as.factor(hulls$Violation.Precinct))){
         },
         "properties": {
           "precinct":', i,',
-          "color":', '"green",','
         }
     },', sep= "")
 }
