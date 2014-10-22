@@ -88,15 +88,81 @@ z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subs
 # system.time(z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)))
 # sort(unique(z.sub$Violation.Precinct))
 
+# z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
+
+z.final <- NULL
+for (p in 1:length(police.precincts)){
+  k <- police.precincts[p]
+  z1 <- z.sub[z.sub$Violation.Precinct==k,]
+  z1 <- z1[z1$x > quantile(z1$x,.005) & z1$x < quantile(z1$x,.995) &
+             z1$y > quantile(z1$y,.005) & z1$y < quantile(z1$y,.995),]
+  z.final <- rbind(z.final, z1)
+}
+z.sub <- z.final
+
+
+N <- 33
+for(n in 1:N){
+  
+  z.final <- NULL
+  
+  for (l in 1:length(police.precincts)){
+    k <- police.precincts[l]
+    cat(n, k, "\n")
+    ## Subset the precinct we're looking at
+    z1 <- z.sub[z.sub$Violation.Precinct==k,]
+    ## Remove .5% outliers in each direction
+    #     z1 <- z1[z1$x > quantile(z1$x,.005) & z1$x < quantile(z1$x,.995) &
+    #                z1$y > quantile(z1$y,.005) & z1$y < quantile(z1$y,.995),]
+    
+    ## Check if the any points are within inner central 10-20th percentile of any of the other precincts
+    z1.rejected.outliers <- NULL
+    police.prct=police.precincts[-l]
+    for ( j in 1:length(police.prct)){
+      z.p <- z.sub[z.sub$Violation.Precinct==police.prct[j],]
+      z1.rejected.outliers <- rbind(z1.rejected.outliers, 
+                                    z1[z1$x > quantile(z.p$x, (.35-.01*(n-1))) & z1$x < quantile(z.p$x, (.65+.01*(n-1))) &
+                                         z1$y > quantile(z.p$y, (.35-.01*(n-1))) & z1$y < quantile(z.p$y, (.65+.01*(n-1))),])
+    }
+    ## Get rid of potential outliers that happened to be within inner 10th-20th percentile of at least one other precinct
+    z1.rejected.outliers <- unique(z1.rejected.outliers)
+    z1.final <- setdiff(z1, z1.rejected.outliers)
+    #     z.final <-rbind(z.final, z1.final)   
+    z.without.k <- setdiff(z.sub, z1)
+    z.with.cleaned.k <- union(z.without.k, z1.final)
+    z.sub <- z.with.cleaned.k
+    
+  }
+  #   z.sub <- z.final
+}
+
+
+z.final <- NULL
+for (p in 1:length(police.precincts)){
+  k <- police.precincts[p]
+  z1 <- z.sub[z.sub$Violation.Precinct==k,]
+  z1 <- z1[z1$x > quantile(z1$x,.02) & z1$x < quantile(z1$x,.98) &
+             z1$y > quantile(z1$y,.02) & z1$y < quantile(z1$y,.98),]
+  z.final <- rbind(z.final, z1)
+}
+
+z.sub1 <- z.final
+
+
 ## chull() calculates the center of a set of points, then finds the furthest points. This gives a convex hull.
 find_hull <- function(z) z[chull(z$x, z$y), ] # Create find_hull function using chull(x, y) to compute the convex hull of a set of points with argument x as coordinate vectors of points. 
-hulls <- ddply(z.sub, "Violation.Precinct", find_hull) # 
-ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
+hulls <- ddply(z.sub1, "Violation.Precinct", find_hull) # 
 
+
+# ## chull() calculates the center of a set of points, then finds the furthest points. This gives a convex hull.
+# find_hull <- function(z) z[chull(z$x, z$y), ] # Create find_hull function using chull(x, y) to compute the convex hull of a set of points with argument x as coordinate vectors of points. 
+# hulls <- ddply(z.sub, "Violation.Precinct", find_hull) # 
+# ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
+# 
 
 # plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
-plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
+# plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
 
 ##creating geojson boundaries
 for (i in levels(as.factor(hulls$Violation.Precinct))){
