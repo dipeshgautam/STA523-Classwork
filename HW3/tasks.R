@@ -75,7 +75,7 @@ addr$addr <- str_replace_all(addr$addr, "boradwya", "broadway")
 addr$addr <- str_replace_all(addr$addr, "th", "")
 
 z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data frames.
-z <- unique(z) # Get rid of duplicates
+# z <- unique(z) # Get rid of duplicates
 # plot(z$y, z$x) # Plot centroids on map of Manhattan.
 # ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point()
 
@@ -83,12 +83,8 @@ police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 22, 23, 24, 25,
 # police.precincts <- c(1, 5) # Testing purposes
 
 ## Plot police precincts.
-z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
-# ggplot(data = z.sub, aes(x = x, y = y, colour = factor(Violation.Precinct))) + geom_point() + labs(x = "Longitude", y = "Latitude") # Reference: R Graphics Cookbook (254)
-# system.time(z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)))
-# sort(unique(z.sub$Violation.Precinct))
 
-# z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
+z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
 
 z.final <- NULL
 for (p in 1:length(police.precincts)){
@@ -99,6 +95,7 @@ for (p in 1:length(police.precincts)){
   z.final <- rbind(z.final, z1)
 }
 z.sub <- z.final
+
 
 
 N <- 33
@@ -124,7 +121,7 @@ for(n in 1:N){
                                     z1[z1$x > quantile(z.p$x, (.35-.01*(n-1))) & z1$x < quantile(z.p$x, (.65+.01*(n-1))) &
                                          z1$y > quantile(z.p$y, (.35-.01*(n-1))) & z1$y < quantile(z.p$y, (.65+.01*(n-1))),])
     }
-    ## Get rid of potential outliers that happened to be within inner 10th-20th percentile of at least one other precinct
+    ## Get rid of potential outliers that happened to be within certain increasing percentile of at least one other precinct
     z1.rejected.outliers <- unique(z1.rejected.outliers)
     z1.final <- setdiff(z1, z1.rejected.outliers)
     #     z.final <-rbind(z.final, z1.final)   
@@ -153,17 +150,6 @@ z.sub1 <- z.final
 find_hull <- function(z) z[chull(z$x, z$y), ] # Create find_hull function using chull(x, y) to compute the convex hull of a set of points with argument x as coordinate vectors of points. 
 hulls <- ddply(z.sub1, "Violation.Precinct", find_hull) # 
 
-
-# ## chull() calculates the center of a set of points, then finds the furthest points. This gives a convex hull.
-# find_hull <- function(z) z[chull(z$x, z$y), ] # Create find_hull function using chull(x, y) to compute the convex hull of a set of points with argument x as coordinate vectors of points. 
-# hulls <- ddply(z.sub, "Violation.Precinct", find_hull) # 
-# ggplot(data = z.sub, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls over points.
-# 
-
-# plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
-
-# plot <- ggplot(data = z, aes(x = x, y = y, colour = Violation.Precinct, fill = Violation.Precinct)) + geom_polygon(data = hulls, alpha = 0.5) + labs(x = "Longitude", y = "Latitude") # Plot hulls without points.
-
 ##creating geojson boundaries
 for (i in levels(as.factor(hulls$Violation.Precinct))){
   precName = paste("p",i, sep= "")
@@ -179,34 +165,34 @@ for (i in levels(as.factor(hulls$Violation.Precinct))){
 }
 
 geoFile = '{
-  "type": "FeatureCollection",
-  "features": ['
+"type": "FeatureCollection",
+"features": ['
 for (i in levels(as.factor(hulls$Violation.Precinct))){
   precName = paste("p",i, sep= "")
   lst = get(precName)
   lst = paste(unlist(lst), collapse=",")
   lst = paste("[
               ",lst,"
-            ]")
+              ]")
   geoFile=paste(geoFile,
-    '
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-            ', lst,'
-          ]
-        },
-        "properties": {
-          "precinct":', i,'
-        }
-    },', sep= "")
+                '
+{
+                "type": "Feature",
+                "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                ', lst,'
+                ]
+                },
+                "properties": {
+                "precinct":', i,'
+                }
+},', sep= "")
 }
-  
+
 geoFile=substring(geoFile,1, nchar(geoFile)-1)         
 geoFile=paste(geoFile,"
-  ]
+              ]
 }", sep= "")
 
 write(geoFile,'precinct.geojson')
