@@ -205,3 +205,35 @@ sp.style=  styleCat(prop="precinct", val=levels(as.factor(hulls$Violation.Precin
 sp.map = leaflet(data="precinct.geojson",base.map="osm",style = sp.style,popup= c("precinct"))
 
 sp.map
+
+###SVM
+k = svm(as.factor(Violation.Precinct)~., data=hulls,cross=10)
+plot(k,data=hulls)
+
+##rastorize
+nybb = readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",stringsAsFactors=FALSE)
+manh = nybb[2,]
+
+r = rasterize(manh, raster(ncols=500,nrows=1000,ext=extent(bbox(manh))))
+
+cells = which(!is.na(r[]))
+crds = xyFromCell(r,cells)
+
+z = predict(k,crds)
+
+r[cells] = as.numeric(as.character(z))
+
+dist = sort(unique(hulls$Violation.Precinct))
+
+l=list()
+for(i in seq_along(dist))
+{
+  l[[i]] = rasterToPolygons(r, function(x) x==dist[i], dissolve=TRUE)
+  l[[i]]@polygons[[1]]@ID = as.character(dist[i])
+  rownames(l[[i]]@data) = dist[i]
+  colnames(l[[i]]@data) = "Violation.Precinct"
+}
+
+pd = do.call(rbind, l)
+writeOGR(pd, "./out", "", driver="GeoJSON")
+file.rename("./out", "./precinct_svm.json")
