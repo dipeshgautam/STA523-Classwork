@@ -1,6 +1,7 @@
 {
 "type": "FeatureCollection",
 "features": [
+<<<<<<< HEAD
 {
                 "type": "Feature",
                 "geometry": {
@@ -297,3 +298,509 @@
 }
               ]
 }
+=======
+{ "type": "Feature", "properties": { "addr": "453 f d r dr", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.712951, -73.978983 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "42 s st", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.709912, -73.982378 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 s st", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.700941, -74.014385 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "22 battery pl", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.704365, -74.018053 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "50 battery pl", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.706668, -74.018161 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "21 s end ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.708313, -74.018117 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "380 rector pl", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.709078, -74.018060 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 n end ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.714531, -74.016907 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "164 11 ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.748266, -74.007108 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "491 11 ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.758927, -74.000320 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "450 w end ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.785974, -73.979571 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "115 e 91 st", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.783232, -73.953975 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1582 3 ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.780795, -73.952950 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1538 2 ave", "Violation.Precinct": 1 }, "geometry": { "type": "Point", "coordinates": [ 40.773990, -73.954175 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "453 f d r dr", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.712951, -73.978983 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 s st", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.700941, -74.014385 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "225 rector pl", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.709501, -74.015944 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "542 w 22 st", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.747648, -74.006726 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "3488 broadway", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.824784, -73.951147 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "58 e 132 st", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.809534, -73.936542 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "176 e 116 st", "Violation.Precinct": 5 }, "geometry": { "type": "Point", "coordinates": [ 40.797880, -73.940872 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "230 ave c", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.728060, -73.973653 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "143 ave d", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.724837, -73.975496 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "327 e 3 st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.720894, -73.978421 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "305 madison st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.713498, -73.984434 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "80 rutgers slip", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.710804, -73.990189 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "55 water st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.703185, -74.009151 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "39 whitehall st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.702937, -74.012678 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "55 battery pl", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.706372, -74.017451 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "70 battery pl", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.707302, -74.017702 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "300 rector pl", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.708911, -74.017547 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "601 w 26 st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.751584, -74.006554 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "261 11 ave", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.752238, -74.006193 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "620 w 152 st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.831237, -73.948730 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1970 amsterdam ave", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.833303, -73.942110 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "56 e 130 st", "Violation.Precinct": 6 }, "geometry": { "type": "Point", "coordinates": [ 40.808428, -73.937802 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "123 mangin st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.718276, -73.976092 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "453 f d r dr", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.712951, -73.978983 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "645 water st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.711177, -73.982027 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "125 broad st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.702268, -74.010606 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "17 state st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.702892, -74.013878 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "70 battery pl", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.707302, -74.017702 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "380 rector pl", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.709078, -74.018060 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "377 rector pl", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.709853, -74.017890 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "281 11 ave", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.752900, -74.005834 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "69 cooper st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.868050, -73.922340 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "430 e 72 st", "Violation.Precinct": 7 }, "geometry": { "type": "Point", "coordinates": [ 40.766917, -73.954633 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "421 e 91 st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.779664, -73.945504 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1643 york ave", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.776562, -73.947017 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "453 f d r dr", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.712951, -73.978983 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "33 whitehall st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.703385, -74.012680 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2 s end ave", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.707923, -74.017243 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "281 11 ave", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.752900, -74.005834 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "30 cooper st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.867778, -73.924361 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "46 cooper st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.868127, -73.923396 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "69 cooper st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.868050, -73.922340 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "211 e 115 st", "Violation.Precinct": 9 }, "geometry": { "type": "Point", "coordinates": [ 40.797182, -73.939708 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "143 ave d", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.724837, -73.975496 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "40 ave c", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.721784, -73.980209 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "225 broadway", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.711992, -74.008650 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "125 barclay st", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.714575, -74.012951 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "12 ave", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.753137, -74.008056 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "12 ave", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.753753, -74.007811 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "12 ave", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.756576, -74.005917 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "12 ave", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.842445, -73.946997 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "210 w 145 st", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.821704, -73.939996 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "45 e end ave", "Violation.Precinct": 10 }, "geometry": { "type": "Point", "coordinates": [ 40.771753, -73.946594 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "275 delancey st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.715478, -73.980517 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "80 broad st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.704311, -74.011850 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 broadway", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.704950, -74.014452 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "391 w st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.732835, -74.009977 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "110 horatio st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.738577, -74.008984 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "601 w 26 st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.751584, -74.006554 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "261 11 ave", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.752238, -74.006193 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 river pl", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.761273, -74.000465 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "127 riverside dr", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.789040, -73.980641 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "150 w 130 st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.811475, -73.945037 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "20 w 130 st", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.809821, -73.941106 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2305 3 ave", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.803768, -73.935445 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2070 1 ave", "Violation.Precinct": 13 }, "geometry": { "type": "Point", "coordinates": [ 40.790886, -73.937681 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "230 ave c", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.728060, -73.973653 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "74 broad st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.704647, -74.011824 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "90 washington st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.708074, -74.014847 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "200 w st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.714726, -74.014441 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "181 11 ave", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.749446, -74.007285 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "261 11 ave", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.752238, -74.006193 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "281 11 ave", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.752900, -74.005834 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "647 w 42 st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.761853, -74.000025 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "350 w 71 st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.779657, -73.986870 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "570 w 204 st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.864345, -73.921758 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "900 main st", "Violation.Precinct": 14 }, "geometry": { "type": "Point", "coordinates": [ 40.770386, -73.941998 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "402 e 10 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.725510, -73.977258 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "225 e 2 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.721469, -73.982678 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "75 maiden ln", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.707760, -74.007437 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "25 broadway", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.705762, -74.014000 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "551 w 22 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.748119, -74.006746 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "647 w 42 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.761853, -74.000025 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 w 63 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.774326, -73.990290 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "11 riverside dr", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.781127, -73.984492 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "251 w 97 st", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.795837, -73.971907 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "110 convent ave", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.817205, -73.952630 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2407 2 ave", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.801860, -73.934616 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2327 1 ave", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.798232, -73.934188 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2270 1 ave", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.796338, -73.934770 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "200 e end ave", "Violation.Precinct": 17 }, "geometry": { "type": "Point", "coordinates": [ 40.777343, -73.943523 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "92 ludlow st", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.718387, -73.988958 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2 broadway", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.704502, -74.012643 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "450 n end ave", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.717148, -74.013680 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "261 11 ave", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.752238, -74.006193 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 river pl", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.761273, -74.000465 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "131 riverside dr", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.789317, -73.980401 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "700 w 180 st", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.849457, -73.936986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2413 2 ave", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.802043, -73.934483 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "530 e 89 st", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.777103, -73.944511 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "523 e 72 st", "Violation.Precinct": 18 }, "geometry": { "type": "Point", "coordinates": [ 40.766494, -73.952110 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "900 main st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.770386, -73.941998 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "510 main st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.761885, -73.948774 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "242 e 3 st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.721836, -73.981590 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2 2 ave", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.723518, -73.989639 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "139 mac dougal st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.730886, -74.000028 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "11 8 ave", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.737732, -74.004957 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "452 w 19 st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.744821, -74.005536 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "617 11 ave", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.763283, -73.996931 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "342 w 71 st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.779513, -73.986570 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "829 w 181 st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.851632, -73.939783 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1495 st nicholas ave", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.851709, -73.932593 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "326 audubon ave", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.849048, -73.932422 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "520 e 119 st", "Violation.Precinct": 19 }, "geometry": { "type": "Point", "coordinates": [ 40.796334, -73.930782 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "11 allen st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.714942, -73.993000 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "79 division st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.714144, -73.993789 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "57 e broadway", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.713415, -73.995358 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "26 broadway", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.705428, -74.012901 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 broadway", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.704950, -74.014452 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "200 vesey st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.713535, -74.014865 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "281 11 ave", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.752900, -74.005834 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1 river pl", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.761273, -74.000465 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "698 w 135 st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.821232, -73.958873 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "4761 broadway", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.865995, -73.926971 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "4915 broadway", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.867691, -73.922276 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "403 e 118 st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.797264, -73.933945 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "200 e end ave", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.777343, -73.943523 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "530 e 76 st", "Violation.Precinct": 20 }, "geometry": { "type": "Point", "coordinates": [ 40.768188, -73.950085 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "405 e 56 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.757504, -73.962518 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "159 w 25 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.745300, -73.993936 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "229 w 26 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.746785, -73.995549 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "205 w end ave", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.778456, -73.986559 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "137 riverside dr", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.789585, -73.980254 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "3875 broadway", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.837152, -73.943113 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "7 w 137 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.814510, -73.937196 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1901 park ave", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.807748, -73.936558 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "177 e 123 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.802811, -73.937168 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "307 e 101 st", "Violation.Precinct": 22 }, "geometry": { "type": "Point", "coordinates": [ 40.787192, -73.943161 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "240 1 ave", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.731724, -73.977895 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "510 e 13 st", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.729280, -73.980390 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "22 1 ave", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.723540, -73.987857 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "577 broadway", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.724763, -73.997942 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "554 w 28 st", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.751623, -74.004349 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "715 w 170 st", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.843970, -73.942399 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "521 w 175 st", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.844918, -73.934654 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "520 e 119 st", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.796334, -73.930782 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "45 e end ave", "Violation.Precinct": 23 }, "geometry": { "type": "Point", "coordinates": [ 40.771753, -73.946594 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "421 e 118 st", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.797083, -73.933442 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1590 york ave", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.774337, -73.947936 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "630 e 6 st", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.723750, -73.980456 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "26 broadway", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.705428, -74.012901 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "698 w 135 st", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.821232, -73.958873 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "9 sherman ave", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.862225, -73.928816 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "620 isham st", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.869212, -73.920907 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5009 broadway", "Violation.Precinct": 24 }, "geometry": { "type": "Point", "coordinates": [ 40.869405, -73.917207 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "170 e end ave", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.776086, -73.944432 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "615 e 6 st", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.724292, -73.980605 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "57 e broadway", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.713415, -73.995358 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "100 william st", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.708348, -74.007198 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "233 broadway", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.712458, -74.008327 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "30 seaman ave", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.867121, -73.927232 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5063 broadway", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.870566, -73.915493 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5060 broadway", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.869998, -73.915233 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "535 e 119 st", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.796864, -73.930484 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "524 e 119 st", "Violation.Precinct": 25 }, "geometry": { "type": "Point", "coordinates": [ 40.796267, -73.930622 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "7 allen st", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.714809, -73.993069 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "258 broadway", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.713677, -74.007324 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "807 washington st", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.739018, -74.007804 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "500 w 23 st", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.747543, -74.004687 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1051 riverside dr", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.842213, -73.944648 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "112 haven ave", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.845031, -73.942592 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "66 vermilyea ave", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.865919, -73.923825 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5060 broadway", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.869998, -73.915233 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "304 pleasant ave", "Violation.Precinct": 26 }, "geometry": { "type": "Point", "coordinates": [ 40.795162, -73.932724 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "56 2 ave", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.725638, -73.989511 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "550 broadway", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.723547, -73.997996 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "327 w 12 st", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.737696, -74.006279 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1051 riverside dr", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.842213, -73.944648 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1634 st nicholas ave", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.855909, -73.928501 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "328 pleasant ave", "Violation.Precinct": 28 }, "geometry": { "type": "Point", "coordinates": [ 40.796141, -73.932001 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2134 3 ave", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.798403, -73.940040 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "26 st marks pl", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.728765, -73.988732 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "346 broadway", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.716371, -74.003384 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "311 broadway", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.715648, -74.005459 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "452 w 19 st", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.744821, -74.005536 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "620 w 52 st", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.767490, -73.995161 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "880 w 181 st", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.851360, -73.941973 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1815 riverside dr", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.866088, -73.929266 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "80 seaman ave", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.868383, -73.925335 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "254 seaman ave", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.872042, -73.918361 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5073 broadway", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.870772, -73.915176 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "163 e 125 st", "Violation.Precinct": 30 }, "geometry": { "type": "Point", "coordinates": [ 40.804319, -73.936499 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "27 e 3 st", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.725962, -73.990258 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 broadway", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.718586, -74.002176 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "365 broadway", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.717720, -74.003790 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "40 8 ave", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.738035, -74.003999 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5 riverside dr", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.780739, -73.985110 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "880 w 181 st", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.851360, -73.941973 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "119 payson ave", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.868409, -73.925784 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "571 w 215 st", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.871768, -73.918640 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "510 w 218 st", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.871221, -73.914821 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2413 2 ave", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.802043, -73.934483 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "316 e 117 st", "Violation.Precinct": 32 }, "geometry": { "type": "Point", "coordinates": [ 40.797109, -73.936513 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1888 park ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.807403, -73.937752 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1815 park ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.804702, -73.938826 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1998 3 ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.794068, -73.943250 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "684 broadway", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.727800, -73.994316 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "462 broadway", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.720807, -74.000090 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "26 broadway", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.705428, -74.012901 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "1326 riverside dr", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.850617, -73.942517 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "880 w 181 st", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.851360, -73.941973 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "79 payson ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.867611, -73.927080 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "115 payson ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.868301, -73.926092 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "222 seaman ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.871367, -73.919233 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5057 broadway", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.870400, -73.915655 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5060 broadway", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.869998, -73.915233 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "3835 9 ave", "Violation.Precinct": 33 }, "geometry": { "type": "Point", "coordinates": [ 40.862593, -73.917509 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "332 e 106 st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.789838, -73.941302 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "266 e 10 st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.728215, -73.983671 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "23 allen st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.715642, -73.992642 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "42 broadway", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.705989, -74.012594 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "39 broadway", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.706344, -74.013428 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "10 ave", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.740908, -74.008672 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "532 w 20 st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.746264, -74.007167 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "400 riverside dr", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.779466, -73.988986 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "348 dyckman st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.868759, -73.932018 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "600 w 218 st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.872644, -73.918395 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "501 w 218 st", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.873110, -73.915488 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "5141 broadway", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.873228, -73.912945 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "4168 9 ave", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.872417, -73.911679 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "4095 9 ave", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.870938, -73.911333 ] } }
+,
+{ "type": "Feature", "properties": { "addr": "2407 2 ave", "Violation.Precinct": 34 }, "geometry": { "type": "Point", "coordinates": [ 40.801860, -73.934616 ] } }
+
+]
+}
+>>>>>>> 71ba1dc517f60c44424042e92f9ec18ac9596569
