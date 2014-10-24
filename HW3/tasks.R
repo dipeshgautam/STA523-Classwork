@@ -82,6 +82,11 @@ z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data f
 police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 22, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14, Midtown No. Pct == 18, Central Park Pct == 22: see http://unhp.org/crg/indy-maps_police_mn.html
 # police.precincts <- c(1, 5) # Testing purposes
 
+<<<<<<< HEAD
+=======
+## Plot police precincts.
+
+>>>>>>> 5d9de3706dc1368c226fbe91d149ef9672f7fd47
 z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
 
 ## remove outliers
@@ -96,6 +101,7 @@ for (p in 1:length(police.precincts)){
 z.sub <- z.final
 ## save the data
 save(z.sub, file = "manh.RData")
+
 
 
 N <- 33
@@ -206,34 +212,4 @@ sp.map = leaflet(data="precinct.geojson",base.map="osm",style = sp.style,popup= 
 
 sp.map
 
-###SVM
-k = svm(as.factor(Violation.Precinct)~., data=hulls,cross=10)
-plot(k,data=hulls)
 
-##rastorize
-nybb = readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",stringsAsFactors=FALSE)
-manh = nybb[2,]
-
-r = rasterize(manh, raster(ncols=500,nrows=1000,ext=extent(bbox(manh))))
-
-cells = which(!is.na(r[]))
-crds = xyFromCell(r,cells)
-
-z = predict(k,crds)
-
-r[cells] = as.numeric(as.character(z))
-
-dist = sort(unique(hulls$Violation.Precinct))
-
-l=list()
-for(i in seq_along(dist))
-{
-  l[[i]] = rasterToPolygons(r, function(x) x==dist[i], dissolve=TRUE)
-  l[[i]]@polygons[[1]]@ID = as.character(dist[i])
-  rownames(l[[i]]@data) = dist[i]
-  colnames(l[[i]]@data) = "Violation.Precinct"
-}
-
-pd = do.call(rbind, l)
-writeOGR(pd, "./out", "", driver="GeoJSON")
-file.rename("./out", "./precinct_svm.json")
