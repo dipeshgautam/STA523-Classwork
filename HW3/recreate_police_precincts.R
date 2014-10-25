@@ -10,15 +10,15 @@ nybb <- readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",
 manh <- nybb[2,]
 
 
-## training with 2% of the data
+## training with 10% of the data
 set.seed(1000)
 index <- 1:nrow(z.sub)
-testindex <- sample(index, trunc(length(index)/50))
+testindex <- sample(index, trunc(length(index)/10))
 z.sub.train <- rbind(z.sub[testindex,], z.sub[z.sub$Violation.Precinct==22,]) # Since Central Park precinct has very few points before subsetting, we're includeing all of them to get a better prediction for the precinct.
 
 
 ##model <- svm(Violation.Precinct ~., data = z.sub.train)
-tuned <- tune.svm(as.factor(Violation.Precinct)~., data = z.sub.train, gamma = 2^(-1:1), cost = 2^(2:4))
+tuned <- tune.svm(as.factor(Violation.Precinct)~., data = z.sub.train, kernel = "radial",gamma = 2^(-1:1), cost = 2^(2:4), probability = 1)
 summary(tuned)
 best.model <- svm(as.factor(Violation.Precinct)~., data=z.sub.train, cost=tuned$best.parameters[[2]], gamma=tuned$best.parameters[[1]])
 
