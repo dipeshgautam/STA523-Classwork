@@ -1,10 +1,20 @@
-setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
-check_packages(c('ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
-install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
-library(dplyr) # 
+
+# Ensures listed packages are installed and load them. 
+check_packages(c('ggmap','maptools','maps',"devtools", 
+                 "stringr", "rgdal", "rgeos", "data.table", 
+                 "maptools", "ggplot2", "plyr", "leafletR",
+                 "fields")) 
+
+if (!("dplyr" %in% installed.packages()))
+{
+  # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
+  install_github("hadley/dplyr") 
+}
+library(dplyr)
 
 base <- '/home/vis/cr173/Sta523/data/parking' # Set to Dr. Rundel's Saxon directory containing NYParking data
+
 # Small data set for testing.
 # park <- tbl_df(read.csv(paste0(base,"/NYParkingViolations_small.csv"), stringsAsFactors = FALSE)) # Create subset for proof-of-concept testing
 # addr <- filter(park, Violation.Precinct <= 34) %>% # Examine park's violation precincts less than or equal to precinct 34.
@@ -143,13 +153,15 @@ geoFile=paste(geoFile,"
   ]
 }", sep= "")
 
-write(geoFile,'precinct.geojson')
+write(geoFile,'precinct.json')
 
 
 ##Create interactive leaflet to differentiate between the precincts
+file.rename("precinct.json","precinct.geojson")
 sp.style=  styleCat(prop="precinct", val=levels(as.factor(hulls$Violation.Precinct)),
                     style.val=tim.colors(length(levels(as.factor(hulls$Violation.Precinct)))), leg="Precinct")
 
 sp.map = leaflet(data="precinct.geojson",base.map="osm",style = sp.style,popup= c("precinct"))
 
 sp.map
+file.rename("precinct.geojson","precinct.json")

@@ -14,9 +14,16 @@ sta601/lab2.R
 sta601/lab2.Rmd
 Homework2-Task1.R
 .DS_Store
-HW2/lq/.txt
-HW2/makefile1
-HW2/HW2.html
-HW2/.nfs00000000019b74f90000009c
+
 inclass/roads.RData
-.RData
+
+# Homework 2
+HW2/lq/*
+HW2/dennys/*
+HW2/Data/*
+HW2/*.html
+HW2/.nfs00000000019b74f90000009c
+
+# Homework 3
+HW3/*.json
+HW3/*.geojson
