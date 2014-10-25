@@ -1,6 +1,6 @@
 setwd("~/Team2/HW3") # Ensures check_packages.R is found.
 source("check_packages.R") # Load check_packages function.
-check_packages(c('e1071','raster','ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
+check_packages(c('fields','leafletR','e1071','raster','ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
 install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
 library(dplyr) # 
 
@@ -207,9 +207,13 @@ sp.map = leaflet(data="precinct.geojson",base.map="osm",style = sp.style,popup= 
 sp.map
 
 ###SVM
+
 hulls = hulls[-1]
-k = svm(as.factor(Violation.Precinct)~., data=hulls,cross=10)
-plot(k,data=hulls)
+z <- inner_join(tax, addr)
+z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
+z.sub= unique(z.sub[-1])
+k = svm(as.factor(Violation.Precinct)~., data=z.sub,cross=10)
+plot(k,data=z.sub)
 
 ##rastorize
 nybb = readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",stringsAsFactors=FALSE)
@@ -237,4 +241,11 @@ for(i in seq_along(dist))
 
 pd = do.call(rbind, l)
 writeOGR(pd, "./out", "", driver="GeoJSON")
-file.rename("./out", "./precinct_svm.json")
+file.rename("./out", "./precinct_svm.geojson")
+
+sp.style=  styleCat(prop="precinct", val=levels(as.factor(z.sub$Violation.Precinct)),
+                    style.val=tim.colors(length(levels(as.factor(z.sub$Violation.Precinct)))), leg="Precinct")
+
+sp.map = leaflet(data="precinct_svm.geojson",base.map="osm",style = sp.style,popup= c("Violation.Precinct"))
+
+sp.map
