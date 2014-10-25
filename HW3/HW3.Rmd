@@ -12,6 +12,8 @@ output: html_document
 
 
 ### Recreating police Precincts
+First, we removed outliers which are not within the 95% interval for each precinct.
+Second, we apply svm methods to find the best model. We traing the model with 10% of the data and tune the parameters within the model.
 
 
 
