@@ -12,8 +12,7 @@ manh = nybb[2,]
 
 ## training with 2/3 of the data and try to test the model on the rest 
 index <- 1:nrow(z.sub)
-testindex <- sample(index, trunc(length(index)/200))
-z.sub.test <- z.sub[testindex,]
+testindex <- sample(index, trunc(length(index)/100))
 z.sub.train <- rbind(z.sub[testindex,], z.sub[z.sub$Violation.Precinct==22,]) # Since Central Park precinct has very few points before subsetting, we're includeing all of them to get a better prediction for the precinct.
 
 
@@ -57,12 +56,12 @@ default_plot("SVM")
 # cols = c("#7fc97f","#beaed4","#fdc086","#ffff99","#386cb0","#f0027f","#bf5b17","#DA1414", "#1D622B", "#F1651F", "#2C446B",
 #          "#DAE7D9", "#DB35D0", "#050005", "#04FD14", "#1A6C70", "#FC0543", "#819794", "#DA1414", "#49BBC1", "#975684")
 
-plot(pd, col = "blue", add=TRUE)
+plot(pd, col = police.precincts, add=TRUE)
 
 #cols[pd@data$Violation.Precinct]
 
 writeOGR(pd, "./out", "", driver="GeoJSON")
-file.rename("./out", "./precinct_svm.json")
+file.rename("./out", "./precinct.json")
 
 ## calculating time taken, need to delete
 proc.time()-ptm # total time taken
