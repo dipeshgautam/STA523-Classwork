@@ -1,7 +1,7 @@
 ptm=proc.time() # Start time
 
 source("check_packages.R") # Load check_packages function.
-check_packages(c('e1071','rgdal','raster',"devtools", "leafletR", "stringr", "rgeos", "fields","maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
+suppressMessages(check_packages(c('e1071','rgdal','raster',"devtools", "leafletR", "stringr", "rgeos", "fields","maptools", "ggplot2", "plyr"))) # Ensures listed packages are installed and load them. 
 
 load("manh.RData")
 z.sub <-z.sub[-1]
