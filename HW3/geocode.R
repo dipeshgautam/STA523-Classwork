@@ -1,4 +1,4 @@
-setwd("~/Team2/HW3") # Ensures check_packages.R is found.
+# setwd("~/Team2/HW3") # Ensures check_packages.R is found. Messes up Dr. Rundel's compilation.
 source("check_packages.R") # Load check_packages function.
 check_packages(c('ggmap','maptools','maps',"devtools", "stringr", "rgdal", "rgeos", "data.table", "maptools", "ggplot2", "plyr")) # Ensures listed packages are installed and load them. 
 install_github("hadley/dplyr") # Install github version of dplyr instead of CRAN version so inner.join() will not crash.
