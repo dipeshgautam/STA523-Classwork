@@ -5,3 +5,17 @@ output: html_document
 ---
 
 ### Introduction
+
+
+
+### Geocoding
+
+
+### Recreating police Precincts
+
+
+
+### Plot of the precincts
+<div style="text-align:center">
+![Map](plot.png)
+</div>

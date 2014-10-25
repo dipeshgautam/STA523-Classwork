@@ -53,7 +53,7 @@ default_plot <- function(main="")
 
 # SVM Prediction
 png("plot.png")
-default_plot("SVM")
+default_plot("Police Precincts in Manhattan")
 plot(pd, col = police.precincts, add=TRUE)
 dev.off()
 

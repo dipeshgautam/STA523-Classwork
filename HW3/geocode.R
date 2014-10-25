@@ -83,6 +83,7 @@ for (p in 1:length(police.precincts)){
   z.final <- rbind(z.final, z1)
 }
 z.sub <- z.final
+
 ## save the data
 save(z.sub, file = "manh.RData")
 
@@ -186,7 +187,6 @@ save(z.sub, file = "manh.RData")
 # }", sep= "")
 # 
 # write(geoFile,'precinct.geojson')
-
 
 
 
