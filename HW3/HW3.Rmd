@@ -1,0 +1,7 @@
+---
+title: "Homework 3"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+### Introduction
