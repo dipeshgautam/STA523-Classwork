@@ -82,11 +82,7 @@ z <- inner_join(tax, addr) # Store matching addresses in "addr" and "tax" data f
 police.precincts <- c(1, 5, 6, 7, 9, 10, 13, 14, 17, 18, 19, 20, 22, 23, 24, 25, 26, 28, 30, 32, 33, 34) # Assume: Violation Precinct for Midtown So. Pct ==  14, Midtown No. Pct == 18, Central Park Pct == 22: see http://unhp.org/crg/indy-maps_police_mn.html
 # police.precincts <- c(1, 5) # Testing purposes
 
-<<<<<<< HEAD
-=======
 ## Plot police precincts.
-
->>>>>>> 5d9de3706dc1368c226fbe91d149ef9672f7fd47
 z.sub <- subset(z, (z$Violation.Precinct %in% police.precincts)) # Create a subset of data frame z with violation precincts matching police precincts. 
 
 ## remove outliers
