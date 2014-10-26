@@ -29,6 +29,9 @@ pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pl
 tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address))) # Add centroid coordinates and lowercase address of pl shapefile and police precinct.
 names(tax)[3] <- "addr" # Rename third column of tax data frame to addr.
 
+## Remove the pluto data
+rm(pl, pt)
+
 ## Rename observations to follow arbitrary naming conventions and improve matches between tax and addr data frames.
 tax$addr <- str_replace_all(tax$addr, "street", "st")
 tax$addr <- str_replace_all(tax$addr, "avenue", "ave")
@@ -81,3 +84,5 @@ z.sub <- z.final
 
 ## save the data
 save(z.sub, file = "manh.RData")
+## Remove unnecessary data from memory
+rm(addr, z.sub, z.final, tax, z, police.precincts)
