@@ -10,10 +10,10 @@ nybb <- readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",
 manh <- nybb[2,]
 
 
-## training with 10% of the data
+## training with 2% of the data
 set.seed(1000)
 index <- 1:nrow(z.sub)
-testindex <- sample(index, trunc(length(index)/10))
+testindex <- sample(index, trunc(length(index)/50))
 z.sub.train <- rbind(z.sub[testindex,], z.sub[z.sub$Violation.Precinct==22,]) # Since Central Park precinct has very few points before subsetting, we're includeing all of them to get a better prediction for the precinct.
 
 
