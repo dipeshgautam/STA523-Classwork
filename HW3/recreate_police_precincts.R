@@ -8,11 +8,11 @@ z.sub <-z.sub[-1]
 nybb <- readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",stringsAsFactors=FALSE)
 manh <- nybb[2,]
 
-## training with 10% of the data
+## training with 2% of the data
 set.seed(1000)
 index <- 1:nrow(z.sub)
 testindex <- sample(index, trunc(length(index)/50))
-z.sub.train <- z.sub[testindex,] # Since Central Park precinct has very few points before subsetting, we're includeing all of them to get a better prediction for the precinct.
+z.sub.train <- z.sub[testindex,] 
 
 rm(nybb, index)
 
@@ -22,20 +22,16 @@ z22 <- z22[z22$x > quantile(z22$x,.35) & z22$x < quantile(z22$x,.99) &
              z22$y > quantile(z22$y,.10) & z22$y < quantile(z22$y,.99),]
 plot(z22$x,z22$y)
 
-
 x <- -rgamma(round(nrow(z.sub.train)/21), abs(mean(z22$x-.001))^2/(0.005)^2, abs(mean(z22$x))/(0.005)^2)
 y <- rgamma(round(nrow(z.sub.train)/21), (mean(z22$y))^2/(0.005)^2, (mean(z22$y))/(0.005)^2)
-# x <- rnorm(round(nrow(z.sub.train)/21), mean(z22$x), .01)
-# y <- rnorm(round(nrow(z.sub.train)/21), mean(z22$y), .01)
 Violation.Precinct <- rep(22, round(nrow(z.sub.train)/21))
 z22 <- data.frame(cbind(x,y,Violation.Precinct))
-plot(z22$x,z22$y)
 
 ## Add those randomly generated points to the training data set.
-z.sub.train = rbind(z.sub.train, z22) 
+z.sub.train <- rbind(z.sub.train, z22) 
 
 
-##model <- svm(Violation.Precinct ~., data = z.sub.train)
+## calculate the best parameters for SVM by tuning with 10-fold cross validation and use those parameters.
 tuned <- tune.svm(as.factor(Violation.Precinct)~., data = z.sub.train, gamma = 2^(-1:1), cost = 2^(2:4))
 summary(tuned)
 best.model <- svm(as.factor(Violation.Precinct)~., data=z.sub.train, cost=tuned$best.parameters[[2]], gamma=tuned$best.parameters[[1]])
@@ -45,7 +41,7 @@ r <- rasterize(manh, raster(ncols=500,nrows=1000,ext=extent(bbox(manh))))
 cells <- which(!is.na(r[]))
 crds <- xyFromCell(r,cells)
 
-z <- predict(best.model,crds)
+z <- predict(best.model,crds) # Predict the precinct for coordinates in Manhattan using the model developed using SVM
 
 r[cells] <- as.numeric(as.character(z))
 
@@ -69,12 +65,13 @@ default_plot <- function(main="")
        main = main, axes=FALSE,
        xlab="", ylab="")
 
-# SVM Prediction
+## Plot the Predicted map
 png("plot.png")
 default_plot("Police Precincts in Manhattan")
 plot(pd, col = police.precincts, add=TRUE)
 dev.off()
 
+## Write JSON to a file
 source("write_json.R")
 writeGeoJSON(pd, "./precinct.json")
 
