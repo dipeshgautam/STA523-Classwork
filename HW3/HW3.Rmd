@@ -1,0 +1,28 @@
+---
+title: "Homework 3"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+
+### Introduction
+
+
+
+### Geocoding
+
+
+### Recreating police Precincts
+
+To recreated the police precincts, we first tried to use convex hull by removing the outliers. Our approach to removing the outliers was to check if a point lies with certain inner percentile of another precinct. We started with inner 30th percentile and increased to 98th percentile removing outliers after each iteration. We were not properly implement two-dimensional quantiles and ended up using one dimensional quantiles in latitude and longitude. This resulted in mostly rectangular precincts instead of their actual shapes.
+
+We scrapped that idea because using SVM was getting us much better result right away.
+First, we removed outliers which are not within the 99% interval for each precinct. Second, we apply svm methods to find the best model. We traing the model with 10% of the data and tune the parameters within the model.
+
+While running the SVM model, we encountered a problem with precinct 22(Central Park). When we looked at the data for 22nd precinct more closely, we found that none of the points were actually inside Central Park. Most of them were on the boundary with a few outliers sitting inside other precincts. 
+To counter this problem, we decided to use the data we have on 22nd precinct and use it to generate points inside Central Park. First, we removed most of the outliers and were left mostly with data on the border of 22nd precinct. Then, we randomly generated slightly skewed data inside the bound of new data using gamma distribution on both latitude and longitude. We then added assigned all of these points to precinct 22 and added them to the data set used on SVM modelling.
+
+
+### Plot of the precincts
+<div style="text-align:center">
+![Map](plot.png)
+</div>
