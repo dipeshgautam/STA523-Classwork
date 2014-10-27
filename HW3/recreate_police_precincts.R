@@ -8,7 +8,7 @@ z.sub <-z.sub[-1]
 nybb <- readOGR(path.expand("/home/vis/cr173/Sta523/data/parking/nybb/"),"nybb",stringsAsFactors=FALSE)
 manh <- nybb[2,]
 
-## training with 10% of the data
+## training with 6.67% of the data
 set.seed(1000)
 index <- 1:nrow(z.sub)
 testindex <- sample(index, trunc(length(index)/15))
@@ -22,12 +22,13 @@ z22 <- z22[z22$x > quantile(z22$x,.35) & z22$x < quantile(z22$x,.99) &
              z22$y > quantile(z22$y,.10) & z22$y < quantile(z22$y,.99),]
 
 
-x <- -rgamma(round(nrow(z.sub.test)/21), abs(mean(z22$x-.001))^2/(0.004)^2, abs(mean(z22$x))/(0.004)^2)
+x <- -rgamma(round(nrow(z.sub.test)/21), abs(mean(z22$x-.001))^2/(0.005)^2, abs(mean(z22$x))/(0.005)^2)
 y <- rgamma(round(nrow(z.sub.test)/21), (mean(z22$y-.002))^2/(0.005)^2, (mean(z22$y))/(0.005)^2)
 Violation.Precinct <- rep(22, round(nrow(z.sub.test)/21))
 z22 <- data.frame(cbind(x,y,Violation.Precinct))
 
-## Add those randomly generated points to the training data set.
+## Remove the original points from 22nd precinct and add the randomly generated points to the training data set.
+z.sub.test <- z.sub.test[!z.sub.test$Violation.Precinct==22,]
 z.sub.test <- rbind(z.sub.test, z22) 
 
 ## Run the SVM modelling on the data with cost=8 and gamma=2 as parameters.
