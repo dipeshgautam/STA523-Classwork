@@ -27,8 +27,7 @@ y <- rgamma(round(nrow(z.sub.test)/21), (mean(z22$y-.002))^2/(0.005)^2, (mean(z2
 Violation.Precinct <- rep(22, round(nrow(z.sub.test)/21))
 z22 <- data.frame(cbind(x,y,Violation.Precinct))
 
-## Remove the original points from 22nd precinct and add the randomly generated points to the training data set.
-z.sub.test <- z.sub.test[!z.sub.test$Violation.Precinct==22,]
+## Add the randomly generated points to the training data set.
 z.sub.test <- rbind(z.sub.test, z22) 
 
 ## Run the SVM modelling on the data with cost=8 and gamma=2 as parameters.
