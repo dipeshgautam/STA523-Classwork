@@ -9,7 +9,9 @@ output: html_document
 
 
 ### Geocoding
+In order to efficiently geocode, we had to match observations from the data of `NYParkingViolations.csv` and `MNMapPLUTO`. This entailed standardizing nomenclature, for example, ensuring that "street" was denoted as "st," "1st" as "1", "drive" as "dr" etc. in both sets. We began this process of string replacement using `stringr` on a subset of the full `NYParkingViolations.csv` data for proof-of-concept testing and to improve run-times while tuning our methodology. Once satisfied with the number of matches we achieved with the subset, we applied our transformations to the full `NYParkingViolations.csv` data set. 
 
+Loading the data from `NYParkingViolations.csv` into R was made simpler by Dr. Rundel's code utilizing the `dplyr` package that provided useful functions for trimming excess whitespace from entries, removing blanks, ensuring house numbers only consisted of numbers, and that addresses were all lower case. 
 
 ### Recreating police Precincts
 
