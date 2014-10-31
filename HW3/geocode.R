@@ -27,7 +27,7 @@ addr <- filter(park.full, Violation.Precinct <= 34) %>% # Send subset: park's vi
 rm(park.full) # Improve speed by removing data set from memory.
 
 pl <- readOGR(paste0(base,"/pluto/Manhattan/"),"MNMapPLUTO") # Takes 2.5 minutes. Manhattan shapefile connecting property boundary polygons and addresses. 
-pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pl data frame.
+pt <- gCentroid(pl,byid = TRUE) # Store the centroid of the given geometry in pt data frame.
 tax <- cbind(data.frame(pt@coords), tolower(as.character(pl@data$Address))) # Add centroid coordinates and lowercase address of pl shapefile and police precinct.
 names(tax)[3] <- "addr" # Rename third column of tax data frame to addr.
 # names(tax)[4] <- "Violation.Precinct" # Rename fourth column of tax data frame to Violation.Precinct.
