@@ -77,9 +77,9 @@ test_that("Edge type", {
   bad_g3 = list(list(edges   = c(NA+1L),
                      weights = c(1)))  
     
-  expect_false(is_valid(bad_g4_1))
-  expect_false(is_valid(bad_g4_2))
-  expect_false(is_valid(bad_g4_3))
+  expect_false(is_valid(bad_g1))
+  expect_false(is_valid(bad_g2))
+  expect_false(is_valid(bad_g3))
 })
 
 
