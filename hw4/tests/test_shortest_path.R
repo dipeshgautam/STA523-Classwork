@@ -153,11 +153,11 @@ test_that("Connected graphs", {
 
   is_empty_atomic = function(x) is.atomic(x) & length(x) == 0
 
-  expect_true(is_empty_atomic(shortest_path(g4,6,1))
-  expect_true(is_empty_atomic(shortest_path(g4,6,2))
-  expect_true(is_empty_atomic(shortest_path(g4,6,3))
-  expect_true(is_empty_atomic(shortest_path(g4,6,4))
-  expect_true(is_empty_atomic(shortest_path(g4,6,5))
+  expect_true(is_empty_atomic(shortest_path(g4,6,1)))
+  expect_true(is_empty_atomic(shortest_path(g4,6,2)))
+  expect_true(is_empty_atomic(shortest_path(g4,6,3)))
+  expect_true(is_empty_atomic(shortest_path(g4,6,4)))
+  expect_true(is_empty_atomic(shortest_path(g4,6,5)))
 })
 
 
