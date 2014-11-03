@@ -46,25 +46,31 @@ test_that("Undirected",{
 
   g5 = list(list(edges   = c(1L,2L),
                  weights = c(1,1)),
+            list(edges   = c(1L),
+                 weights = c(1)))
+
+  g6 = list(list(edges   = c(1L,2L),
+                 weights = c(1,1)),
             list(edges   = c(1L,2L),
                  weights = c(1,1)))
 
-  g6 = list(list(edges   = c(2L,4L),
+  g7 = list(list(edges   = c(2L,4L),
                  weights = c(1,1)),
             list(edges   = c(1L),
                  weights = c(1)),
             list(edges   = c(4L),
-                 weights = c(1)))
+                 weights = c(1)),
             list(edges   = c(1L,3L),
                  weights = c(1,1)))
   
-    expect_true(is_undirected(g0))
-    expect_true(is_undirected(g1))
-    expect_true(is_undirected(g2))
-    expect_true(is_undirected(g3))
-    expect_true(is_undirected(g4))
-    expect_true(is_undirected(g5))
-    expect_true(is_undirected(g6))
+  expect_true(is_undirected(g0))
+  expect_true(is_undirected(g1))
+  expect_true(is_undirected(g2))
+  expect_true(is_undirected(g3))
+  expect_true(is_undirected(g4))
+  expect_true(is_undirected(g5))
+  expect_true(is_undirected(g6))
+  expect_true(is_undirected(g7))
 })
 
 test_that("Directed - Edges",{
@@ -75,7 +81,7 @@ test_that("Directed - Edges",{
 
   g2 = list(list(edges   = c(1L,2L),
                  weights = c(1,1)),
-            list(edges   = c(1L),
+            list(edges   = c(2L),
                  weights = c(1)))
 
   expect_false(is_undirected(g1))
@@ -91,7 +97,7 @@ test_that("Directed - Weights",{
   g2 = list(list(edges   = c(1L,2L),
                  weights = c(1,1)),
             list(edges   = c(1L,2L),
-                 weights = c(1,2)))
+                 weights = c(2,1)))
 
   expect_false(is_undirected(g1))
   expect_false(is_undirected(g2))   

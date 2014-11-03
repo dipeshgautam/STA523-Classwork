@@ -34,7 +34,7 @@ test_that("Valid graphs", {
                      weights = 1 ))
 
   g4 = list(B = list(edges   = 2L,
-                     weights = 1 )
+                     weights = 1 ),
             A = list(edges   = 1L,
                      weights = 1 ))
 
@@ -44,7 +44,7 @@ test_that("Valid graphs", {
                      weights = 1 ))
 
   g6 = list(B = list(edges   = 2L,
-                     weights = 1 )
+                     weights = 1 ),
             A = list(edges   = c(1L,2L),
                      weights = c(1, 1 )))
 
