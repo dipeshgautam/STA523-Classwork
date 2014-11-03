@@ -1,0 +1,6 @@
+A -> B [weight=1];
+B -> C;
+C -> E;
+D -> B;
+E -> D [weight=1];
+E -> F [weight=1];
