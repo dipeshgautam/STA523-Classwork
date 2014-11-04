@@ -6,7 +6,7 @@ test_that("Small valid graphs", {
   g1 = list(list(edges   = integer(),
                  weights = numeric()))
 
-  g1 = list(list(edges   = c(1L),
+  g2 = list(list(edges   = c(1L),
                  weights = c(1 )))
 
   g3 = list(list(edges   = c(2L),
@@ -19,15 +19,15 @@ test_that("Small valid graphs", {
             list(edges   = c(1L,2L),
                  weights = c(1 ,1 )))
 
-  dir_graph_len = function(g)
+  mst_graph_len = function(g)
   {
     sum(unlist(lapply(g, function(x) x$weights)))/2
   }
 
-  expect_equal(dir_graph_len(min_span_tree(g1)), 0)
-  expect_equal(dir_graph_len(min_span_tree(g2)), 0)
-  expect_equal(dir_graph_len(min_span_tree(g3)), 1)
-  expect_equal(dir_graph_len(min_span_tree(g4)), 1)
+  expect_equal(mst_graph_len(min_span_tree(g1)), 0)
+  expect_equal(mst_graph_len(min_span_tree(g2)), 0)
+  expect_equal(mst_graph_len(min_span_tree(g3)), 1)
+  expect_equal(mst_graph_len(min_span_tree(g4)), 1)
 })
 
 test_that("Med valid graph", {
@@ -40,10 +40,20 @@ test_that("Med valid graph", {
                     weights = c(4 ,5 )),
            D = list(edges   = c(1L,2L,5L),
                     weights = c(4 ,4 ,4 )),
-           E = list(edges   = c(1L,2L,3L,4L,5L),
+           E = list(edges   = c(1L,2L,3L,4L,6L),
                     weights = c(3 ,2 ,4 ,4 ,7 )),
            F = list(edges   = c(3L,5L),
                     weights = c(5 ,7 )))
+  
+  # Adj matrix
+  #
+  # 0 1 0 4 3 0
+  # 1 0 0 4 2 0
+  # 0 0 0 0 4 5
+  # 4 4 0 0 4 0
+  # 3 2 4 4 0 7
+  # 0 0 5 0 7 0
+
 
   r = min_span_tree(g)
   len = sum(unlist(lapply(r, function(x) x$weights)))/2

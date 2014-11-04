@@ -1,5 +1,4 @@
-context("Test reading graphs")
-
+context("Test writing graphs")
 
 
 test_that("Invalid graph", {
@@ -11,6 +10,7 @@ test_that("Invalid graph", {
   expect_error(write_graph(bad_g2, tempfile()))
   expect_error(write_graph(bad_g3, tempfile()))
 })
+
 
 test_that("Directory and file existence", {
   g1 = list(list(edges = 1L, weights = 1))
@@ -63,6 +63,12 @@ test_that("File write then read", {
             B = list(edges  =integer(),
                      weights=numeric()))
 
+  g6 = list(A = list(edges  =integer(),
+                     weights=numeric()))
+
+  g7 = list(A = list(edges  =1L,
+                     weights=1))
+
   file = tempfile()
   write_graph(g1, file)
   expect_true(is_isomorphic(g1, read_graph(file)))
@@ -82,4 +88,12 @@ test_that("File write then read", {
   file = tempfile()
   write_graph(g5, file)
   expect_true(is_isomorphic(g5, read_graph(file)))
+
+  file = tempfile()
+  write_graph(g6, file)
+  expect_true(is_isomorphic(g6, read_graph(file)))
+
+  file = tempfile()
+  write_graph(g7, file)
+  expect_true(is_isomorphic(g7, read_graph(file)))
 })

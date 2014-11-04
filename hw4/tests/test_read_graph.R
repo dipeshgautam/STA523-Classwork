@@ -11,6 +11,7 @@ test_that("Bad graph files", {
   expect_error(read_graph("test_files/bad_graph8.dot"))
   expect_error(read_graph("test_files/bad_graph9.dot"))
   expect_error(read_graph("test_files/bad_graph10.dot"))
+  expect_error(read_graph("test_files/bad_graph11.dot"))
 })
 
 test_that("Valid graph files", {
@@ -62,6 +63,19 @@ test_that("Valid graph files", {
                      weights=numeric()))
 
   expect_true(is_isomorphic(g5, read_graph("test_files/graph5.dot")))
+
+
+  g6 = list(A = list(edges  =integer(),
+                     weights=numeric()))
+
+  expect_true(is_isomorphic(g6, read_graph("test_files/graph6.dot")))
+
+
+  g7 = list(A = list(edges  =1L,
+                     weights=1))
+
+  expect_true(is_isomorphic(g7, read_graph("test_files/graph7.dot")))
+
 })
 
 

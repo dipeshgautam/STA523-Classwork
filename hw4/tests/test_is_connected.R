@@ -40,9 +40,9 @@ test_that("Connected graphs", {
   expect_true(is_connected(g3,1,1))
   expect_true(is_connected(g3,1,2))
   expect_true(is_connected(g3,2,1))
-  expect_true(is_connected(g2,2,3))
-  expect_true(is_connected(g2,3,2))
-  expect_true(is_connected(g2,3,3))
+  expect_true(is_connected(g3,2,3))
+  expect_true(is_connected(g3,3,2))
+  expect_true(is_connected(g3,3,3))
 
 
   expect_true(is_connected(g4,1,2))
@@ -87,9 +87,9 @@ test_that("Unconnected graphs", {
   expect_false(is_connected(g3,1,2))
   expect_true(is_connected(g3,2,1))
   expect_false(is_connected(g3,2,2))
-  expect_true(is_connected(g2,2,3))
-  expect_false(is_connected(g2,3,2))
-  expect_true(is_connected(g2,3,3))
+  expect_true(is_connected(g3,2,3))
+  expect_false(is_connected(g3,3,2))
+  expect_true(is_connected(g3,3,3))
 })
 
 test_that("Vertex labels", {
