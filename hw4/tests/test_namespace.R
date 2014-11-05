@@ -7,8 +7,8 @@ test_that("Check namespace", {
             "min_span_tree", "read_graph", "shortest_path", "write_graph")  
 
   # namespace should be clean
-  expect_true(all(funcs %in% ls()))
-  expect_true(all(ls() %in% funcs))
+  expect_true(all(funcs %in% ls(envir=globalenv())))
+  expect_true(all(ls(envir=globalenv()) %in% funcs))
 })
 
 
