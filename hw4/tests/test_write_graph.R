@@ -40,7 +40,7 @@ test_that("File write then read", {
             F = list(edges=integer(),
                      weights=numeric()))           
 
-  g3 = list(A = list(edges  =2L,
+  g2 = list(A = list(edges  =2L,
                      weights=14),
             B = list(edges  =c(3L,4L),
                      weights=c(23,13)),
@@ -51,22 +51,22 @@ test_that("File write then read", {
             N = list(edges  =c(1L,2L,4L),
                      weights=c(33,22,11)))
 
-  g4 = list("A A" = list(edges  =2L,
+  g3 = list("A A" = list(edges  =2L,
                          weights=1),
             B     = list(edges  =1L,
                          weights=1),
             "C C" = list(edges  =1L,
                          weights=1))
 
-  g5 = list(A = list(edges  =2L,
+  g4 = list(A = list(edges  =2L,
                      weights=1e10),
             B = list(edges  =integer(),
                      weights=numeric()))
 
-  g6 = list(A = list(edges  =integer(),
+  g5 = list(A = list(edges  =integer(),
                      weights=numeric()))
 
-  g7 = list(A = list(edges  =1L,
+  g6 = list(A = list(edges  =1L,
                      weights=1))
 
   file = tempfile()
@@ -92,8 +92,4 @@ test_that("File write then read", {
   file = tempfile()
   write_graph(g6, file)
   expect_true(is_isomorphic(g6, read_graph(file)))
-
-  file = tempfile()
-  write_graph(g7, file)
-  expect_true(is_isomorphic(g7, read_graph(file)))
 })
