@@ -44,14 +44,5 @@ is_isomorphic <- function(g1,g2) {
 }
 
 
-g5 = list(A = list(edges   = c(1L,2L),
-                   weights = c(1 ,1 )),
-          B = list(edges   = 1L,
-                   weights = 1 ))
-
-g6 = list(B = list(edges   = 2L,
-                   weights = 1 ),
-          A = list(edges   = c(1L,2L),
-                   weights = c(1, 1 )))
 
 
