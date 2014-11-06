@@ -6,3 +6,11 @@ output: html_document
 ---
 
 One of our programming goals is to write faster R code. One way to achieve this aim is to avoid "for" loops so more time is spent on computation rather than on loops that process one element per iteration and copy data. Vectorized functions like the `apply` family were used, among other solutions, were devised to avoid `for` loops.
+
+
+
+```{r eval=FALSE}
+sum(sapply(sapply(graph3, "[[", 1), length)) # Step 1
+sum(sapply(sapply(graph3, "[[", 2), length)) # Step 2
+sum(sapply(sapply(graph1, "[[", 1), length)) == sum(sapply(sapply(graph1, "[[", 2), length)) # Step 3
+```

@@ -1,4 +1,4 @@
-## Testing
+##################### Testing ####################################################################################
 graph1 = list(A = list(edges   = c(2L),
                        weights = c(14)),
               B = list(edges   = c(3L,4L),
@@ -21,37 +21,45 @@ graph2 = list(A = list(edges   = c(2L),
                        weights = c(43,33)),
               N = list(edges   = c(1L,2L,4L),
                        weights = c(33,22,11)))
-is_valid(graph1)
-test(graph1)
+
+graph3 = list(A = list(edges   = c(2L),
+                       weights = c(14)),
+              B = list(edges   = c(3L,4L),
+                       weights = c(23,13)),
+              D = list(edges   = c(1L),
+                       weights = c(5) ),
+              F = list(edges   = c(1L,5L),
+                       weights = c(43,33)),
+              N = list(edges   = c(1L,2L,4L),
+                       weights = c(33,22)))
 
 g11 <- sapply(graph1, "[[", 1) # Grab first list element of n number of secondary lists (edges list). 
 g12 <- sapply(graph1, "[[", 2) # Grab first list element of n number of secondary lists (edges list). 
 g22 <- sapply(graph2, "[[", 1) # Grab first list element of n number of secondary lists (weights list). 
 g22 <- sapply(graph2, "[[", 2) # Grab first list element of n number of secondary lists (weights list). 
-test(g12)
+
 is_valid(graph1) # Should be false
 is_valid(graph2) # Should be true
+is_valid(graph3) # Should be false
 
-sapply(sapply(y, function(m) m <= 0), all, <=0) # Doesn't work.
-sapply(y, function(m) m <= 0) == c("TRUE") # Doesn't work.
-
+#########################################################################################################
 sapply(y, function(m) m <= 0) # Evaluates each element of each secondary list correctly.
 sapply(sapply(y, function(m) m <= 0), any) # Returns consensus value for each secondary list. 
 all(sapply(sapply(g12, function(m) m <= 0), any) == c("FALSE")) # Check if all weights lists have values <= 0. If TRUE, return TRUE.
 test(g12)
 
-is_valid(graph1)
-all(sapply(sapply(graph2, function(m) m <= 0), any) == c("FALSE"))
-test(y)
 test <- function(a) {
   if (all(sapply(sapply(a, function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0.
     return(TRUE)
   return(FALSE)
 }
 
-is_valid(graph1)
+sapply(sapply(graph3, "[[", 1), length) # Step 1
+sapply(sapply(graph3, "[[", 2), length) # Step 2
 
-is_valid(graph2)
+sum(sapply(sapply(graph3, "[[", 1), length)) # Step 1
+sum(sapply(sapply(graph3, "[[", 2), length)) # Step 2
+sum(sapply(sapply(graph1, "[[", 1), length)) == sum(sapply(sapply(graph1, "[[", 2), length)) # Step 3
 
 is_valid = function(g) 
 {
@@ -66,8 +74,12 @@ is_valid = function(g)
         if (all(sapply(sapply(sapply(g, "[[", 1), is.element, 1:length(g)), all, 1:length(g)) == c("TRUE"))) # Works!
           ## Check that all weights are not less than or equal to 0. 
           if (all(sapply(sapply(sapply(g, "[[", 2), function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0.
+            # Check if all weights lists have values <= 0. If TRUE, return TRUE.
             ## Check that every edge has a weight.
-            return(TRUE)
+            if (sum(sapply(sapply(g, "[[", 1), length)) == sum(sapply(sapply(g, "[[", 2), length))) # Step 5
+              return(TRUE)
+            else
+              return(FALSE)
           else
             return(FALSE)
         else
