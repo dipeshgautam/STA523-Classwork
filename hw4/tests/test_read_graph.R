@@ -44,7 +44,7 @@ test_that("Valid graph files", {
             N = list(edges  =c(1L,2L,4L),
                      weights=c(33,22,11)))
 
-  expect_true(is_isomorphic(g2, read_graph("test_files/graph3.dot")))
+  expect_true(is_isomorphic(g3, read_graph("test_files/graph3.dot")))
 
 
   g4 = list("A A" = list(edges  =2L,

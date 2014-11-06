@@ -48,7 +48,7 @@ test_that("Unconnected graphs", {
 
   expect_true(is_empty_atomic(shortest_path(g3,1,2)))
   expect_true(is_empty_atomic(shortest_path(g3,2,2)))
-  expect_true(is_empty_atomic(shortest_path(g2,3,2)))
+  expect_true(is_empty_atomic(shortest_path(g3,3,2)))
 })
 
 
@@ -173,13 +173,13 @@ test_that("Med valid graph", {
                     weights = c(4 ,5 )),
            D = list(edges   = c(1L,2L,5L),
                     weights = c(4 ,4 ,4 )),
-           E = list(edges   = c(1L,2L,3L,4L,5L),
+           E = list(edges   = c(1L,2L,3L,4L,6L),
                     weights = c(3 ,2 ,4 ,4 ,7 )),
            F = list(edges   = c(3L,5L),
                     weights = c(5 ,7 )))
 
-  expect_identical(shortest_path(g1,"B","F"),  c("B","E","F"))
-  expect_identical(shortest_path(g1,"D","F"),  c("D","E","F"))
-  expect_identical(shortest_path(g1,"C","D"),  c("C","E","D"))
+  expect_identical(shortest_path(g,"B","F"),  c("B","E","F"))
+  expect_identical(shortest_path(g,"D","F"),  c("D","E","F"))
+  expect_identical(shortest_path(g,"C","D"),  c("C","E","D"))
 })
 
