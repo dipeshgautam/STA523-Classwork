@@ -86,12 +86,12 @@ read_graph = function(file)
        
     if (length(to.i) == 1 && to.i== "")
     {
-      list.i = list(list(to = integer(),
+      list.i = list(list(edges = integer(),
                          weights = numeric()))
     }
     else
     {
-      list.i = list(list(to = as.integer(c(to.i)),
+      list.i = list(list(edges = as.integer(c(to.i)),
                          weights = c(weights.i)))
     }
     
