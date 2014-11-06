@@ -96,7 +96,7 @@ read_graph = function(file)
     }
     
     graph[i] = list.i
-    names(graph)[i] = unique.from[i]
+    names(graph)[i] = str_extract(unique.from[i], ignore.case("[A-Z0-9 ]+"))
     
   }
   return(graph)  
