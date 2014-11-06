@@ -78,18 +78,18 @@ is_valid = function(g)
             ## Check that every edge has a weight.
             if (sum(sapply(sapply(g, "[[", 1), length)) == sum(sapply(sapply(g, "[[", 2), length))) # Step 5
               return(TRUE)
-            else
-              return(FALSE)
-          else
-            return(FALSE)
-        else
-          return(FALSE)
-            
-      else
-        # print("Secondary list does not only contain edge and weight vectors.") # Can't include print() --> error msg: unexpected 'else'.
-        return(FALSE)
-    else 
-      return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
+  else
+    return(FALSE)
+  else
+    return(FALSE)
+  else
+    return(FALSE)
+  
+  else
+    # print("Secondary list does not only contain edge and weight vectors.") # Can't include print() --> error msg: unexpected 'else'.
+    return(FALSE)
+  else 
+    return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
   else
     return(FALSE)
 }
