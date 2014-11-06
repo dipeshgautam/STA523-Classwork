@@ -38,8 +38,8 @@ test_that("Unconnected graphs", {
   
   expect_identical(shortest_path(g3,1,1), c("A","A"))
   expect_identical(shortest_path(g3,2,1), c("B","A"))
-  expect_identical(shortest_path(g2,2,3), c("B","C"))
-  expect_identical(shortest_path(g2,3,3), c("C","C"))
+  expect_identical(shortest_path(g3,2,3), c("B","C"))
+  expect_identical(shortest_path(g3,3,3), c("C","C"))
 
   expect_true(is_empty_atomic(shortest_path(g1,1,1)))
 
