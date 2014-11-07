@@ -10,6 +10,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_r testthat
+  - ./travis-tool.sh install_r stringr
 
 script: 
   - Rscript -e "library(testthat);invisible(source_dir('./',env=globalenv()));z=test_dir('tests');stopifnot(sum(z$failed)==0)"
