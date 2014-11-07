@@ -45,14 +45,12 @@ read_graph <- function(file)
       from[k] <- unlist(str_match(a[k], "^(.+) ->"))[2]
       to[k] <- unlist(str_match(a[k], "-> (.+) \\["))[2]
       weights[k] <- unlist(str_match(a[k], "weight=([0-9e.+]*)\\]"))[2]
-    }
-    else if (!is.na(str_match(a[k], "^.+ -> .+;") ))
+    } else if (!is.na(str_match(a[k], "^.+ -> .+;") ))
     {
       from[k] <- unlist(str_match(a[k], "^(.+) ->"))[2]
       to[k] <- unlist(str_match(a[k], "-> (.+);"))[2]
       weights[k] <- 1
-    }
-    else 
+    } else 
     {
       from[k] <- unlist(str_match(a[k], "^(.+);"))[2]
       to[k] <- ""
@@ -88,15 +86,14 @@ read_graph <- function(file)
     {
       list.i <- list(list(edges = integer(),
                          weights = numeric()))
-    }
-    else
+    } else
     {
       list.i <- list(list(edges = as.integer(c(to.i)),
                          weights = c(weights.i)))
     }
     
     graph[i] <- list.i
-    names(graph)[i] <- str_extract(unique.from[i], ignore.case("[A-Z0-9 ]+"))
+    names(graph)[i] <- str_extract(unique.from[i], ignore.case("[^\"]+")) 
     
   }
   return(graph)  

@@ -23,9 +23,7 @@ write_graph <- function(graph, file)
     if (names(graph)[k] == ""|is.null(names(graph)[k])) 
     {
       names(graph)[k] <- as.character(k)
-    }
-    ## If the names are multiple words, put them in quotes
-    else if (!is.na(str_match(names(graph)[k], " ")))
+    } else if (!is.na(str_match(names(graph)[k], " "))) # If the names are multiple words, put them in quotes
     {
       names(graph)[k] <- paste0('"',names(graph)[k],'"' )
     }
@@ -56,9 +54,7 @@ write_graph <- function(graph, file)
         }
       }   
     }
-  }
-  ## If the edges are weighted, include weight in the lines
-  else
+  } else # If the edges are weighted, include weight in the lines
   {
     for (i in 1:length(graph))
     {
@@ -75,8 +71,7 @@ write_graph <- function(graph, file)
                         "];")
           write(line, file=file,  append=TRUE)
         }
-      }
-      else
+      } else
       {
         from <- names(graph)[i]
         line <- paste0(from,";")
