@@ -22,7 +22,7 @@ test_that("Directory and file existence", {
 
 
   bad_dir = file.path(dirname(file),"doesnt_exist","graph.dot")
-  expect_error(write_graph(g1, bad_dir())) # error if directory doesn't exist
+  expect_error(write_graph(g1, bad_dir)) # error if directory doesn't exist
 })
 
 
