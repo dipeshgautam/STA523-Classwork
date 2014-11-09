@@ -18,9 +18,14 @@ write_graph <- function(graph, file)
   file.create(file, showWarnings = TRUE)
   
   ## Check if the vertices are labelled, if not label them with their indices
+  ## Check if none of the vertices are labelled
+  if(is.null(names(graph)))
+  {
+    names(graph) = as.character(c(1:length(graph)))
+  }
   for (k in 1:length(graph))
   {
-    if (names(graph)[k] == ""|is.null(names(graph)[k])) 
+    if (names(graph)[k] == "") 
     {
       names(graph)[k] <- as.character(k)
     } else if (!is.na(str_match(names(graph)[k], " "))) # If the names are multiple words, put them in quotes
@@ -67,8 +72,8 @@ write_graph <- function(graph, file)
           to <- names(graph)[as.numeric(graph[[i]]$edges[j])]
           weight <- as.numeric(graph[[i]]$weights[j])
           line <- paste0(from, " -> ",to,
-                        " " ,"[weight=", weight,
-                        "];")
+                         " " ,"[weight=", weight,
+                         "];")
           write(line, file=file,  append=TRUE)
         }
       } else
