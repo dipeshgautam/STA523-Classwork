@@ -1,4 +1,4 @@
-g2 = list(A = list(edges   = c(2L,4L,5L),
+g = list(A = list(edges   = c(2L,4L,5L),
                   weights = c(1 ,4 ,3 )),
          B = list(edges   = c(1L,4L,5L),
                   weights = c(1 ,4 ,2 )),
@@ -10,42 +10,41 @@ g2 = list(A = list(edges   = c(2L,4L,5L),
                   weights = c(3 ,2 ,4 ,4 ,7 )),
          F = list(edges   = c(3L,5L),
                   weights = c(5 ,7 )))
-
 shortest_path = function(g, v1, v2)
 {
   x=function(){
-  #if(is_valid(g,v1,v2)){
-  if(check_vertex(g,v1,v2)){
-    if(v1==v2){ ##check to see if start and finish are the same
-      return(0)
-    }
-    else{
-      dist=list()
-      paths=find_path(g,v1,v2)
-      valid=list()
-      for(i in paths){
-        for (j in i){
-          x=verify_path(g,j)
-          if(x[1]!=FALSE){
-            valid=append(valid,list(j))
-          }
+    #if(is_valid(g)){
+      if(check_vertex(g,v1,v2)){
+        if(v1==v2){ ##check to see if start and finish are the same
+          return(0)
         }
-        
+        else{
+          dist=list()
+          paths=find_path(g,v1,v2)
+          valid=list()
+          for(i in paths){
+            for (j in i){
+               x=verify_path(g,as.vector(j))
+               if(x!=FALSE){
+                 valid=append(valid,list(j))
+               }
+           }
+             
+          }
+          valid=unique(valid)
+          for(j in valid){
+            dist=append(dist,get_distance(g,j))
+          }
+          mini = match(lapply(dist,min),dist)
+          fin= valid[mini]
+          return(fin)
+        }
       }
-      valid=unique(valid)
-      for(j in valid){
-        dist=append(dist,get_distance(g,j))
-      }
-      mini = match(lapply(dist,min),dist)
-      fin= valid[mini]
-      return(fin)
+      stop("Vertex labels")
     }
-  }
-  stop("Vertex labels")
+    #stop("Not a valid graph")
   #}
-  #stop("Not a valid graph")
-  }
-  return(x())
+  return(as.character((x()[[1]])))
 }
 
 get_distance= function(g,lst){
@@ -98,22 +97,19 @@ find_path = function(g,v1,v2){
 }
  
 find_matches=function(set, v1,v2){
-  x= lapply(set,v1,v2, FUN= matches)
-  return(unique(x))
+  temp= lapply(set, FUN= function(x){
+    if(length(x)!=0){
+      return(matches(x,v1,v2))
+    }})
+  return(unique(temp))
 }
 
 
 matches= function(g,v1,v2){
   m = lapply(as.list(data.frame(t(g))), function(x){
-    if(length(x[[1]])>1){ 
-#       print(x[[1]])
-#       print(c("this is v1",v1))
-#       print(x[[1]][[1]])
-#       print(c("this is v2",v2))
-#       print(x[[1]][[length(x[[1]])]])
-      if(x[[1]][[1]]==v1 && x[[1]][[length(x[[1]])]]==v2){
-#         print("YO")
-        return(x[[1]])
+    if(length(x)>1){ 
+      if(x[1]==v1 && x[length(x)]==v2){
+        return(x)
       }
     }
   })
@@ -131,7 +127,12 @@ check_vertex = function(g,v1,v2){
 }
 
 all_combos=function(set){
- return(lapply(power_set(set), FUN=permutations))
+ return(lapply(power_set(set), FUN=function(x){
+   if(length(x)>0){
+     return(matrix(x[permutations(length(x))],ncol=length(x)))
+   }
+  
+ }))
 }
 
 power_set <- function(set) { 
@@ -140,8 +141,19 @@ power_set <- function(set) {
   lapply( 1:2^n-1, function(u) set[ bitwAnd(u, masks) != 0 ] )
 }
 
-permutations=function(lst){
-  return(expand.grid(rep(list(power_set(lst)))))
+
+permutations <- function(n){
+  if(n==1){
+    return(matrix(1))
+  } else {
+    sp <- permutations(n-1)
+    p <- nrow(sp)
+    A <- matrix(nrow=n*p,ncol=n)
+    for(i in 1:n){
+      A[(i-1)*p+1:p,] <- cbind(i,sp+(sp>=i))
+    }
+    return(A)
+  }
 }
 
 graph2 = list(A = list(edges   = c(2L),

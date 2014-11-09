@@ -14,44 +14,59 @@ g = list(A = list(edges   = c(2L,4L,5L),
 min_span_tree=function(g){
   x=function(){
     #if(is_valid(g,v1,v2)){
+    minDist=0
     dist=list()
     pathsFull=list()
     for (i in two_combos(names(g))){
-      v1=i[1]
-      v2=i[2]
-      if(check_vertex(g,v1,v2)){
-        if(v1!=v2){ 
-          paths=find_path(g,v1,v2)
-          valid=list()
-          for(i in paths){
-            for (j in i){
-              x=verify_path(g,j)
-              if(x[1]!=FALSE){
-                valid=append(valid,list(j))
+      if(length(i)>1){
+        v1=as.character(i[1])
+        v2=as.character(i[2])
+        if(check_vertex(g,v1,v2)){
+          if(v1!=v2){ 
+            paths=find_path(g,v1,v2)
+            valid=list()
+            for(i in paths){
+              for (j in i){
+                x=verify_path(g,as.vector(j))
+                if(x!=FALSE){
+                  valid=append(valid,list(j))
+                }
               }
             }
-            
-          }
-          valid=unique(valid)          
-          for(j in valid){
-            print(j)
-            if(length(j)==length(names(g))){
-              print("YOO")
-              dist=append(dist,get_distance(g,j))
-              pathsFull=append(pathsFull,j)
+            valid=unique(valid)          
+            for(j in valid){
+              if(length(j)==length(names(g))){
+                dist=append(dist,get_distance(g,j))
+                pathsFull=append(pathsFull,list(j))
+              }
             }
           }
-          
         }
       }
     }
-    print(pathsFull)
-    mini = match(lapply(dist,min),dist)
+    minDist= min(rapply(dist,min))
+    mini = match(minDist,dist)
     fin= pathsFull[mini]
     return(fin)
   }
-  return(x())
+  
+  
+  r=x()[[1]]
+  tmp=g
+  for(i in 1:length(r)){
+    nextVal= match(r[i+1], names(g))
+    ind= match(nextVal, g[[r[i]]]$edges)
+    tmp[[i]]$edges=nextVal
+    tmp[[i]]$weights= g[[r[i]]]$weights[ind]
+    if(is.na(nextVal)){
+      tmp[[i]]$edges=NA
+      tmp[[i]]$weights= 0
+    }
+  }
+  names(tmp)=r
+  return(tmp)
 }
+
 
 get_distance= function(g,lst){
   L=lst
@@ -91,7 +106,7 @@ verify_path= function(g,lst){
   }
 }
 
-find_path2 = function(g,v1,v2){
+find_path = function(g,v1,v2){
   if (v1==v2){
     return(v2)
   }
@@ -103,22 +118,19 @@ find_path2 = function(g,v1,v2){
 }
 
 find_matches=function(set, v1,v2){
-  x= lapply(set,v1,v2, FUN= matches)
-  return(unique(x))
+  temp= lapply(set, FUN= function(x){
+    if(length(x)!=0){
+      return(matches(x,v1,v2))
+    }})
+  return(unique(temp))
 }
 
 
 matches= function(g,v1,v2){
   m = lapply(as.list(data.frame(t(g))), function(x){
-    if(length(x[[1]])>1){ 
-      #       print(x[[1]])
-      #       print(c("this is v1",v1))
-      #       print(x[[1]][[1]])
-      #       print(c("this is v2",v2))
-      #       print(x[[1]][[length(x[[1]])]])
-      if(x[[1]][[1]]==v1 && x[[1]][[length(x[[1]])]]==v2){
-        #         print("YO")
-        return(x[[1]])
+    if(length(x)>1){ 
+      if(x[1]==v1 && x[length(x)]==v2){
+        return(x)
       }
     }
   })
@@ -136,7 +148,12 @@ check_vertex = function(g,v1,v2){
 }
 
 all_combos=function(set){
-  return(lapply(power_set(set), FUN=permutations))
+  return(lapply(power_set(set), FUN=function(x){
+    if(length(x)>0){
+      return(matrix(x[permutations(length(x))],ncol=length(x)))
+    }
+    
+  }))
 }
 
 power_set <- function(set) { 
@@ -145,21 +162,46 @@ power_set <- function(set) {
   lapply( 1:2^n-1, function(u) set[ bitwAnd(u, masks) != 0 ] )
 }
 
-permutations=function(lst){
-  return(expand.grid(rep(list(power_set(lst)))))
-}
 
+permutations <- function(n){
+  if(n==1){
+    return(matrix(1))
+  } else {
+    sp <- permutations(n-1)
+    p <- nrow(sp)
+    A <- matrix(nrow=n*p,ncol=n)
+    for(i in 1:n){
+      A[(i-1)*p+1:p,] <- cbind(i,sp+(sp>=i))
+    }
+    return(A)
+  }
+}
 two_combos=function(set){
   all = all_combos(set)
-  twos=list()
-  for(i in as.list(data.frame(all))){
-    for (j in i){
-      if(length(j)==2){
-       # print("YO")
-       # print(j)
-      twos=append(twos,list(j))
+  twos=lapply(all, FUN=function(x){
+    if(length(x)>1){
+      for (i in as.list(as.data.frame(t(x)))){
+        if(length(i)==2){
+          return(i)
+        }
+      }
+    }
+  })
+  return(unique(twos))
+}
+
+x=lapply(all, FUN=function(x){
+  if(length(x)>1){
+    for (i in as.list(as.data.frame(t(x)))){
+      if(length(i)==2){
+        return(i)
       }
     }
   }
-  return(unique(twos))
+})
+
+for (i in as.list(as.data.frame(t(all)))){
+  print(i)
+  print(length(i))
+
 }
