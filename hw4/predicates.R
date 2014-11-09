@@ -1,3 +1,7 @@
+setwd("~/Team2/hw4/tests")
+library(testthat)
+source_dir("..", env=globalenv() )
+
 ##################### Testing ####################################################################################
 graph1 = list(A = list(edges   = c(2L),
                        weights = c(14)),
@@ -9,7 +13,6 @@ graph1 = list(A = list(edges   = c(2L),
                        weights = c(43,33)),
               N = list(edges   = c(1L,2L,4L),
                        weights = c(33,-1,0)))
-
 
 graph2 = list(A = list(edges   = c(2L),
                        weights = c(14)),
@@ -33,74 +36,125 @@ graph3 = list(A = list(edges   = c(2L),
               N = list(edges   = c(1L,2L,4L),
                        weights = c(33,22)))
 
-g11 <- sapply(graph1, "[[", 1) # Grab first list element of n number of secondary lists (edges list). 
-g12 <- sapply(graph1, "[[", 2) # Grab first list element of n number of secondary lists (edges list). 
-g22 <- sapply(graph2, "[[", 1) # Grab first list element of n number of secondary lists (weights list). 
-g22 <- sapply(graph2, "[[", 2) # Grab first list element of n number of secondary lists (weights list). 
-
 is_valid(graph1) # Should be false
 is_valid(graph2) # Should be true
 is_valid(graph3) # Should be false
-
 #########################################################################################################
-sapply(y, function(m) m <= 0) # Evaluates each element of each secondary list correctly.
-sapply(sapply(y, function(m) m <= 0), any) # Returns consensus value for each secondary list. 
-all(sapply(sapply(g12, function(m) m <= 0), any) == c("FALSE")) # Check if all weights lists have values <= 0. If TRUE, return TRUE.
-test(g12)
-
-test <- function(a) {
-  if (all(sapply(sapply(a, function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0.
-    return(TRUE)
-  return(FALSE)
-}
-
-sapply(sapply(graph3, "[[", 1), length) # Step 1
-sapply(sapply(graph3, "[[", 2), length) # Step 2
-
-sum(sapply(sapply(graph3, "[[", 1), length)) # Step 1
-sum(sapply(sapply(graph3, "[[", 2), length)) # Step 2
-sum(sapply(sapply(graph1, "[[", 1), length)) == sum(sapply(sapply(graph1, "[[", 2), length)) # Step 3
-
 is_valid = function(g) 
 {
   ## Check that object is a list of lists.
   if (all( c(class(g), sapply(g, class)) == "list" )) # Ensures that each element of g is a list.
-    ## Check if there are names for the primary list and that they are all unique.
+    ## Check for duplicate vertex labels. if there are names for the primary list and that they are all unique.
     if (length(unique(names(g))) == length(names(g)))
       ## Check that each secondary list contains only edges and weights vectors 
-      ## that are of the appropriate type.
-      if (all( c(sapply(g, names)) == c("edges", "weights")))  
-        ## Check that there are not any edges to non-existent vertices. 
+      ## that are of the appropriate type. Ensures structure is good.
+      if (all( c(sapply(g, names)) == c("edges", "weights") | c(sapply(g, names)) == c("weights", "edges") )) # "|" for when weights are listed first
+        ## Check for invalid vertex references / edges to non-existent vertices.
         if (all(sapply(sapply(sapply(g, "[[", 1), is.element, 1:length(g)), all, 1:length(g)) == c("TRUE"))) # Works!
           ## Check that all weights are not less than or equal to 0. 
-          if (all(sapply(sapply(sapply(g, "[[", 2), function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0.
-            # Check if all weights lists have values <= 0. If TRUE, return TRUE.
+          if (all(is.na(sapply(g, function(x) x[["weights"]])) == "FALSE") & all(sapply(sapply(sapply(g, function(x) x[["weights"]]), function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0. If TRUE, return TRUE.
             ## Check that every edge has a weight.
             if (sum(sapply(sapply(g, "[[", 1), length)) == sum(sapply(sapply(g, "[[", 2), length))) # Step 5
-              return(TRUE)
-  else
+              ## Check that all edges are integer type. 
+              if (all(sapply(sapply(g, function(x) x[["edges"]]), typeof) == "integer") == c("TRUE"))
+                ## Check for duplicate edges.
+                if (sum(sapply(g, function(x) x[["edges"]])) == sum(unique(sapply(g, function(x) x[["edges"]]))))
+                  return(TRUE)
+                else {
+                  print("Duplicate edges.")
+                  return(FALSE)
+                }
+              else {
+                print("Edge(s) not integer type.")
+                return(FALSE)
+              }
+            else {
+              print("Edge(s) missing weight(s).")
+              return(FALSE)
+            }
+          else {
+            print("One or more weights less than or equal to 0, or NA.")
+            return(FALSE)
+          }
+        else {
+          print("Edge(s) to non-existent vertice(s).")
+          return(FALSE)
+        }
+      else {
+        print("Secondary list does not only contain edge and weight vectors.")
+        return(FALSE)
+      }
+    else {
+      print("Duplicate names in primary list.")
+      return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
+    }
+  else {
+    print("Object not list of lists.")
     return(FALSE)
-  else
-    return(FALSE)
-  else
-    return(FALSE)
-  
-  else
-    # print("Secondary list does not only contain edge and weight vectors.") # Can't include print() --> error msg: unexpected 'else'.
-    return(FALSE)
-  else 
-    return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
-  else
-    return(FALSE)
+  }
 }
 
 is_undirected = function(g)
 {
+  ## Graphs with NULL edges and weights are undirected.
+  test <- function(g) g["weights"]
+  if (test(g) == c("NULL")) {
+    print("Found loop.")
+    return(TRUE)
+  }
   ## Check if the graph object is undirected, this is true if all directed
   ## edges have a complementary directed edge with the same weight in the 
   ## opposite direction.
-  TRUE
+  traverse = function(g, v, visited = integer())
+  {
+    for (v in 1:length(g) ) {
+      visited <- c(visited, g[[v]]$edges)
+      if (any(g[[v]]$edges %in% visited)) {
+        print("Found loop.")
+        return(TRUE)
+      }
+      for (e in g[[v]]$edges) { # I have a new edge and want to traverse it.
+        if (traverse(g, e, visited)) { # Going to new vertex e, and keeping track of "visited"
+          print("Found a loop.")
+          return(TRUE) # Found a loop. Exit if().
+        }
+      }
+      print("No loop found.")
+      return(FALSE) # If I haven't found a loop above, there is no loop.
+    } 
+  }
 }
+
+## Failing the following tests:
+test_that("Directed - Edges",{
+  g1 = list(list(edges   = c(2L),
+                 weights = c(1)),
+            list(edges   = integer(),
+                 weights = numeric()))
+  
+  g2 = list(list(edges   = c(1L,2L),
+                 weights = c(1,1)),
+            list(edges   = c(2L),
+                 weights = c(1)))
+  
+  expect_false(is_undirected(g1))
+  expect_false(is_undirected(g2))
+})
+
+test_that("Directed - Weights",{
+  g1 = list(list(edges   = c(2L),
+                 weights = c(1)),
+            list(edges   = c(1L),
+                 weights = c(2)))
+  
+  g2 = list(list(edges   = c(1L,2L),
+                 weights = c(1,1)),
+            list(edges   = c(1L,2L),
+                 weights = c(2,1)))
+  
+  expect_false(is_undirected(g1))
+  expect_false(is_undirected(g2))   
+})
 
 is_isomorphic = function(g1, g2)
 {
