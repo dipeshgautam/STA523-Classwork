@@ -33,6 +33,22 @@ for (v in 1:length(graph4) ) {
 
 ```
 
+### Method for Input/Output
+### Write
+Our task was to write given graphs into valid DOT files. First, we made sure that the directory existed and the file we wanted to write did not exist already and that the graph provided was a valid graph object. Some of the graphs might not have labelled vertices, but we needed proper labelling for all vertices. So, next we named all the unlabelled vertices with their indices. Labels with multiple words were also modified so that they're inside quotations to meet the DOT language specifications.
+Unweighted graphs are usually written as A -> B; whereas the weighted ones are written as A -> B [weight=5];. So, we checked if the graph was weighted or not and wrote the files accordingly. Some vertices may not have any edges which are written as A;. A check was put in place to see if a vertex had no edges and was written to file accordingly.
+
+### Read
+We first checked if each line in the given file met the DOT language specification. i.e.<br>
+A -> B [weight=7.2]; edges with weight<br>
+A -> B; edges without weight<br>
+B; vertices with no edges<br>
+
+Then we extracted the vertices and their corresponding edges and weights from the file as lists. It is valid to exclude a vertex without edges from the file. So, we checked if there were any such vertices and added them and their corresponding blank edges and weights to the respective lists. If there was no weight associated with any edge, we gave it a weight of 1 and if any vertex had no edges, it was assigned empty edge and weight. We then converted names of edges into integer corresponding to the indices. We finally had all the vertices, edges and weights in proper types. Since a graph is a list of list of lists, we created an empty one.<br>
+list(list(list(), list() ) )<br>
+We then went through each unique vertex and picked its respective edges and weights and created a list of lists (list of list of edges and list of weights) corresponding to a single vertex. Then we added it back to the graph and labelled it with the vertex name.
+
+
 ###Method for Shortest Path and Minimum Spanning Trees:
 
 Our method for finding the shortest path and minimum spanning trees are very similar. The functions for both create a power-set of all of the possible combinations of names in the graph. It then computes all of the different permutations of each power-set and filters on the ones that match the first and last vertices given. With this, each of the paths is verified, and if it is a valid path in the graph, the weights and edges are stored. For shortest path, the path with the minimum weight is returned. For minimum spanning trees, the function goes through every combination of first and last indices, and then checks to see which of the valid paths that are returned match the number of vertices. The minimum weight is then calculated and the graph of this path is returned.
