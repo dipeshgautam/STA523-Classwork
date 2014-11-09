@@ -2,7 +2,7 @@ is_connected <- function(g,v1,v2){
   
   ##first ensure the graph is valid
   if(!is_valid(g)) stop('error')
-   
+  
   ##second check that v1 or v2 is in g or not
   findv1 = 0
   findv2 = 0
@@ -52,18 +52,18 @@ is_connected <- function(g,v1,v2){
     }
   }
   
-  ##special case:v1 = v2, but it is not self-connected, to solve the problem (g1,1,1) and (g3,2,2)
-#   if(v1 == v2){
-#     if(length(g[[index1]]$edges) == 0){ 
-#       return(FALSE)
-#     } else {
-#     if(any(g[[index1]]$edges) == index2){
-#         return(TRUE)
-#     } else {
-#         return(FALSE)
-#     }
-#     }
-#   }
+  #special case:v1 = v2
+  if(v1 == v2){
+    if(length(g[[index1]]$edges) == 0){ 
+      return(FALSE)
+    } else {
+      if(any(g[[index1]]$edges == index2) ){
+        return(TRUE)
+      } else {
+        return(FALSE)
+      }
+    }
+  }
   
   ##initialize a queue to save all the points
   queue = integer()
@@ -78,7 +78,7 @@ is_connected <- function(g,v1,v2){
       return(TRUE)
     
     visited = c(visited, v)
-
+    
     queue = c(queue, v)
     num = num + 1
     
@@ -110,7 +110,6 @@ is_connected <- function(g,v1,v2){
   
   ##if there is not true, then it should be false
   return(FALSE)
-    
+  
 }
-
 
