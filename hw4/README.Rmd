@@ -32,3 +32,9 @@ for (v in 1:length(graph4) ) {
 }
 
 ```
+
+###Method for Shortest Path and Minimum Spanning Trees:
+
+Our method for finding the shortest path and minimum spanning trees are very similar. The functions for both create a power-set of all of the possible combinations of names in the graph. It then computes all of the different permutations of each power-set and filters on the ones that match the first and last vertices given. With this, each of the paths is verified, and if it is a valid path in the graph, the weights and edges are stored. For shortest path, the path with the minimum weight is returned. For minimum spanning trees, the function goes through every combination of first and last indices, and then checks to see which of the valid paths that are returned match the number of vertices. The minimum weight is then calculated and the graph of this path is returned.
+
+This method, however, is inefficient for graphs with a large number of vertices because the total number of paths computed is equal the sum from r=1 to n of (n!/ (n-r)!), where n is the total number of items in the list of vertices.
