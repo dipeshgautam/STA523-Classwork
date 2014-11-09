@@ -60,34 +60,34 @@ is_valid = function(g)
                 ## Check for duplicate edges.
                 if (sum(sapply(g, function(x) x[["edges"]])) == sum(unique(sapply(g, function(x) x[["edges"]]))))
                   return(TRUE)
-                else {
-                  print("Duplicate edges.")
-                  return(FALSE)
-                }
-              else {
-                print("Edge(s) not integer type.")
-                return(FALSE)
-              }
-            else {
-              print("Edge(s) missing weight(s).")
-              return(FALSE)
-            }
-          else {
-            print("One or more weights less than or equal to 0, or NA.")
-            return(FALSE)
-          }
-        else {
-          print("Edge(s) to non-existent vertice(s).")
-          return(FALSE)
-        }
-      else {
-        print("Secondary list does not only contain edge and weight vectors.")
-        return(FALSE)
-      }
-    else {
-      print("Duplicate names in primary list.")
-      return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
-    }
+  else {
+    print("Duplicate edges.")
+    return(FALSE)
+  }
+  else {
+    print("Edge(s) not integer type.")
+    return(FALSE)
+  }
+  else {
+    print("Edge(s) missing weight(s).")
+    return(FALSE)
+  }
+  else {
+    print("One or more weights less than or equal to 0, or NA.")
+    return(FALSE)
+  }
+  else {
+    print("Edge(s) to non-existent vertice(s).")
+    return(FALSE)
+  }
+  else {
+    print("Secondary list does not only contain edge and weight vectors.")
+    return(FALSE)
+  }
+  else {
+    print("Duplicate names in primary list.")
+    return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
+  }
   else {
     print("Object not list of lists.")
     return(FALSE)

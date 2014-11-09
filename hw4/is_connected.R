@@ -57,19 +57,11 @@ is_connected <- function(g,v1,v2){
     if(length(g[[index1]]$edges) == 0){ 
       return(FALSE)
     } else {
-<<<<<<< HEAD
       if(any(g[[index1]]$edges == index2) ){
         return(TRUE)
       } else {
         return(FALSE)
       }
-=======
-    if(any(g[[index1]]$edges == index2) ){
-        return(TRUE)
-    } else {
-        return(FALSE)
-    }
->>>>>>> 1870e4807c8b5ec12a745ae71f3e00f26b13a979
     }
   }
   
