@@ -14,35 +14,35 @@ shortest_path = function(g, v1, v2)
 {
   x=function(){
     #if(is_valid(g)){
-      if(check_vertex(g,v1,v2)){
-        if(v1==v2){ ##check to see if start and finish are the same
-          return(0)
-        }
-        else{
-          dist=list()
-          paths=find_path(g,v1,v2)
-          valid=list()
-          for(i in paths){
-            for (j in i){
-               x=verify_path(g,as.vector(j))
-               if(x!=FALSE){
-                 valid=append(valid,list(j))
-               }
-           }
-             
-          }
-          valid=unique(valid)
-          for(j in valid){
-            dist=append(dist,get_distance(g,j))
-          }
-          mini = match(lapply(dist,min),dist)
-          fin= valid[mini]
-          return(fin)
-        }
+    if(check_vertex(g,v1,v2)){
+      if(v1==v2){ ##check to see if start and finish are the same
+        return(0)
       }
-      stop("Vertex labels")
+      else{
+        dist=list()
+        paths=find_path(g,v1,v2)
+        valid=list()
+        for(i in paths){
+          for (j in i){
+            x=verify_path(g,as.vector(j))
+            if(x!=FALSE){
+              valid=append(valid,list(j))
+            }
+          }
+          
+        }
+        valid=unique(valid)
+        for(j in valid){
+          dist=append(dist,get_distance(g,j))
+        }
+        mini = match(lapply(dist,min),dist)
+        fin= valid[mini]
+        return(fin)
+      }
     }
-    #stop("Not a valid graph")
+    stop("Vertex labels")
+  }
+  #stop("Not a valid graph")
   #}
   return(as.character((x()[[1]])))
 }
@@ -95,7 +95,7 @@ find_path = function(g,v1,v2){
     return(match)
   }
 }
- 
+
 find_matches=function(set, v1,v2){
   temp= lapply(set, FUN= function(x){
     if(length(x)!=0){
@@ -127,12 +127,12 @@ check_vertex = function(g,v1,v2){
 }
 
 all_combos=function(set){
- return(lapply(power_set(set), FUN=function(x){
-   if(length(x)>0){
-     return(matrix(x[permutations(length(x))],ncol=length(x)))
-   }
-  
- }))
+  return(lapply(power_set(set), FUN=function(x){
+    if(length(x)>0){
+      return(matrix(x[permutations(length(x))],ncol=length(x)))
+    }
+    
+  }))
 }
 
 power_set <- function(set) { 
@@ -157,13 +157,13 @@ permutations <- function(n){
 }
 
 graph2 = list(A = list(edges   = c(2L),
-                        weights = c(14)),
-               B = list(edges   = c(3L,4L),
-                        weights = c(23,13)),
-               D = list(edges   = c(1L),
-                        weights = c(5) ),
-               F = list(edges   = c(1L,5L),
-                        weights = c(43,33)),
-               N = list(edges   = c(1L,2L,4L),
-                        weights = c(33,22,11)))
+                       weights = c(14)),
+              B = list(edges   = c(3L,4L),
+                       weights = c(23,13)),
+              D = list(edges   = c(1L),
+                       weights = c(5) ),
+              F = list(edges   = c(1L,5L),
+                       weights = c(43,33)),
+              N = list(edges   = c(1L,2L,4L),
+                       weights = c(33,22,11)))
 

@@ -199,9 +199,3 @@ x=lapply(all, FUN=function(x){
     }
   }
 })
-
-for (i in as.list(as.data.frame(t(all)))){
-  print(i)
-  print(length(i))
-
-}
