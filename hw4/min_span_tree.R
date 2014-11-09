@@ -1,4 +1,4 @@
-g2 = list(A = list(edges   = c(2L,4L,5L),
+g = list(A = list(edges   = c(2L,4L,5L),
                   weights = c(1 ,4 ,3 )),
          B = list(edges   = c(1L,4L,5L),
                   weights = c(1 ,4 ,2 )),
@@ -11,39 +11,44 @@ g2 = list(A = list(edges   = c(2L,4L,5L),
          F = list(edges   = c(3L,5L),
                   weights = c(5 ,7 )))
 
-shortest_path = function(g, v1, v2)
-{
+min_span_tree=function(g){
   x=function(){
-  #if(is_valid(g,v1,v2)){
-  if(check_vertex(g,v1,v2)){
-    if(v1==v2){ ##check to see if start and finish are the same
-      return(0)
-    }
-    else{
-      dist=list()
-      paths=find_path(g,v1,v2)
-      valid=list()
-      for(i in paths){
-        for (j in i){
-          x=verify_path(g,j)
-          if(x[1]!=FALSE){
-            valid=append(valid,list(j))
+    #if(is_valid(g,v1,v2)){
+    dist=list()
+    pathsFull=list()
+    for (i in two_combos(names(g))){
+      v1=i[1]
+      v2=i[2]
+      if(check_vertex(g,v1,v2)){
+        if(v1!=v2){ 
+          paths=find_path(g,v1,v2)
+          valid=list()
+          for(i in paths){
+            for (j in i){
+              x=verify_path(g,j)
+              if(x[1]!=FALSE){
+                valid=append(valid,list(j))
+              }
+            }
+            
           }
+          valid=unique(valid)          
+          for(j in valid){
+            print(j)
+            if(length(j)==length(names(g))){
+              print("YOO")
+              dist=append(dist,get_distance(g,j))
+              pathsFull=append(pathsFull,j)
+            }
+          }
+          
         }
-        
       }
-      valid=unique(valid)
-      for(j in valid){
-        dist=append(dist,get_distance(g,j))
-      }
-      mini = match(lapply(dist,min),dist)
-      fin= valid[mini]
-      return(fin)
     }
-  }
-  stop("Vertex labels")
-  #}
-  #stop("Not a valid graph")
+    print(pathsFull)
+    mini = match(lapply(dist,min),dist)
+    fin= pathsFull[mini]
+    return(fin)
   }
   return(x())
 }
@@ -86,7 +91,7 @@ verify_path= function(g,lst){
   }
 }
 
-find_path = function(g,v1,v2){
+find_path2 = function(g,v1,v2){
   if (v1==v2){
     return(v2)
   }
@@ -96,7 +101,7 @@ find_path = function(g,v1,v2){
     return(match)
   }
 }
- 
+
 find_matches=function(set, v1,v2){
   x= lapply(set,v1,v2, FUN= matches)
   return(unique(x))
@@ -106,13 +111,13 @@ find_matches=function(set, v1,v2){
 matches= function(g,v1,v2){
   m = lapply(as.list(data.frame(t(g))), function(x){
     if(length(x[[1]])>1){ 
-#       print(x[[1]])
-#       print(c("this is v1",v1))
-#       print(x[[1]][[1]])
-#       print(c("this is v2",v2))
-#       print(x[[1]][[length(x[[1]])]])
+      #       print(x[[1]])
+      #       print(c("this is v1",v1))
+      #       print(x[[1]][[1]])
+      #       print(c("this is v2",v2))
+      #       print(x[[1]][[length(x[[1]])]])
       if(x[[1]][[1]]==v1 && x[[1]][[length(x[[1]])]]==v2){
-#         print("YO")
+        #         print("YO")
         return(x[[1]])
       }
     }
@@ -131,7 +136,7 @@ check_vertex = function(g,v1,v2){
 }
 
 all_combos=function(set){
- return(lapply(power_set(set), FUN=permutations))
+  return(lapply(power_set(set), FUN=permutations))
 }
 
 power_set <- function(set) { 
@@ -144,14 +149,17 @@ permutations=function(lst){
   return(expand.grid(rep(list(power_set(lst)))))
 }
 
-graph2 = list(A = list(edges   = c(2L),
-                        weights = c(14)),
-               B = list(edges   = c(3L,4L),
-                        weights = c(23,13)),
-               D = list(edges   = c(1L),
-                        weights = c(5) ),
-               F = list(edges   = c(1L,5L),
-                        weights = c(43,33)),
-               N = list(edges   = c(1L,2L,4L),
-                        weights = c(33,22,11)))
-
+two_combos=function(set){
+  all = all_combos(set)
+  twos=list()
+  for(i in as.list(data.frame(all))){
+    for (j in i){
+      if(length(j)==2){
+       # print("YO")
+       # print(j)
+      twos=append(twos,list(j))
+      }
+    }
+  }
+  return(unique(twos))
+}
