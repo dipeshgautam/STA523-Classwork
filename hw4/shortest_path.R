@@ -30,7 +30,13 @@ shortest_path = function(g, v1, v2)
         }
         if(check_vertex(g,v1,v2)){
           if(v1==v2){ ##check to see if start and finish are the same
-            return(c(v1,v2))
+            test = c(v1,v2)
+            if(verify_path(g,as.vector(test))){
+              return(c(v1,v2))
+            }
+            else{
+              return()
+            }
           }
           else{
             dist=list()
