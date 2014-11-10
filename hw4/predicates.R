@@ -71,108 +71,79 @@ is_undirected = function(g)
     print("Found loop. Last vertice has NULL edge(s) and/or weight(s).")
     return(TRUE)
   }
+  ## Graph has one weight, therefore undirected.
   if (length(sapply(sapply(g, function(x) x[["weights"]]), length)) == 1) {
     print("Graph has one weight, therefore undirected.")
     return(TRUE)
   }
-  ## Finds a loop where weights are equal in both directions between two adjacent vertices.
+  
+  ## Graph has at least two elements. Weights are equal in both directions between two adjacent vertices. Exclude NA edges.
+  ## is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")
   if (length(g) >= 2) {
-    for (i in 1:(length(g)-1)) {
-      if (all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) {
-        print("Adjacent vertices have equal weights.")
+    if (is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")) { # Exclude graphs with last vertice if it is NA.
+      for (i in 1:(length(g)-1)) {
+        if (all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) {
+          print("Adjacent vertices have equal weights.")
+          return(TRUE)
+        }
+      }
+      ## Finds if edge is only directed towards self.
+      if (all(g[[i]]$edges == i) && length(g[[i]]$edges) == 1) {
+        print("Edge only directed towards self.")
         return(TRUE)
       }
-    }  
-  }
-  ## Finds if edge is only directed towards self.
-  for (i in 1:length(g)) {
-    if (all(g[[i]]$edges == i)) {
-      print("Edge only directed towards self.")
-      return(TRUE)
+      ## Finds if all weights and edges for list[i] == list[i+1]. Exclude cases where last edge is "NA".
+      if (all(g[[i+1]]$edges == g[[i]]$edges) && all(g[[i+1]]$weights == g[[i]]$weights)) {
+        print("list[i] and list[i+1] have the same weights and edges.")
+        #print(paste0("list",[i], "and", "list",[i+1], "have the same weights and edges."))
+        return(TRUE)
+      }
     }
-    ## Finds if all weights and edges for list[i] == list[i+1].
-    if (all(g[[i+1]]$edges == g[[i]]$edges) && all(g[[i+1]]$weights == g[[i]]$weights)) {
-      print("list[i] and list[i+1] have the same weights and edges.")
-      #print(paste0("list",[i], "and", "list",[i+1], "have the same weights and edges."))
-      return(TRUE)
-    }
-    
-    if (length(g$edges) == 0) {
-    
-    }
+#     obsolete
+#     for (i in 1:length(g)) {
+#       ## Finds if edge is only directed towards self.
+#       if (all(g[[i]]$edges == i) && length(g[[i]]$edges) == 1) {
+#         print("Edge only directed towards self.")
+#         return(TRUE)
+#       }
+#     }
   }
   return(FALSE)
 }
+is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")
+all(g[[i]]$edges == i) && length(g[[i]]$edges) == 1
+is_undirected(g1) # expect false
+is_undirected(g2) # expect false
+is_undirected(g3) # expect true
+is_undirected(g4) # expect true
+i <- 1
 
-length(g$edges)
+is.na(all(g1[[i+1]]$edges == i && g1[[i]]$weights == g1[[i+1]]$weights)) == c("FALSE")
+is.na(all(g2[[i+1]]$edges == i && g2[[i]]$weights == g2[[i+1]]$weights)) == c("FALSE")
+is.na(all(g3[[i+1]]$edges == i && g3[[i]]$weights == g3[[i+1]]$weights)) == c("FALSE")
+is.na(all(g4[[i+1]]$edges == i && g4[[i]]$weights == g4[[i+1]]$weights)) == c("FALSE")
+g1 = list(list(edges   = c(1L,2L),
+               weights = c(1,1)),
+          list(edges   = c(2L),
+               weights = c(1)))
 
-g = list(list(edges   = c(2L),
+
+g2 = list(list(edges   = c(2L),
                weights = c(1)),
           list(edges   = integer(),
                weights = numeric()))
-is_undirected(g) # expect false
-length(g)
-i <- 1
-all(g[[i+1]]$edges == i & g[[i]]$weights == g[[i+1]]$weights)
-g[[i]]$weights == g[[i+1]]$weights
-g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights
 
+g3 = list(list(edges   = integer(),
+               weights = numeric()))
 
-
-if (length(g) >= 2) {
-  for (i in 1:(length(g)-1)) {
-    if (all(g[[i+1]]$edges == i & g[[i]]$weights == g[[i+1]]$weights)) {
-      print("Adjacent vertices have equal weights.")
-      return(TRUE)
-    }
-  }  
-}
-i <- 1
+g4 = list(list(edges   = integer(),
+               weights = numeric()),
+          list(edges   = integer(),
+               weights = numeric()))
 
 
 ################   TESTING    ################
-
-context("Test is_undirected")
-
-
-test_that("Directed - Edges",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = integer(),
-                 weights = numeric()))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(2L),
-                 weights = c(1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))
-})
-if (all(g[[i+1]]$edges == g[[i]]$edges) && all(g[[i+1]]$weights == g[[i]]$weights)) {
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = c(1L),
-                 weights = c(2)))
-any(sapply(g1, function(x) x[["edges"]]) == c("numeric(0)"))
-sapply(g1, function(x) x[["weights"]])
-test_that("Directed - Weights",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = c(1L),
-                 weights = c(2)))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(1L,2L),
-                 weights = c(2,1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))   
-})
-
-
-## PASSING
+#### PASSING
 
 test_that("Bad graphs", {
   g1 = list(A = list(edges   = c(1L),
@@ -245,6 +216,40 @@ test_that("Undirected",{
   expect_true(is_undirected(g5))
   expect_true(is_undirected(g6))
   expect_true(is_undirected(g7))
+})
+
+
+context("Test is_undirected")
+
+
+test_that("Directed - Edges",{
+  g1 = list(list(edges   = c(2L),
+                 weights = c(1)),
+            list(edges   = integer(),
+                 weights = numeric()))
+  
+  g2 = list(list(edges   = c(1L,2L),
+                 weights = c(1,1)),
+            list(edges   = c(2L),
+                 weights = c(1)))
+  
+  expect_false(is_undirected(g1))
+  expect_false(is_undirected(g2))
+})
+
+test_that("Directed - Weights",{
+  g1 = list(list(edges   = c(2L),
+                 weights = c(1)),
+            list(edges   = c(1L),
+                 weights = c(2)))
+  
+  g2 = list(list(edges   = c(1L,2L),
+                 weights = c(1,1)),
+            list(edges   = c(1L,2L),
+                 weights = c(2,1)))
+  
+  expect_false(is_undirected(g1))
+  expect_false(is_undirected(g2))   
 })
 
 ################   TESTING    ################

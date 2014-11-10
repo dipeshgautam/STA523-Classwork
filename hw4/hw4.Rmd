@@ -18,6 +18,8 @@ The predicates task required using R's base functionality to write functions che
 ## `is_valid()`
 Checks to ensure that the graph meets all requirements. A subset of these requirements were listed on the Homework 4 description, while other requirements were implied through tests in the `test_is_valid.R` file. Examples of requirements for a valid graph are:
 
+From [Homework 4 Description](https://stat.duke.edu/~cr173/Sta523_Fa14/hw/hw4.html):
+
 * List of list(s)
 * All primary list items are unique.
 * Second list contains only edges and weights vectors of appropriate type.
@@ -25,10 +27,14 @@ Checks to ensure that the graph meets all requirements. A subset of these requir
 * All weights are >0.
 * Every edge has a weight.
 
+From [test_is_valid.R]():
+
+There were two additional conditions needed to be met, which came to light only when running [test_read_graph.R]().
+
 The code for `is_valid()` is commented so it should be clear what the goal is for each `if()` statement. A step-wise process was used to develop the logic of the algorithms before they passed all of the tests.
 
 ## `is_undirected()`
-Checks that all directed edges have a complimentary directed edge with the same weight in the opposite direction. A typo for a variable name within the function made it seem like this function was correctly passing all tests. Fixing the typo meant a complete rewriting of this function was needed. 
+Checks that all directed edges have a complimentary directed edge with the same weight in the opposite direction. A typo for the variable name `(g0)` within the condition checking in `is_undirected(g)` made it pass all tests in [test_is_undirected.R](). Fixing the typo meant a complete rewriting of this function was needed. 
 
 ## `is_isomorphic()`
 
