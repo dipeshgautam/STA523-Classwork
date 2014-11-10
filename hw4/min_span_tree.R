@@ -13,50 +13,57 @@ g = list(A = list(edges   = c(2L,4L,5L),
 
 min_span_tree=function(g){
   x=function(){
-    #if(is_valid(g,v1,v2)){
-    minDist=0
-    dist=list()
-    pathsFull=list()
-    
-    if(length(names(g))==0){
-      names(g)=LETTERS[1:length(g)]
-    }
-    for (i in two_combos(names(g))){      
-      if(length(i)>1){
-        v1=as.character(i[1])
-        v2=as.character(i[2])
-        if(check_vertex(g,v1,v2)){
-          if(v1!=v2){ 
-            paths=find_path(g,v1,v2)
-            valid=list()
-            for(i in paths){
-              for (j in i){
-                x=verify_path(g,as.vector(j))
-                if(x!=FALSE){
-                  valid=append(valid,list(j))
+    if(is_valid(g)){
+      if(is_connected(g)){
+        minDist=0
+        dist=list()
+        pathsFull=list()
+        
+        if(length(names(g))==0){
+          names(g)=LETTERS[1:length(g)]
+        }
+        for (i in two_combos(names(g))){      
+          if(length(i)>1){
+            v1=as.character(i[1])
+            v2=as.character(i[2])
+            if(check_vertex(g,v1,v2)){
+              if(v1!=v2){ 
+                paths=find_path(g,v1,v2)
+                valid=list()
+                for(i in paths){
+                  for (j in i){
+                    x=verify_path(g,as.vector(j))
+                    if(x!=FALSE){
+                      valid=append(valid,list(j))
+                    }
+                  }
                 }
-              }
-            }
-            valid=unique(valid)
-            for(j in valid){
-              if(length(j)==length(names(g))){
-                dist=append(dist,get_distance(g,j))
-                pathsFull=append(pathsFull,list(j))
+                valid=unique(valid)
+                for(j in valid){
+                  if(length(j)==length(names(g))){
+                    dist=append(dist,get_distance(g,j))
+                    pathsFull=append(pathsFull,list(j))
+                  }
+                }
               }
             }
           }
         }
+        if(length(dist)>0){
+          minDist= min(rapply(dist,min))
+          mini = match(minDist,dist)
+          fin= pathsFull[mini]
+          return(fin)
+        }
+      }
+      if(!is_connected(g)){
+        stop("Unconnected Graphs")
       }
     }
-    if(length(dist)>0){
-      minDist= min(rapply(dist,min))
-      mini = match(minDist,dist)
-      fin= pathsFull[mini]
-      return(fin)
+    if(!is_valid(g)){
+      stop("Bad Graph")
     }
   }
-  
-  
   r=x()[[1]]
   if(length(r)==0){
     if(is.element(1,g[[1]]$edges)){
@@ -69,6 +76,7 @@ min_span_tree=function(g){
     return(create_graph(g,r))
   }
 }
+
 create_graph= function(g,r){
   tmp=g
   if(length(names(g))==0){

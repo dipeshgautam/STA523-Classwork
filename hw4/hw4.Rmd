@@ -48,6 +48,16 @@ Then we extracted the vertices and their corresponding edges and weights from th
 list(list(list(), list() ) )<br>
 We then went through each unique vertex and picked its respective edges and weights and created a list of lists (list of list of edges and list of weights) corresponding to a single vertex. Then we added it back to the graph and labelled it with the vertex name.
 
+### Method for is_isomorphic
+First we check that whether the graph is valid or not, if it is not valid, then throw an error.
+Second we check that the number of vertices are equal or not. If not equal, then they should not be the same. If equal, then check related edges and weights.
+
+### Method for is_connected
+First, we check that whether the graph is valid or not.
+Second, we check that whether those two points exist in the graph.
+Third, we find the indexed for v1 and v2.
+Fourth, we construct a function to traverse through all the points in the graph. The visited vector is for recording all visited points and the queue vector is for ensuring all conncted points can be reached.
+Then we traverse from v1, if it can arrive at v2, then they are connected. If not, they are not connected.
 
 ###Method for Shortest Path and Minimum Spanning Trees:
 
