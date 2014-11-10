@@ -2,44 +2,6 @@ setwd("~/Team2/hw4/tests")
 library(testthat)
 source_dir("..", env=globalenv() )
 
-##################### Testing ####################################################################################
-graph1 = list(A = list(edges   = c(2L),
-                       weights = c(14)),
-              B = list(edges   = c(3L,4L),
-                       weights = c(23,13)),
-              D = list(edges   = c(1L),
-                       weights = c(5) ),
-              F = list(edges   = c(1L,5L),
-                       weights = c(43,33)),
-              N = list(edges   = c(1L,2L,4L),
-                       weights = c(33,-1,0)))
-
-graph2 = list(A = list(edges   = c(2L),
-                       weights = c(14)),
-              B = list(edges   = c(3L,4L),
-                       weights = c(23,13)),
-              D = list(edges   = c(1L),
-                       weights = c(5) ),
-              F = list(edges   = c(1L,5L),
-                       weights = c(43,33)),
-              N = list(edges   = c(1L,2L,4L),
-                       weights = c(33,22,11)))
-
-graph3 = list(A = list(edges   = c(2L),
-                       weights = c(14)),
-              B = list(edges   = c(3L,4L),
-                       weights = c(23,13)),
-              D = list(edges   = c(1L),
-                       weights = c(5) ),
-              F = list(edges   = c(1L,5L),
-                       weights = c(43,33)),
-              N = list(edges   = c(1L,2L,4L),
-                       weights = c(33,22)))
-
-is_valid(graph1) # Should be false
-is_valid(graph2) # Should be true
-is_valid(graph3) # Should be false
-#########################################################################################################
 is_valid = function(g) 
 {
   ## Check that object is a list of lists.
@@ -59,11 +21,12 @@ is_valid = function(g)
               ## Check that all edges are integer type. 
               if (all(sapply(sapply(g, function(x) x[["edges"]]), typeof) == "integer") == c("TRUE"))
                 ## Check for duplicate edges.
-                if (length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))) # Use length() instead of sum().
-                  return(TRUE)
-                else {
-                  print("Duplicate edges.")
-                  return(FALSE)
+                for (i in 1:length(g[[i]]$edges)) {
+                  if (length(g[[i]]$edges) == length(unique(g[[i]]$edges)))
+                    return(TRUE)
+                  else
+                    print("Duplicate edges.")
+                    return(FALSE)
                 }
               else {
                 print("Edge(s) not integer type.")
@@ -95,67 +58,42 @@ is_valid = function(g)
   }
 }
 
-is_undirected = function(g)
-{
-  ## Graphs with NULL edges and weights are undirected.
-  test <- function(g) g["weights"]
-  if (test(g) == c("NULL")) {
-    print("Found loop.")
+is_undirected = function(g) {
+  ## Graphs with one vertice that has NULL a edge and weight is undirected.
+  if (length(sapply(sapply(g, function(x) x[["weights"]]), length)) == 1 & sapply(sapply(g0, function(x) x[["weights"]]), length) == 0) {
+    print("Found loop. Last vertice has NULL edge(s) and/or weight(s).")
     return(TRUE)
   }
+  else {
   ## Check if the graph object is undirected, this is true if all directed
   ## edges have a complementary directed edge with the same weight in the 
   ## opposite direction.
-  traverse = function(g, v, visited = integer())
-  {
-    for (v in 1:length(g) ) {
-      visited <- c(visited, g[[v]]$edges)
-      if (any(g[[v]]$edges %in% visited)) {
-        print("Found loop.")
-        return(TRUE)
-      }
-      for (e in g[[v]]$edges) { # I have a new edge and want to traverse it.
-        if (traverse(g, e, visited)) { # Going to new vertex e, and keeping track of "visited"
-          print("Found a loop.")
-          return(TRUE) # Found a loop. Exit if().
+    traverse = function(g, v, visited = integer())
+    {
+      for (v in 1:length(g) ) {
+        visited <- c(visited, g[[v]]$edges)
+        if (any(g[[v]]$edges %in% visited)) {
+          print(paste0("True. Found loop. Already visited edge.", g[[v]]$edges %in% visited))
+          return(TRUE)
         }
-      }
-      print("No loop found.")
-      return(FALSE) # If I haven't found a loop above, there is no loop.
-    } 
+        for (e in g[[v]]$edges) { # I have a new edge and want to traverse it.
+          if (traverse(g, e, visited)) { # Going to new vertex e, and keeping track of "visited"
+            print("True. Found a loop.")
+            return(TRUE) # Found a loop. Exit if().
+          }
+        }
+        if (length(sapply(sapply(g, function(x) x[["weights"]]), length)) == 1 & sapply(sapply(g0, function(x) x[["weights"]]), length) == 0) {
+          print("True. Found a loop.")
+          return(TRUE)
+        } 
+        print("False. No loop found.")
+        return(FALSE) # If I haven't found a loop above, there is no loop.
+      } 
+    }
+    print("False. No loop found.")
+    return(FALSE)
   }
 }
-
-## Failing the following tests:
-test_that("Directed - Edges",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = integer(),
-                 weights = numeric()))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(2L),
-                 weights = c(1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))
-})
-
-test_that("Directed - Weights",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = c(1L),
-                 weights = c(2)))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(1L,2L),
-                 weights = c(2,1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))   
-})
 
 is_isomorphic = function(g1, g2)
 {
