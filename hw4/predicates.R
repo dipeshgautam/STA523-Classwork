@@ -1,4 +1,3 @@
-# setwd("~/Team2/hw4/tests")
 library(testthat)
 source_dir("..", env=globalenv() )
 
@@ -57,7 +56,6 @@ is_valid = function(g)
   }
 }
 
-## has_loop
 is_undirected = function(g)
 {
   stopifnot(is_valid(g))
@@ -76,7 +74,6 @@ is_undirected = function(g)
     print("Graph has one weight, therefore undirected.")
     return(TRUE)
   }
-  
   ## Graph has at least two elements. Weights are equal in both directions between two adjacent vertices. Exclude NA edges.
   ## is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")
   if (length(g) >= 2) {
@@ -110,152 +107,6 @@ is_undirected = function(g)
   }
   return(FALSE)
 }
-is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")
-all(g[[i]]$edges == i) && length(g[[i]]$edges) == 1
-is_undirected(g1) # expect false
-is_undirected(g2) # expect false
-is_undirected(g3) # expect true
-is_undirected(g4) # expect true
-i <- 1
-
-is.na(all(g1[[i+1]]$edges == i && g1[[i]]$weights == g1[[i+1]]$weights)) == c("FALSE")
-is.na(all(g2[[i+1]]$edges == i && g2[[i]]$weights == g2[[i+1]]$weights)) == c("FALSE")
-is.na(all(g3[[i+1]]$edges == i && g3[[i]]$weights == g3[[i+1]]$weights)) == c("FALSE")
-is.na(all(g4[[i+1]]$edges == i && g4[[i]]$weights == g4[[i+1]]$weights)) == c("FALSE")
-g1 = list(list(edges   = c(1L,2L),
-               weights = c(1,1)),
-          list(edges   = c(2L),
-               weights = c(1)))
-
-
-g2 = list(list(edges   = c(2L),
-               weights = c(1)),
-          list(edges   = integer(),
-               weights = numeric()))
-
-g3 = list(list(edges   = integer(),
-               weights = numeric()))
-
-g4 = list(list(edges   = integer(),
-               weights = numeric()),
-          list(edges   = integer(),
-               weights = numeric()))
-
-
-################   TESTING    ################
-#### PASSING
-
-test_that("Bad graphs", {
-  g1 = list(A = list(edges   = c(1L),
-                     weights = c(1)))
-  
-  bad_g1 = list(list())
-  bad_g2 = list(list(edges = 1L))
-  bad_g3 = list(list(weights = 1))
-  
-  expect_error(is_undirected(g1,bad_g1))
-  expect_error(is_undirected(g1,bad_g2))
-  expect_error(is_undirected(g1,bad_g3))
-  
-  expect_error(is_undirected(bad_g1,g1))
-  expect_error(is_undirected(bad_g2,g1))
-  expect_error(is_undirected(bad_g3,g1))
-  
-  expect_error(is_undirected(bad_g1,bad_g1))
-  expect_error(is_undirected(bad_g2,bad_g2))
-  expect_error(is_undirected(bad_g3,bad_g3))
-})
-
-
-test_that("Undirected",{
-  g0 = list(list(edges   = integer(),
-                 weights = numeric()))
-  
-  g1 = list(list(edges   = c(1L),
-                 weights = c(1)))
-  
-  g2 = list(list(edges   = integer(),
-                 weights = numeric()),
-            list(edges   = integer(),
-                 weights = numeric()))
-  
-  g3 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = c(1L),
-                 weights = c(1)))
-  
-  g4 = list(list(edges   = c(1L),
-                 weights = c(1)),
-            list(edges   = c(2L),
-                 weights = c(1)))
-  
-  g5 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(1L),
-                 weights = c(1)))
-  
-  g6 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(1L,2L),
-                 weights = c(1,1)))
-  
-  g7 = list(list(edges   = c(2L,4L),
-                 weights = c(1,1)),
-            list(edges   = c(1L),
-                 weights = c(1)),
-            list(edges   = c(4L),
-                 weights = c(1)),
-            list(edges   = c(1L,3L),
-                 weights = c(1,1)))
-  
-  expect_true(is_undirected(g0))
-  expect_true(is_undirected(g1))
-  expect_true(is_undirected(g2))
-  expect_true(is_undirected(g3))
-  expect_true(is_undirected(g4))
-  expect_true(is_undirected(g5))
-  expect_true(is_undirected(g6))
-  expect_true(is_undirected(g7))
-})
-
-
-context("Test is_undirected")
-
-
-test_that("Directed - Edges",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = integer(),
-                 weights = numeric()))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(2L),
-                 weights = c(1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))
-})
-
-test_that("Directed - Weights",{
-  g1 = list(list(edges   = c(2L),
-                 weights = c(1)),
-            list(edges   = c(1L),
-                 weights = c(2)))
-  
-  g2 = list(list(edges   = c(1L,2L),
-                 weights = c(1,1)),
-            list(edges   = c(1L,2L),
-                 weights = c(2,1)))
-  
-  expect_false(is_undirected(g1))
-  expect_false(is_undirected(g2))   
-})
-
-################   TESTING    ################
-
-
-
 
 is_isomorphic <- function(g1,g2) {
   
