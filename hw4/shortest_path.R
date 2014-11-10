@@ -54,7 +54,7 @@ shortest_path = function(g, v1, v2)
         }
         stop("Vertex labels")
       }
-      stop("Unconnected Graph")
+      return(list())
     }
     stop("Bad Graph")
   }
