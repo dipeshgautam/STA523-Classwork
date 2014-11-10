@@ -1,20 +1,9 @@
-g = list(A = list(edges   = c(2L,4L,5L),
-                  weights = c(1 ,4 ,3 )),
-         B = list(edges   = c(1L,4L,5L),
-                  weights = c(1 ,4 ,2 )),
-         C = list(edges   = c(5L,6L),
-                  weights = c(4 ,5 )),
-         D = list(edges   = c(1L,2L,5L),
-                  weights = c(4 ,4 ,4 )),
-         E = list(edges   = c(1L,2L,3L,4L,6L),
-                  weights = c(3 ,2 ,4 ,4 ,7 )),
-         F = list(edges   = c(3L,5L),
-                  weights = c(5 ,7 )))
+source("predicates.R")
 shortest_path = function(g, v1, v2)
 {
   x=function(){
     if(is_valid(g)){
-      if(is_connected(g)){
+      if(is_connected(g, v1, v2)){
         val1=v1
         val2=v2
         if(length(names(g))==0){
@@ -65,7 +54,7 @@ shortest_path = function(g, v1, v2)
         }
         stop("Vertex labels")
       }
-      stop("Unconnected Graph")
+      return(list())
     }
     stop("Bad Graph")
   }
@@ -180,15 +169,3 @@ permutations <- function(n){
     return(A)
   }
 }
-
-graph2 = list(A = list(edges   = c(2L),
-                       weights = c(14)),
-              B = list(edges   = c(3L,4L),
-                       weights = c(23,13)),
-              D = list(edges   = c(1L),
-                       weights = c(5) ),
-              F = list(edges   = c(1L,5L),
-                       weights = c(43,33)),
-              N = list(edges   = c(1L,2L,4L),
-                       weights = c(33,22,11)))
-
