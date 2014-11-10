@@ -4,34 +4,39 @@ author: "Team2"
 date: "11/6/2014"
 output: html_document
 ---
-
+### Introduction
 One of our programming goals is to write faster R code. One way to achieve this aim is to avoid "for" loops so more time is spent on computation rather than on loops that process one element per iteration and copy data. Vectorized functions like the `apply` family were used, among other solutions, were devised to avoid `for` loops.
 
 
+### Predicates
+Below are a list of functions that you will need to implement for this assignment. For each function you will be given a name, the input arguments, the output type, and a description of the required behavior of the function. Your implementation of these functions may only use R’s base functionality, meaning you are not allowed to directly use any additional packages in your implementation. However, you may use other packages for testing purposes.
 
-```{r eval=FALSE}
-sum(sapply(sapply(graph3, "[[", 1), length)) # Step 1
-sum(sapply(sapply(graph3, "[[", 2), length)) # Step 2
-sum(sapply(sapply(graph1, "[[", 1), length)) == sum(sapply(sapply(graph1, "[[", 2), length)) # Step 3
-```
+Be aware that there are we established algortihms to solve most of the problems listed below - don’t try to reinvent the wheel use what is known to work. Your task is translate the existing algorithms to our specific data structure and R.
+
+The predicates task required using R's base functionality to write functions checking if input graphs were: valid, undirected, isomorphic and connected; and returns a Boolean value.
+
+## `is_valid()`
+Checks to ensure that the graph meets all requirements. A subset of these requirements were listed on the Homework 4 description, while other requirements were implied through tests in the `test_is_valid.R` file. Examples of requirements for a valid graph are:
+
+* List of list(s)
+* All primary list items are unique.
+* Second list contains only edges and weights vectors of appropriate type.
+* No edges to non-existent vertices.
+* All weights are >0.
+* Every edge has a weight.
+
+The code for `is_valid()` is commented so it should be clear what the goal is for each `if()` statement.
+
+## `is_undirected()`
+Checks that all directed edges have a complimentary directed edge with the same weight in the opposite direction.
+
+## `is_isomorphic()`
 
 
-```{r eval=FALSE}
+## `is_connected()`
 
-for (v in 1:length(graph4) ) {
-  visited <- c(visited, graph4[[v]]$edges)
-  if (any(graph4[[v]]$edges %in% visited)) {
-    print("Found loop.")
-    return(TRUE)
-  }
-  for (e in g[[v]]$edges) { # I have a new edge and want to traverse it.
-    if (traverse(g, e, visited)) # Going to new vertex e, and keeping track of "visited"
-      return(TRUE) # Found a loop. Exit if().
-  }
-  return(FALSE) # If I haven't found a loop above, there is no loop.
-}
+“Be aware that there are established algortihms to solve most of the [predicate] problems ... don’t try to reinvent the wheel use what is known to work. Your task is translate the existing algorithms to our specific data structure and R.”
 
-```
 
 ### Method for Input/Output
 ### Write
@@ -59,7 +64,7 @@ Third, we find the indexed for v1 and v2.
 Fourth, we construct a function to traverse through all the points in the graph. The visited vector is for recording all visited points and the queue vector is for ensuring all conncted points can be reached.
 Then we traverse from v1, if it can arrive at v2, then they are connected. If not, they are not connected.
 
-###Method for Shortest Path and Minimum Spanning Trees:
+### Method for Shortest Path and Minimum Spanning Trees:
 
 Our method for finding the shortest path and minimum spanning trees are very similar. The functions for both create a power-set of all of the possible combinations of names in the graph. It then computes all of the different permutations of each power-set and filters on the ones that match the first and last vertices given. With this, each of the paths is verified, and if it is a valid path in the graph, the weights and edges are stored. For shortest path, the path with the minimum weight is returned. For minimum spanning trees, the function goes through every combination of first and last indices, and then checks to see which of the valid paths that are returned match the number of vertices. The minimum weight is then calculated and the graph of this path is returned.
 
