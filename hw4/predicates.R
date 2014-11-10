@@ -21,8 +21,7 @@ is_valid = function(g)
               ## Check that all edges are integer type. 
               if (all(sapply(sapply(g, function(x) x[["edges"]]), typeof) == "integer") == c("TRUE"))
                 ## Check for duplicate edges.
-                for (i in 1:length(g[[i]]$edges)) {
-                  if (length(g[[i]]$edges) == length(unique(g[[i]]$edges)))
+                if (length(sapply(g, function(x) x[["edges"]])) == length(sapply(sapply(g, function(x) x[["edges"]]), unique)))
                     return(TRUE)
                   else
                     print("Duplicate edges.")
@@ -94,6 +93,24 @@ is_undirected = function(g) {
     return(FALSE)
   }
 }
+
+length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))
+length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))
+
+length(sapply(g, function(x) x[["edges"]])) == length(sapply(sapply(g, function(x) x[["edges"]]), unique))
+
+g = list(A = list(edges  =2L,
+                   weights=1),
+          B = list(edges  =3L,
+                   weights=1),
+          C = list(edges  =5L,
+                   weights=1),
+          D = list(edges  =2L,
+                   weights=1),
+          E = list(edges  =c(6L,4L),
+                   weights=c(1,1)),
+          F = list(edges=integer(),
+                   weights=numeric()))  
 
 is_isomorphic = function(g1, g2)
 {
