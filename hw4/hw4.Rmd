@@ -25,17 +25,15 @@ Checks to ensure that the graph meets all requirements. A subset of these requir
 * All weights are >0.
 * Every edge has a weight.
 
-The code for `is_valid()` is commented so it should be clear what the goal is for each `if()` statement.
+The code for `is_valid()` is commented so it should be clear what the goal is for each `if()` statement. A step-wise process was used to develop the logic of the algorithms before they passed all of the tests.
 
 ## `is_undirected()`
-Checks that all directed edges have a complimentary directed edge with the same weight in the opposite direction.
+Checks that all directed edges have a complimentary directed edge with the same weight in the opposite direction. A typo for a variable name within the function made it seem like this function was correctly passing all tests. Fixing the typo meant a complete rewriting of this function was needed. 
 
 ## `is_isomorphic()`
 
 
 ## `is_connected()`
-
-“Be aware that there are established algortihms to solve most of the [predicate] problems ... don’t try to reinvent the wheel use what is known to work. Your task is translate the existing algorithms to our specific data structure and R.”
 
 
 ### Method for Input/Output
