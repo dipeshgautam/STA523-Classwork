@@ -13,55 +13,55 @@ g = list(A = list(edges   = c(2L,4L,5L),
 shortest_path = function(g, v1, v2)
 {
   x=function(){
-    # if(is_valid(g)){
-    #if(is_connected(g)){
-    val1=v1
-    val2=v2
-    if(length(names(g))==0){
-      names(g)=LETTERS[1:length(g)]
-      v1=as.character(names(g)[val1])
-      v2=as.character(names(g)[val2])
-    }
-    if(is.numeric(v1)){
-      v1=as.character(names(g)[val1])
-    }
-    if(is.numeric(v2)){
-      v2=as.character(names(g)[val2])
-    }
-    if(check_vertex(g,v1,v2)){
-      if(v1==v2){ ##check to see if start and finish are the same
-        return(c(v1,v2))
-      }
-      else{
-        dist=list()
-        paths=find_path(g,v1,v2)
-        valid=list()
-        for(i in paths){
-          for (j in i){
-            x=verify_path(g,as.vector(j))
-            if(x!=FALSE){
-              valid=append(valid,list(j))
-            }
+    if(is_valid(g)){
+      if(is_connected(g)){
+        val1=v1
+        val2=v2
+        if(length(names(g))==0){
+          names(g)=LETTERS[1:length(g)]
+          v1=as.character(names(g)[val1])
+          v2=as.character(names(g)[val2])
+        }
+        if(is.numeric(v1)){
+          v1=as.character(names(g)[val1])
+        }
+        if(is.numeric(v2)){
+          v2=as.character(names(g)[val2])
+        }
+        if(check_vertex(g,v1,v2)){
+          if(v1==v2){ ##check to see if start and finish are the same
+            return(c(v1,v2))
           }
-          
+          else{
+            dist=list()
+            paths=find_path(g,v1,v2)
+            valid=list()
+            for(i in paths){
+              for (j in i){
+                x=verify_path(g,as.vector(j))
+                if(x!=FALSE){
+                  valid=append(valid,list(j))
+                }
+              }
+              
+            }
+            valid=unique(valid)
+            for(j in valid){
+              dist=append(dist,get_distance(g,j))
+            }
+            mini = match(lapply(dist,min),dist)
+            fin= valid[mini]
+            if(length(fin)>=1){
+              return(fin[[1]])
+            }
+            return(list())
+          }
         }
-        valid=unique(valid)
-        for(j in valid){
-          dist=append(dist,get_distance(g,j))
-        }
-        mini = match(lapply(dist,min),dist)
-        fin= valid[mini]
-        if(length(fin)>=1){
-          return(fin[[1]])
-        }
-        return(list())
+        stop("Vertex labels")
       }
+      stop("Unconnected Graph")
     }
-    stop("Vertex labels")
-    # }
-    # stop("Unconnected Graph")
-    #}
-    #stop("Bad Graph")
+    stop("Bad Graph")
   }
   return(as.character((x())))
 }
