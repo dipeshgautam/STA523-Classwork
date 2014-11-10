@@ -94,24 +94,6 @@ is_undirected = function(g) {
   }
 }
 
-length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))
-length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))
-
-length(sapply(g, function(x) x[["edges"]])) == length(sapply(sapply(g, function(x) x[["edges"]]), unique))
-
-g = list(A = list(edges  =2L,
-                   weights=1),
-          B = list(edges  =3L,
-                   weights=1),
-          C = list(edges  =5L,
-                   weights=1),
-          D = list(edges  =2L,
-                   weights=1),
-          E = list(edges  =c(6L,4L),
-                   weights=c(1,1)),
-          F = list(edges=integer(),
-                   weights=numeric()))  
-
 is_isomorphic = function(g1, g2)
 {
   TRUE
