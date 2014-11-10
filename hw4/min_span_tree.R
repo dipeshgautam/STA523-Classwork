@@ -170,7 +170,7 @@ matches= function(g,v1,v2){
 }
 
 check_vertex = function(g,v1,v2){
-  if(is.element(v1, names(g)) && is.element(v1, names(g))){
+  if(is.element(v1, names(g)) && is.element(v2, names(g))){
     return(TRUE)
   }
   return(FALSE)

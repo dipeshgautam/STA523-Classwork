@@ -67,7 +67,7 @@ read_graph <- function(file)
   ## Create a list of unique starting vertices
   unique.from <- unique(from)
   
-  ## Change the names of destination vertices into numeric indices
+  ## Convert names of destination vertices into numeric indices
   for (j in 1:length(to))
   {
     if (!to[j]=="")
