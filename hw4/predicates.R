@@ -54,11 +54,12 @@ is_valid = function(g)
           ## Check that all weights are not less than or equal to 0. 
           if (all(is.na(sapply(g, function(x) x[["weights"]])) == "FALSE") & all(sapply(sapply(sapply(g, function(x) x[["weights"]]), function(m) m <= 0), any) == c("FALSE"))) # Check if all weights lists have values <= 0. If TRUE, return TRUE.
             ## Check that every edge has a weight.
-            if (sum(sapply(sapply(g, "[[", 1), length)) == sum(sapply(sapply(g, "[[", 2), length))) # Step 5
+            if (sum(sapply(sapply(g, function(x) x[["edges"]]), length)) == sum(sapply(sapply(g, function(x) x[["weights"]]), length)))
+            #if (sum(sapply(sapply(g, "[[", 1), length)) == sum(sapply(sapply(g, "[[", 2), length))) # Step 5
               ## Check that all edges are integer type. 
               if (all(sapply(sapply(g, function(x) x[["edges"]]), typeof) == "integer") == c("TRUE"))
                 ## Check for duplicate edges.
-                if (sum(sapply(g, function(x) x[["edges"]])) == sum(unique(sapply(g, function(x) x[["edges"]]))))
+                if (length(sapply(g, function(x) x[["edges"]])) == length(unique(sapply(g, function(x) x[["edges"]])))) # Use length() instead of sum().
                   return(TRUE)
                 else {
                   print("Duplicate edges.")
@@ -69,7 +70,7 @@ is_valid = function(g)
                 return(FALSE)
               }
             else {
-              print("Edge(s) missing weight(s).")
+              print("Edge count and weight count do not match.")
               return(FALSE)
             }
           else {
