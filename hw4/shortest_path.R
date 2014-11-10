@@ -13,10 +13,24 @@ g = list(A = list(edges   = c(2L,4L,5L),
 shortest_path = function(g, v1, v2)
 {
   x=function(){
-    #if(is_valid(g)){
+    # if(is_valid(g)){
+    #if(is_connected(g)){
+    val1=v1
+    val2=v2
+    if(length(names(g))==0){
+      names(g)=LETTERS[1:length(g)]
+      v1=as.character(names(g)[val1])
+      v2=as.character(names(g)[val2])
+    }
+    if(is.numeric(v1)){
+      v1=as.character(names(g)[val1])
+    }
+    if(is.numeric(v2)){
+      v2=as.character(names(g)[val2])
+    }
     if(check_vertex(g,v1,v2)){
       if(v1==v2){ ##check to see if start and finish are the same
-        return(0)
+        return(c(v1,v2))
       }
       else{
         dist=list()
@@ -37,14 +51,19 @@ shortest_path = function(g, v1, v2)
         }
         mini = match(lapply(dist,min),dist)
         fin= valid[mini]
-        return(fin)
+        if(length(fin)>=1){
+          return(fin[[1]])
+        }
+        return(list())
       }
     }
     stop("Vertex labels")
+    # }
+    # stop("Unconnected Graph")
+    #}
+    #stop("Bad Graph")
   }
-  #stop("Not a valid graph")
-  #}
-  return(as.character((x()[[1]])))
+  return(as.character((x())))
 }
 
 get_distance= function(g,lst){
@@ -120,9 +139,9 @@ matches= function(g,v1,v2){
 }
 
 check_vertex = function(g,v1,v2){
-  if(is.element(v1, names(g)) && is.element(v1, names(g))){
-    return(TRUE)
-  }
+    if(is.element(v1, names(g)) && is.element(v2, names(g))){
+      return(TRUE)
+    }
   return(FALSE)
 }
 

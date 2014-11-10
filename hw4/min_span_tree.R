@@ -17,7 +17,11 @@ min_span_tree=function(g){
     minDist=0
     dist=list()
     pathsFull=list()
-    for (i in two_combos(names(g))){
+    
+    if(length(names(g))==0){
+      names(g)=LETTERS[1:length(g)]
+    }
+    for (i in two_combos(names(g))){      
       if(length(i)>1){
         v1=as.character(i[1])
         v2=as.character(i[2])
@@ -33,7 +37,7 @@ min_span_tree=function(g){
                 }
               }
             }
-            valid=unique(valid)          
+            valid=unique(valid)
             for(j in valid){
               if(length(j)==length(names(g))){
                 dist=append(dist,get_distance(g,j))
@@ -44,23 +48,48 @@ min_span_tree=function(g){
         }
       }
     }
-    minDist= min(rapply(dist,min))
-    mini = match(minDist,dist)
-    fin= pathsFull[mini]
-    return(fin)
+    if(length(dist)>0){
+      minDist= min(rapply(dist,min))
+      mini = match(minDist,dist)
+      fin= pathsFull[mini]
+      return(fin)
+    }
   }
   
   
   r=x()[[1]]
+  if(length(r)==0){
+    if(is.element(1,g[[1]]$edges)){
+      g[[1]]$edges=integer()
+      g[[1]]$weights=numeric()
+    }
+    return(g)
+  }
+  else{
+    return(create_graph(g,r))
+  }
+}
+create_graph= function(g,r){
   tmp=g
+  if(length(names(g))==0){
+    names(g)=LETTERS[1:length(g)]
+  }
   for(i in 1:length(r)){
     nextVal= match(r[i+1], names(g))
+    prevVal = match(r[i-1], names(g))
     ind= match(nextVal, g[[r[i]]]$edges)
-    tmp[[i]]$edges=nextVal
-    tmp[[i]]$weights= g[[r[i]]]$weights[ind]
-    if(is.na(nextVal)){
-      tmp[[i]]$edges=NA
-      tmp[[i]]$weights= 0
+    indPrev=match(prevVal, g[[r[i]]]$edges)
+    if(i>1 &&i<length(r)){
+      tmp[[i]]$edges=c(nextVal,prevVal)
+      tmp[[i]]$weights= c(g[[r[i]]]$weights[ind],g[[r[i]]]$weights[indPrev])
+    }
+    else if(i==length(r) ){
+      tmp[[i]]$edges=prevVal
+      tmp[[i]]$weights= g[[r[i]]]$weights[indPrev]
+    }
+    else if(i==1){
+      tmp[[i]]$edges=nextVal
+      tmp[[i]]$weights= g[[r[i]]]$weights[ind]
     }
   }
   names(tmp)=r
