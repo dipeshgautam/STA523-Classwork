@@ -13,6 +13,7 @@ manh.RData: geocode.R
 
 .PHONY: clean
 clean:
-	rm -rf dennys/
-	rm -rf lq/
-	rm -f hw2.html
+	rm -f precinct.json
+	rm -r plot.png
+	rm -f manh.RData
+	rm -f HW3.html
