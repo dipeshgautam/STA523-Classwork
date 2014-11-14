@@ -3,7 +3,7 @@ reject <- function(n, dfunc, range, mc=FALSE) {
   # dfunc = density function
   # range = numeric vector defining the min & max range of the pdf (e.g.: range = c(0, 1) )
     # Used for the vector of quantiles: x <- seq(range[1], range[2], length = n))
-  # mc = multicore
+  # mc = multicor
   M = min(100,max(dfunc(seq(range[1], range[2], length = 1e6)))) # Find the absolute max for the function
   #M <- 100 # Tuning parameter (scalar) that lifts uniform over function's pdf.
   samples.uniform <- NULL # Create NULL list to store accepted proposal values under function's pdf.
