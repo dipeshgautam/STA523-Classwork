@@ -6,16 +6,16 @@ read_graph <- function(file)
   a <- readLines(file)
   ## Create a list of approved structure for a line of dot file
   valid.format <- c("^[A-Z0-9]+ -> [A-Z0-9]+ \\[weight=[0-9e.+]+\\];", 
-                   "^[A-Z0-9]+ -> [A-Z0-9]+;",
-                   "^[A-Z0-9]+;",
-                   "^\".+\" -> \".+\" \\[weight=[0-9e.+]+\\];",
-                   "^\".+\" -> [A-Z0-9]+ \\[weight=[0-9e.+]+\\];",
-                   "^[A-Z0-9]+ -> \".+\" \\[weight=[0-9e.+]+\\];",
-                   "^\".+\" -> \".+\";", 
-                   "^\".+\" -> [A-Z0-9]+;", 
-                   "^[A-Z0-9]+ -> \".+\";",
-                   "^\".+\";"
-                   )
+                    "^[A-Z0-9]+ -> [A-Z0-9]+;",
+                    "^[A-Z0-9]+;",
+                    "^\".+\" -> \".+\" \\[weight=[0-9e.+]+\\];",
+                    "^\".+\" -> [A-Z0-9]+ \\[weight=[0-9e.+]+\\];",
+                    "^[A-Z0-9]+ -> \".+\" \\[weight=[0-9e.+]+\\];",
+                    "^\".+\" -> \".+\";", 
+                    "^\".+\" -> [A-Z0-9]+;", 
+                    "^[A-Z0-9]+ -> \".+\";",
+                    "^\".+\";"
+  )
   
   ## Check if each line is within given specification
   for (k in 1:length(a))
@@ -34,7 +34,7 @@ read_graph <- function(file)
       stop("The file is not properly formatted!")
     }
   }
-
+  
   ## extract from and to vertices and weights as lists from the file
   from <- NULL
   to <- NULL
@@ -63,11 +63,11 @@ read_graph <- function(file)
   empty.to <- rep("", length(setdiff(to[!to==""],from) ) ) # Check if there are unaccounted destination vertices, if there are get their number
   from <- c(from, setdiff(to[!to==""],from)) # Add the unaccounted edge as a vertix
   to <- c(to, empty.to)
-    
+  
   ## Create a list of unique starting vertices
   unique.from <- unique(from)
   
-  ## Change the names of destination vertices into numeric indices
+  ## Convert names of destination vertices into numeric indices
   for (j in 1:length(to))
   {
     if (!to[j]=="")
@@ -81,15 +81,15 @@ read_graph <- function(file)
   {
     to.i <- to[which(from==unique.from[i])]
     weights.i <- as.numeric(weights[which(from==unique.from[i])])
-       
+    
     if (length(to.i) == 1 && to.i== "")
     {
       list.i <- list(list(edges = integer(),
-                         weights = numeric()))
+                          weights = numeric()))
     } else
     {
       list.i <- list(list(edges = as.integer(c(to.i)),
-                         weights = c(weights.i)))
+                          weights = c(weights.i)))
     }
     
     graph[i] <- list.i
