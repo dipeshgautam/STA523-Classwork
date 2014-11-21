@@ -20,7 +20,7 @@ score = function(x, dfunc)
 
 ### Tests
 
-N = 1000
+N = 1000000
 
 ## Beta
 dbetann = function(x)
@@ -30,6 +30,7 @@ dbetann = function(x)
 A = slice(N, dbetann, c(0,1), mc=FALSE)
 score(A, dbetann)
 system.time(slice(N, dbetann, c(0,1), mc=FALSE))
+system.time(slice(N, dbetann, c(0,1), mc=TRUE))
 
 
 ## Truncated Normal
