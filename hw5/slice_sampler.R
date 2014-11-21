@@ -1,6 +1,7 @@
 
 slice = function(n, dfunc, range, mc)
 {
+  stopifnot(is.integer(n))
   set.seed(1000)
   ## Define initial width
   w = (range[2]-range[1])/10
@@ -50,14 +51,12 @@ slice = function(n, dfunc, range, mc)
     return(X)
   }
   
-  if (mc==TRUE){
-    cores = 2
+  if (mc==TRUE && n>1000){
+    cores = 8
     return(unlist(mclapply(1:cores, function(x) sample(ceiling(n/cores), dfunc, range, w),
                            mc.cores = cores) ) )
     
   }else{
     sample(n, dfunc, range, w)
   }
-  
-  
 }
