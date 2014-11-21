@@ -1,5 +1,5 @@
 
-slice = function(n, dfunc, range, mc=FALSE)
+slice = function(n, dfunc, range, mc)
 {
   set.seed(1000)
   ## Define initial width
@@ -8,7 +8,7 @@ slice = function(n, dfunc, range, mc=FALSE)
   sample = function(m, dfunc, range, w){
     ## Sample initial x0 within the range
     x0 = runif(1, range[1], range[2])
-    X = rep(0,n)
+    X = rep(0,m)
     
     for (i in 1:m)
     {
@@ -51,7 +51,9 @@ slice = function(n, dfunc, range, mc=FALSE)
   }
   
   if (mc==TRUE){
-    
+    cores = 2
+    return(unlist(mclapply(1:cores, function(x) sample(ceiling(n/cores), dfunc, range, w),
+                           mc.cores = cores) ) )
     
   }else{
     sample(n, dfunc, range, w)
