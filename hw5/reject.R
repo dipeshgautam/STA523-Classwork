@@ -1,11 +1,6 @@
 library(parallel)
 
 reject <- function(n, dfunc, range, mc = FALSE) {
-  set.seed(13)
-  stopifnot(is.numeric(n) && n%%1==0) # Ensure number of samples, n, is numeric and an integer.
-  stopifnot(is.function(dfunc))
-  stopifnot(is.vector(range))
-  stopifnot(is.logical(mc))
   # n = samples
   # dfunc = density function
   # range = numeric vector defining the min & max range of the pdf (e.g.: range = c(0, 1) )
@@ -16,9 +11,22 @@ reject <- function(n, dfunc, range, mc = FALSE) {
     mc.cores = 8 # Use 8 instead of detectCores()/2 because using a shared resource. 
   }
   
-  M <- min(100,max(dfunc(seq(range[1], range[2], length = 1e6)))) # Find the absolute max for the function.
+  ## Check Conditions
+  stopifnot(is.numeric(n) && n%%1==0) # Ensure number of samples, n, is numeric and an integer.
+  stopifnot(is.function(dfunc))
+  stopifnot(is.vector(range))
+  stopifnot(is.logical(mc))
+  
+  ## Initialize variables
+  M <- min(100, max(dfunc(seq(range[1], range[2], length = 1e6)))) # Find the absolute max for the function.
   samples.uniform <- NULL # Create NULL list to store accepted proposal values under function's pdf.
   
+  ## Visualization of rejection sampler.
+  xseq <- seq(from = range[1], to = range[2], by = 0.01)
+  plot(xseq, dfunc(xseq), type = "l", col = "blue")
+  lines(xseq, M*dunif(xseq, range[1], range[2]), col = "red")
+  
+  ## Rejection sampler
   sample <- function (n, dfunc, range) {
     for (i in 1:n) {
       ## Vectorize. 
@@ -30,6 +38,7 @@ reject <- function(n, dfunc, range, mc = FALSE) {
     return(samples.uniform)
   }
   
+  ## Use-case for multi-core
   if (mc == TRUE && n > 1000){
     cores = 8 # Suggested by Dr. Rundel since we are using a shared resource.
     return(unlist(mclapply(1:cores, function(x) sample(ceiling(n/cores), dfunc, range),
@@ -40,12 +49,19 @@ reject <- function(n, dfunc, range, mc = FALSE) {
   }
 }
 
+# plot(xseq, reject(xseq, dbetann, c(0,1), mc=TRUE), type = "l", col = "blue")
+density.function <- function(x) {
+  return(x^4*(15*exp(1)^(-(x/2)^5) + (5/81)*exp(1)^(-(x/6)^5) ))
+}
+
+reject(1000000, dtnorm, c(0,1), mc=TRUE)
+
 score(reject(1000000, dbetann, c(0,1), mc=TRUE), dbetann) # 0.00249
-score(reject(1000000, dtnorm, c(-3,3), mc=TRUE), dtexp) # 0.408
+score(reject(1000000, dtnorm, c(-3,3), mc=TRUE), dtnorm) # 0.0000821
 score(reject(1000000, dtexp, c(0,7), mc=TRUE), dtexp) # 0.000587
-score(reject(1000000, dunif_mix, c(-3,4), mc=TRUE), dtexp) # 0.346
-score(reject(1000000, dtnorm_mix1, c(0,10), mc=TRUE), dtexp) # 0.372
-score(reject(1000000, dtnorm_mix2, c(-4,4), mc=TRUE), dtexp) # 0.424
+score(reject(1000000, dunif_mix, c(-3,4), mc=TRUE), dunif_mix) # 0.000671
+score(reject(1000000, dtnorm_mix1, c(0,10), mc=TRUE), dtnorm_mix1) # 0.000399
+score(reject(1000000, dtnorm_mix2, c(-4,4), mc=TRUE), dtnorm_mix2) # 0.000419
 
 dbetann = function(x)
 {
