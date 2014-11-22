@@ -32,11 +32,13 @@ R = function(n, dfunc, range, mc)
   }else if(substitute(dfunc)=="dtexp"){
     if (mc==TRUE && n>1000000){
       cores=8
-      return(unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015)),
-                             mc.cores = cores) ) )
+      a = unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015, 1/3)),
+                             mc.cores = cores) )
+      return(a[a<6])
     }else
     {
-      return(rexp(ceiling(n*1.015)))
+      a=rexp(ceiling(n*1.015, 1/3))
+      return(a[a<6])
     }
     
     ## Uniform Mixture  
@@ -89,4 +91,23 @@ R = function(n, dfunc, range, mc)
     
   }                             
   
+}
+
+
+table = as.data.frame(matrix(rep(0,12*6), ncol=12))
+names(table)= c("Distribution","Sampler","SC 100", "SC 10,000", "SC 1,000,000", "SC 10,000,000","MC 100", "MC 10,000", "MC 1,000,000", "MC 10,000,000", "SC Score","MC Score")
+
+times <- c(100, 10000, 1000000, 10000000)
+dfunc <- list(dbetann, "dtnorm", "dtexp", "dunif_mix", "dtnorm_mix1", "dtnorm_mix2")
+range <- list( c(0,1), c(-3,3), c(0,6), c(-3, 4), c(0,10), c(-4,4))
+table[,2] = "R"
+for (i in 1:length(times)) {
+  for (j in 1:length(dfunc)) {
+    table[j,1]=dfunc[j]
+    table[j, 2+i] = system.time(R(times[i], dfunc[j], range[[j]], mc = FALSE ) )[3] # 1.087
+    print(c(j,i))   
+    
+    ## Multiple cores
+    table[j, 6+i]= system.time(R(times[i], get(eval(dfunc[j])), range[[j]] , mc = TRUE) )[3] # 0.734
+  }
 }
