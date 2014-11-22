@@ -1,4 +1,15 @@
-install.packages("devtools")
+---
+title: "Homework 5 - Sampler Potpourri"
+author: "Andrew Wong, Dipesh Gautam, Heather Shapiro, Siyang Li"
+date: "11/22/2014"
+output: html_document
+---
+### Introduction
+The goal of homework 5 is to learn how to implement univariate sampling functions from random probability density functions. The steps to solving this problem involved first understanding the algorithm involved, coding the samplers, then optimizing them for speed and accuracy.
+
+### Rejection Sampler
+The rejection sampler first checks that the arguments for each parameter are of the correct type, e.g. sample size, *n* is a positive integer. 
+```{r loadTestFcts, echo = FALSE}
 library(devtools) # Give source_url().
 suppressMessages( # Load check_packages().
   source_url("https://raw.githubusercontent.com/aw236/r.functions/master/functions.R")) 
@@ -28,8 +39,7 @@ reject <- function(n, dfunc, range, mc = FALSE) {
   ## Visualization of rejection sampler.
   xseq <- seq(from = range[1], to = range[2], by = 0.01)
   plot(xseq, dfunc(xseq), type = "l", col = "blue")
-  abline(xseq, b = 0, h = M, col = "red")
-  #   lines(xseq, max(M,dunif(xseq, range[1], range[2])), col = "red")
+  lines(xseq, M*dunif(xseq, range[1], range[2]), col = "red")
   
   ## Rejection sampler
   sample <- function (n, dfunc, range) {
@@ -53,32 +63,6 @@ reject <- function(n, dfunc, range, mc = FALSE) {
     sample(n, dfunc, range)
   }
 }
-
-
-## Testing accuracy
-sample <- c(100, 10000, 1000000, 10000000)
-dfunc <- c("dbetann", "dtnorm", "dtexp", "dunif_mix", "dtnorm_mix1", "dtnorm_mix2")
-range <- list(c(0,1), c(-3,3), c(0,7), c(-3,4), c(0,10), c(-4,4))
-
-reject(1000000, dtnorm, c(0,1), mc=TRUE)
-reject(1000000, dtexp, c(0,1), mc=TRUE)
-
-## Visualization Testing
-range <- c(-3,3)
-M <- min(100, max(dtnorm(seq(range[1], range[2], length = 1e6)))) # Find the absolute max for the function.
-M
-xseq <- seq(from = range[1], to = range[2], by = 0.01)
-plot(xseq, dtnorm(xseq), type = "l", col = "blue", ylim = c(0, 0.5))
-abline(xseq, b = 0, h = M, col = "red")
-# lines(xseq, M*length, col = "red")
-# lines(xseq, M/max(dunif(xseq, range[1], range[2]))*dunif(xseq, range[1], range[2]), col = "red")
-
-score(reject(1000000, dbetann, c(0,1), mc=TRUE), dbetann) # 0.0000821
-score(reject(1000000, dtnorm, c(-3,3), mc=TRUE), dtnorm) # 0.0000821
-score(reject(1000000, dtexp, c(0,7), mc=TRUE), dtexp) # 0.000587
-score(reject(1000000, dunif_mix, c(-3,4), mc=TRUE), dunif_mix) # 0.000671
-score(reject(1000000, dtnorm_mix1, c(0,10), mc=TRUE), dtnorm_mix1) # 0.000399
-score(reject(1000000, dtnorm_mix2, c(-4,4), mc=TRUE), dtnorm_mix2) # 0.000419
 
 dbetann = function(x)
 {
@@ -120,22 +104,45 @@ dtnorm_mix2 = function(x)
            +0.1 *dnorm(x,mean= 0,sd=0.5))/0.55)
 }
 
-## Single-core
-times <- c(100, 10000, 1000000, 10000000)
-dfunc <- c("dbetann", "dtnorm", "dtexp", "dunif_mix", "dtnorm_mix1", "dtnorm_mix2")
+score = function(x, dfunc) 
+{
+  stopifnot(is.numeric(x) & length(x))
+  
+  x = sort(x)
+  n = length(x)
 
-for (i in length(times)) {
-  for (j in length(dfunc)) {
-    system.time(reject(100, dbetann, c(0, 1) ) ) # 1.087
-    system.time(reject(10000, dbetann, c(0, 1) ) ) # 1.514
-    system.time(reject(1000000, dbetann, c(0, 1) ) ) # 36.237
-    system.time(reject(10000000, dbetann, c(0, 1) ) ) # 328.539
-    
-    
-    ## Multiple cores
-    system.time(reject(100, dbetann, c(0, 1), mc = TRUE) ) # 0.734
-    system.time(reject(10000, dbetann, c(0, 1), mc = TRUE) ) # 0.796
-    system.time(reject(1000000, dbetann, c(0, 1), mc = TRUE) ) # 3.086
-    system.time(reject(10000000, dbetann, c(0, 1), mc = TRUE) ) # 23.793
-  }
+  ex = ecdf(x)(x)
+
+  dx = dfunc(x)
+  ed = cumsum(c(0, (x[-1]-x[-n])*(dx[-1]+dx[-n])/2))
+  
+  return( sqrt(sum((ex-ed)^2)/n) )
 }
+
+accuracy.df <- as.data.frame(matrix(rep(0,6), ncol=1))
+names(accuracy.df) <- c("MC Score")
+reject(1000000, dbetann, c(0,1), mc=TRUE)
+reject(1000000, dtnorm, c(-3,3), mc=TRUE)
+reject(1000000, dtexp, c(0,7), mc=TRUE)
+reject(1000000, dtnorm_mix1, c(0,10), mc=TRUE)
+reject(1000000, dtnorm_mix2, c(-4,4), mc=TRUE)
+
+accuracy.df[1,1] <- score(reject(1000000, dbetann, c(0,1), mc=TRUE), dbetann) # 0.0000821
+accuracy.df[2,1] <- score(reject(1000000, dtnorm, c(-3,3), mc=TRUE), dtnorm) # 0.0000821
+accuracy.df[3,1] <- score(reject(1000000, dtexp, c(0,7), mc=TRUE), dtexp) # 0.000587
+accuracy.df[4,1] <- score(reject(1000000, dunif_mix, c(-3,4), mc=TRUE), dunif_mix) # 0.000671
+accuracy.df[5,1] <- score(reject(1000000, dtnorm_mix1, c(0,10), mc=TRUE), dtnorm_mix1) # 0.000399
+accuracy.df[6,1] <- score(reject(1000000, dtnorm_mix2, c(-4,4), mc=TRUE), dtnorm_mix2) # 0.000419
+accuracy.df
+print(xtable(accuracy.df), comments = F, type = "html")
+```
+
+The rejection sampler had good accuracy.
+
+### Metropolis-Hastings Sampler
+### Slice Sampler
+### R Sampler
+
+```{r}
+
+```

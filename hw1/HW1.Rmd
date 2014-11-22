@@ -1,0 +1,224 @@
+---
+title: "Homework 1"
+author: Andrew Wong, Heather Shapiro, Jessie Li, Dipesh Gautam
+output: html_document
+---
+#Background
+  The 2014 FIFA World Cup took place during the summer of 2014 in Brazil. There were 32 teams involved in the Cup, and throughout the course of the tournament, over 172 goals, excluding penalty shootouts, were scored. While working with semi-structured data on the World Cup, we were able to understand and visualize the results and breakdowns by countries, players, and even goal position. 
+
+###Task 1: Parse the Data
+  The stringr library is loaded to give us the `str_match_all` function, which returns a matrix with one column for the complete match and one column for each group matching the specified criteria. The `unlist` function used in conjunction with the "seq" function draws information from the second column of the aforementioned matrix. It does so by retrieving the information at position 2 and continuing on to grab every other item until the end of the matrix.
+```{r parseData}
+d <- readLines("~cr173/Sta523/data/world_cup_goals_raw.txt")
+library(stringr)
+
+ID <- unlist(str_match_all(d," id=\"g([0-9]*)\""))[seq(2,386,2)]
+pointInGoal <- unlist(str_match_all(d," pig=\"([0-9]*)\""))[seq(2,386,2)]
+class <- unlist(str_match_all(d," class=\"([a-z ]*)\""))[seq(2,386,2)]
+playerID <- unlist(str_match_all(d," pid=\"([0-9]*)\""))[seq(2,386,2)]
+matchID <- unlist(str_match_all(d," mid=\"([0-9]*)\""))[seq(2,386,2)]
+name <- unlist(str_match_all(d, ignore.case(" pname=\"([a-z -]*[^ascii]*[a-z -&;'?]*)\"")))[seq(2,386,2)]
+team <- unlist(str_match_all(d, ignore.case(" pteam=\"([a-z &;']*)\"")))[seq(2,386,2)] 
+time <- unlist(str_match_all(d, " ptime=\"([0-9]*)\""))[seq(2,386,2)]
+addTime <- unlist(str_match_all(d, " paddtime=\"([0-9]*)\""))[seq(2,386,2)]
+goalType <- unlist(str_match_all(d, ignore.case(" ptype=\"([a-z]*[a-z -]*)\"")))[seq(2,386,2)]
+teamImg <- unlist(str_match_all(d," pteamimg=\"([a-z /.]*)\""))[seq(2,386,2)]
+pMatch <- unlist(str_match_all(d," pmatch=\"([0-9]*)\""))[seq(2,386,2)]
+horiLoc <- 1000-as.numeric(unlist(str_match_all(d, "left: ([0-9]*)px"))[seq(2,386,2)])
+horiLoc[2:193] <- unlist(str_match_all(d, "right: ([0-9]*)px"))[seq(2,384,2)]
+vertLoc <- unlist(str_match_all(d, " top: ([0-9]*)px"))[seq(2,386,2)]
+
+Data <- data.frame(ID = ID, 
+  pointInGoal = pointInGoal, 
+  class = class, 
+  playerID = playerID, 
+  matchID = matchID, 
+  name = name,
+  team = team, 
+  time = time, 
+  addTime = addTime, 
+  goalType = goalType, 
+  teamImg = teamImg, 
+  pMatch = pMatch, 
+  horiLoc = horiLoc, 
+  vertLoc = vertLoc) 
+```
+###Task 2: Visualize the Data
+  With all of the data from the World Cup, one relationship we deemed important was the number of goals scored per country. 
+
+  In order to visualize the parsed data from Task 1, we needed to create a modified data frame with a cleaner product. The new data frame excluded goals that were scored for a player's own team as well as penalty kicks. In addition, we were able to change the name for Ivory Coast and South Korea to match the geocode database, which determined what country each team and player represented. 
+  
+####Checking for installed packages
+```{r checkPackages, echo=FALSE}
+# Check for missing packages. If missing, install.
+if("ggmap" %in% rownames(installed.packages()) == FALSE) {install.packages("ggmap",  repos="http://cran.rstudio.com/")}
+library(ggmap)
+if("maptools" %in% rownames(installed.packages()) == FALSE) {install.packages("maptools",  repos="http://cran.rstudio.com/")}
+library(maptools)
+if("maps" %in% rownames(installed.packages()) == FALSE) {install.packages("maps",  repos="http://cran.rstudio.com/")}
+library(maps)
+if("plyr" %in% rownames(installed.packages()) == FALSE) {install.packages("plyr",  repos="http://cran.rstudio.com/")}
+library(plyr)
+if("rworldmap" %in% rownames(installed.packages()) == FALSE) {install.packages("rworldmap",  repos="http://cran.rstudio.com/")}
+if("RColorBrewer" %in% rownames(installed.packages()) == FALSE) {install.packages("RColorBrewer",  repos="http://cran.rstudio.com/")}
+library(rworldmap)
+library(RColorBrewer)
+```
+####Creating the modified dataframes
+```{r echo Creating modified dataframes}
+# Create new dataframe by removing "Own goal" and class with "ispen"
+DataModified <-Data[Data$goalType!="Own goal" & grepl(".+ispen$", class)==FALSE, ]
+
+# Change the name for Ivory Coast and South Korea to match the geocode database
+
+DataModified$team <- as.character(DataModified$team)
+DataModified$team[DataModified$team=="C&ocirc;te d'Ivoire"]= "Ivory Coast"
+DataModified$team[DataModified$team=="Korea Republic"]= "South Korea"
+
+# Create a new dataframe with total goals scored by players from each country
+Countries <- as.data.frame(count(DataModified$team))
+colnames(Countries) <- c("name","Goals")
+
+# Add latitude and longitude data for all 32 countries to Countries data frame. First, check if the file with the location data exists, if not download the data and write to the file.
+Countries$name <- as.character(Countries$name)
+if (!file.exists("~/Team2/HW1/LocationData.csv")){
+    ll.Countries <- geocode(Countries$name)
+    write.csv(as.data.frame(ll.Countries), file="~/Team2/HW1/LocationData.csv")
+    }
+
+ll.Countries <- read.csv("~/Team2/HW1/LocationData.csv")
+Countries$lon <- ll.Countries$lon
+Countries$lat <- ll.Countries$lat
+```
+####Regional and World Maps of Goals Scored per Country
+  The maps generated below, show the world as well each continent separated as regions. The size of the bubbles indicate the numbers of goals each country scored. For instance, not surprisingly, Germany scored 18 goals, and thus, has the largest bubble on the maps. A for loop was used to create one world map, and six regional maps.
+  
+```{r World and Region Map Setup, echo=FALSE}
+
+region<-c("world", "asia", "oceania", "africa", "europe", "latin america", "north america")
+
+for(i in 1:7){
+    mapBubbles(dF=Countries, 
+    nameX="lon", 
+    nameY="lat",
+    nameZSize="Goals",
+    nameZColour="Goals",
+    colourPalette= rev(brewer.pal(12,"Paired")),
+    oceanCol="lightblue",
+    landCol="white",
+    main=region[i],
+    addLegend=FALSE,
+    legendHoriz=FALSE,
+    addColourLegend=TRUE,
+    pch=16,
+    alpha= I(.1),
+    catMethod="categorical",
+    mapRegion=region[i])
+    if (i!=1){
+        for (j in 1:32){
+            text(Countries$lon[j], Countries$lat[j]+2, Countries$name[j], cex=.6, font=2, col="brown1")
+            }
+        }
+    }
+
+```
+
+#### Height versus the number of goals scored
+  The following data set is provided freely by David Bauer of DataHub, recording a number of characteristics, including height, for all 726 2014 FIFA players. Height is often associated with greater strength and speed, and usually considered an easily appreciable metric of one's athletic potential to the layperson. The scatter plot below seeks to examine the relationship between height and one dimension of athletic ability as measured by international goals scored. We used international goals scored as the regressand instead of goals scored at the World Cup. There are more international goals so there is arguably less variability, and it provides a better metric to determine the relationship between height and offensive ability for the World Cup players in the data set. While height is a continuous variable, it takes on discrete values due to rounding. Since the data is plotted with discrete values on both axes, jitter was used to compensate for over-plotting and to increase the visibility of more observations. The scatter plot below suggests that there is a quadratic relationship between height and goals scored. As the height of players increases to 180 cm, the number of goals scored increases. But as a player's height exceeds 180 cm, a negative relationship between the two variables takes hold.
+
+```{r scatterPlot, echo=FALSE}
+library(ggplot2)
+
+# Source: David Bauer. http://datahub.io/dataset/fifa-world-cup-2014-all-players
+data2 <- read.csv("~aw236/Public/2014fifaPlayers.csv")
+
+ggplot(data2, aes(x = height, y = intnlGoals)) + xlab("Height (cm)") + ylab("Goals") + geom_point(position = "jitter")
+```
+
+```{r loadJSON}
+if("jsonlite" %in% rownames(installed.packages()) == FALSE) {install.packages("jsonlite",  repos="http://cran.rstudio.com/")}
+library(jsonlite)
+```
+
+###Task 3: Translate
+  The original data frame built from the raw data of  `world_cup_goals_raw.txt` has been converted into valid, well-formatted JSON with country to player to goals hierarchy. This hierarchy relates to the visualization we did for task 2 as it looks as goals scored by each country. It further looks at who scored the goals for each country and the number of goals scored by each player.
+  
+  Prettify function was used to add indentation to JSON formatted data and make it readable. The output was truncated to show keep the output at reasonable length. 
+
+```{r toJSON with country to player to goals hierarchy}
+countriesList <- as.data.frame(unique(Data$team))
+colnames(countriesList) <- c("country")
+goalDetails <-rep(NA, 10)
+goal <- list(goalDetails)
+player <-list( list( list(), list(), goal))
+jsonList <-list( list( list( list(),list(), player)))
+
+for (i in 1:32){
+  
+    subset <- Data[Data$team == as.character(countriesList$country[i]),]
+    goal <-list(goalDetails)
+    player <- list( list( list(), list(), goal))
+    jsonList[i] <- list( list( list(),list(), player))
+    playerList <- as.data.frame(unique(subset$name))
+    colnames(playerList) <- c("name")
+    
+    for (j in 1:nrow(playerList)){
+        playerSubset <- subset[subset$name == as.character(playerList$name[j]),]
+        goal <- rep( list(goalDetails), nrow(playerSubset) )
+        player[j] <- list( list( list(), list(), goal))
+        for (k in 1:nrow(playerSubset)){
+            goal[[k]]<-list("goalType"=as.character(playerSubset$goalType[k])
+                      ,"class"=as.character(playerSubset$class[k])
+                      ,"time"=as.character(playerSubset$time[k])
+                      ,"addTime"=as.character(playerSubset$addTime[k])
+                      ,"vertLoc"=as.character(playerSubset$vertLoc[k])
+                      ,"horiLoc"=as.character(playerSubset$horiLoc[k])
+                      ,"pointInGoal"=as.character(playerSubset$pointInGoal[k])
+                      ,"matchId"=as.character(playerSubset$matchID[k])
+                      ,"pMatch"=as.character(playerSubset$pMatch[k])
+                      ,"ID"=as.character(playerSubset$ID[k]))
+            }
+        player[j] <- list(list("name"=as.character(playerSubset$name[1]),
+                        "playerID"= as.character(playerSubset$playerID[1])
+                        ,"goals"=goal))
+        }    
+    jsonList[i] <- list(list(list("Country"=as.character(subset$team[1])
+                      ,"Flag"=as.character(subset$teamImg[1])
+                      , "goalScorers"=player)))
+    }
+jsonConverted <- rjson::toJSON(jsonList)
+jsonPrettified <- prettify(jsonConverted)
+
+```
+
+
+```{r truncate json output, echo=FALSE}
+truncate_prettify = function(s, n)
+{
+  # s - json character string
+  # n - number of lines
+ 
+  library(stringr)
+  
+  stopifnot(length(s)==1)
+  stopifnot(is.character(s))
+  
+  # find carraige returns
+  pos <- str_locate_all(s,"\n")[[1]]
+  
+  #
+  n <- min(c(nrow(pos),n))
+ 
+  # truncate prettify string
+  new_s <- str_sub(s,1,pos[n, 2]+1)
+  
+  # avoid ellipsis if not truncating
+  if (n != nrow(pos))
+    new_s <- paste0(new_s, "\n...\n\n")
+  
+  return(new_s)
+  }
+cat(truncate_prettify(jsonPrettified, 400))
+
+
+```
