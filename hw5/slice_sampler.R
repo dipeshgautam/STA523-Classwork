@@ -1,8 +1,10 @@
 
 slice = function(n, dfunc, range, mc)
 {
-  stopifnot(is.integer(n))
-  set.seed(1000)
+  stopifnot(is.numeric(n)&&n%%1==0)
+  stopifnot(is.function(dfunc))
+  stopifnot(is.vector(range))
+  stopifnot(is.logical(mc))
   ## Define initial width
   w = (range[2]-range[1])/10
   

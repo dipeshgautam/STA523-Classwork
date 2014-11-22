@@ -20,7 +20,7 @@ score = function(x, dfunc)
 
 ### Tests
 
-N = 1000
+N = 10000000
 
 ## Beta
 dbetann = function(x)
@@ -30,8 +30,16 @@ dbetann = function(x)
 A = slice(N, dbetann, c(0,1), mc=FALSE)
 score(A, dbetann)
 system.time(slice(N, dbetann, c(0,1), mc=FALSE))
+A = slice(N, dbetann, c(0,1), mc=TRUE)
+score(A, dbetann)
 system.time(slice(N, dbetann, c(0,1), mc=TRUE))
+
+A = R(N, dbetann, c(0,1), mc=FALSE)
+score(A, dbetann)
 system.time(R(N, dbetann, c(0,1), mc=FALSE))
+A = R(N, dbetann, c(0,1), mc=TRUE)
+score(A, dbetann)
+system.time(R(N, dbetann, c(0,1), mc=TRUE))
 
 
 
@@ -44,6 +52,16 @@ dtnorm = function(x)
 B = slice(N, dtnorm, c(-3,3), mc=FALSE)
 score(B, dtnorm)
 system.time(slice(N, dtnorm, c(-3,3), mc=FALSE))
+B = slice(N, dtnorm, c(-3,3), mc=TRUE)
+score(B, dtnorm)
+system.time(slice(N, dtnorm, c(-3,3), mc=TRUE))
+
+B = R(N, dtnorm, c(-3,3), mc=FALSE)
+score(B, dtnorm)
+system.time(R(N, dtnorm, c(-3,3), mc=FALSE))
+B = R(N, dtnorm, c(-3,3), mc=TRUE)
+score(B, dtnorm)
+system.time(R(N, dtnorm, c(-3,3), mc=TRUE))
 
 
 ## Truncated Exponential
@@ -54,6 +72,18 @@ dtexp = function(x)
 C = slice(N, dtexp, c(0,6), mc=FALSE)
 score(C, dtexp)
 system.time(slice(N, dtexp, c(0,6), mc=FALSE))
+C = slice(N, dtexp, c(0,6), mc=TRUE)
+score(C, dtexp)
+system.time(slice(N, dtexp, c(0,6), mc=TRUE))
+
+C = R(N, dtexp, c(0,6), mc=FALSE)
+score(C, dtexp)
+system.time(R(N, dtexp, c(0,6), mc=FALSE))
+C = R(N, dtexp, c(0,6), mc=TRUE)
+score(C, dtexp)
+system.time(R(N, dtexp, c(0,6), mc=TRUE))
+
+
 
 
 ## Uniform Mixture
@@ -67,6 +97,16 @@ dunif_mix = function(x)
 D = slice(N, dunif_mix, c(-3,4), mc=FALSE)
 score(D, dunif_mix)
 system.time(slice(N, dunif_mix, c(-3,4), mc=FALSE))
+D = slice(N, dunif_mix, c(-3,4), mc=TRUE)
+score(D, dunif_mix)
+system.time(slice(N, dunif_mix, c(-3,4), mc=TRUE))
+
+D = R(N, dunif_mix, c(-3,4), mc=FALSE)
+score(D, dunif_mix)
+system.time(R(N, dunif_mix, c(-3,4), mc=FALSE))
+D = R(N, dunif_mix, c(-3,4), mc=TRUE)
+score(D, dunif_mix)
+system.time(R(N, dunif_mix, c(-3,4), mc=TRUE))
 
 
 
@@ -76,11 +116,22 @@ dtnorm_mix1 = function(x)
   ifelse(x < 0 | x > 10, 
          0, 
          ( 0.5*dnorm(x,mean=2,sd=2)
-           +0.5*dnorm(x,mean=6,sd=1))/0.90059152)
+           +0.5*dnorm(x,mean=6,sd=1))/0.9206407)
 }
 E = slice(N, dtnorm_mix1, c(0,10), mc=FALSE)
 score(E, dtnorm_mix1)
 system.time(slice(N, dtnorm_mix1, c(0,10), mc=FALSE))
+E = slice(N, dtnorm_mix1, c(0,10), mc=TRUE)
+score(E, dtnorm_mix1)
+system.time(slice(N, dtnorm_mix1, c(0,10), mc=TRUE))
+
+
+E = R(N, dtnorm_mix1, c(0,10), mc=FALSE)
+score(E, dtnorm_mix1)
+system.time(R(N, dtnorm_mix1, c(0,10), mc=FALSE))
+E = R(N, dtnorm_mix1, c(0,10), mc=TRUE)
+score(E, dtnorm_mix1)
+system.time(R(N, dtnorm_mix1, c(0,10), mc=TRUE))
 
 
 ## Truncated Normal Mixture 2
@@ -90,8 +141,20 @@ dtnorm_mix2 = function(x)
          0, 
          ( 0.45*dnorm(x,mean=-4)
            +0.45*dnorm(x,mean= 4)
-           +0.1 *dnorm(x,mean= 0,sd=0.5))/0.4999683)
+           +0.1 *dnorm(x,mean= 0,sd=0.5))/0.55)
 }
 F = slice(N, dtnorm_mix2, c(-4,4), mc=FALSE)
 score(F, dtnorm_mix2)
 system.time(slice(N, dtnorm_mix2, c(-4,4), mc=FALSE))
+F = slice(N, dtnorm_mix2, c(-4,4), mc=TRUE)
+score(F, dtnorm_mix2)
+system.time(slice(N, dtnorm_mix2, c(-4,4), mc=TRUE))
+
+F = R(N, dtnorm_mix2, c(-4,4), mc=FALSE)
+score(F, dtnorm_mix2)
+system.time(R(N, dtnorm_mix2, c(-4,4), mc=FALSE))
+
+F = R(N, dtnorm_mix2, c(-4,4), mc=TRUE)
+score(F, dtnorm_mix2)
+system.time(R(N, dtnorm_mix2, c(-4,4), mc=TRUE))
+
