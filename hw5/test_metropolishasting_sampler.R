@@ -1,4 +1,5 @@
 source("Metropolissampling.R")
+
 #### Scores
 score = function(x, dfunc) 
 {
@@ -14,6 +15,7 @@ score = function(x, dfunc)
   
   return( sqrt(sum((ex-ed)^2)/n) )
 }
+
 
 ### Tests
 
@@ -48,7 +50,7 @@ dtexp = function(x)
 {
   ifelse(x < 0 | x > 6, 0, dexp(x, rate=1/3)/0.8646647)
 }
-C = slice(n, dtexp, c(0,6), mc=FALSE)
+C = mh(n, dtexp, c(0,6), mc=FALSE)
 score(C, dtexp)
 system.time(mh(n, dtexp, c(0,6), mc=FALSE))
 system.time(mh(n, dtexp, c(0,6), mc=TRUE))
@@ -92,4 +94,6 @@ dtnorm_mix2 = function(x)
 F = mh(n, dtnorm_mix2, c(-4,4), mc=FALSE)
 score(F, dtnorm_mix2)
 system.time(mh(n, dtnorm_mix2, c(-4,4), mc=FALSE))
+
+
 

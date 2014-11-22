@@ -1,6 +1,7 @@
 ## draw a theta star value from proposal distribution which depends on previous one
 ## calculate the acceptance ratio r, if runif(1,0,1) < r, theta next = theta star; else theta next = theta.
 ## ensure we have enough sample size
+
 library(parallel)
 
 mh <- function(n, dfunc, range, mc)
@@ -24,19 +25,20 @@ mh <- function(n, dfunc, range, mc)
       ##starting point
       b.tweak <- 0.75     
       
-        for(i in 2:round(n/5)){
-          theta.star <- rnorm(1,mean = theta, sd = b.tweak) ## draw a value from proposal distribution, b is the tuning parameter
-          acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
-          if(runif(1,0,1) < min(acceptance,1)){
-            theta = theta.star
-            num = num + 1
-          }
-        
-          sample[i,1] <- theta
-          ratio <- num/(n - 1) 
-          cat(ratio,'\n')
-        }
       
+      for(i in 2:round(n/5)){
+        theta.star <- rnorm(1,mean = theta, sd = b.tweak) ## draw a value from proposal distribution, b is the tuning parameter
+        acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
+        if(runif(1,0,1) < min(acceptance,1)){
+          theta = theta.star
+          num = num + 1
+        }
+        
+        sample[i,1] <- theta
+        ratio <- num/(n - 1) 
+      }
+      
+        
       ##tuning parameter
       if(ratio > 0.4){
         b.tweak <- b.tweak*tweaking1
