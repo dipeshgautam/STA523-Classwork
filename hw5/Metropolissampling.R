@@ -24,8 +24,7 @@ mh <- function(n, dfunc, range, mc)
     while(ratio > 0.4 |ratio < 0.25){
       ##starting point
       b.tweak <- 0.75     
-      
-      
+           
       for(i in 2:round(n/5)){
         theta.star <- rnorm(1,mean = theta, sd = b.tweak) ## draw a value from proposal distribution, b is the tuning parameter
         acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
