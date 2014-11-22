@@ -1,4 +1,4 @@
-R = function(n, dfunc, range, mc)
+R = function(n,dfunc, range, mc,name)
 {
   library(parallel)
   library(truncnorm)
@@ -8,7 +8,7 @@ R = function(n, dfunc, range, mc)
   stopifnot(is.logical(mc))
   
   ## Beta
-  if(substitute(dfunc)=="dbetann"){
+  if(as.character(name)=="dbetann"){
     if (mc==TRUE && n>1000000){
       cores=8
       return(unlist(mclapply(1:cores, function(x) rbeta( ceiling(n/cores), .9, .9 ),
@@ -18,8 +18,9 @@ R = function(n, dfunc, range, mc)
     } 
     
     ## Truncated Normal  
-  }else if(substitute(dfunc)=="dtnorm")
+  }else if(as.character(name)=="dtnorm")
   {
+    cores=8
     if (mc==TRUE && n>1000000){
       return(unlist(mclapply(1:cores, function(x) rtruncnorm(ceiling(n/cores),-3,3),
                              mc.cores = cores) ) )
@@ -29,18 +30,20 @@ R = function(n, dfunc, range, mc)
     }
     
     ## Truncated Exponential  
-  }else if(substitute(dfunc)=="dtexp"){
+  }else if(as.character(name)=="dtexp"){
     if (mc==TRUE && n>1000000){
       cores=8
-      return(unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015)),
-                             mc.cores = cores) ) )
+      a = unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015, 1/3)),
+                             mc.cores = cores) )
+      return(a[a<6])
     }else
     {
-      return(rexp(ceiling(n*1.015)))
+      a=rexp(ceiling(n*1.015), rate=1/3)
+      return(a[a<6])
     }
     
     ## Uniform Mixture  
-  }else if(substitute(dfunc)=="dunif_mix"){
+  }else if(as.character(name)=="dunif_mix"){
     if (mc==TRUE && n>1000000)
     {
       cores=8
@@ -56,7 +59,7 @@ R = function(n, dfunc, range, mc)
     }
     
     ## Truncated Normal Mixture 1  
-  }else if(substitute(dfunc)=="dtnorm_mix1"){
+  }else if(as.character(name)=="dtnorm_mix1"){
     if (mc==TRUE && n>=1000000){
       cores=8
       return(unlist(mclapply(1:cores, function(x) c(rtruncnorm(ceiling(0.5*n/cores),0,10,2,2),
@@ -70,7 +73,7 @@ R = function(n, dfunc, range, mc)
     }
     
     ## Truncated Normal Mixture 2  
-  }else if(substitute(dfunc)=="dtnorm_mix2"){
+  }else if(as.character(name)=="dtnorm_mix2"){
     if (mc==TRUE && n>1000000){
       cores=8
       return(unlist(mclapply(1:cores,
@@ -90,3 +93,4 @@ R = function(n, dfunc, range, mc)
   }                             
   
 }
+

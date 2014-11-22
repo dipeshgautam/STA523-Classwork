@@ -16,7 +16,6 @@ score = function(x, dfunc)
   return( sqrt(sum((ex-ed)^2)/n) )
 }
 
-
 ### Tests
 
 n = 1000
