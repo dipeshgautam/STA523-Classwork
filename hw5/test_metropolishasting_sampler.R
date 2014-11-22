@@ -73,7 +73,7 @@ dtnorm_mix1 = function(x)
   ifelse(x < 0 | x > 10, 
          0, 
          ( 0.5*dnorm(x,mean=2,sd=2)
-           +0.5*dnorm(x,mean=6,sd=1))/0.90059152)
+           +0.5*dnorm(x,mean=6,sd=1))/0.9206407)
 }
 E = mh(n, dtnorm_mix1, c(0,10), mc=FALSE)
 score(E, dtnorm_mix1)
@@ -87,7 +87,7 @@ dtnorm_mix2 = function(x)
          0, 
          ( 0.45*dnorm(x,mean=-4)
            +0.45*dnorm(x,mean= 4)
-           +0.1 *dnorm(x,mean= 0,sd=0.5))/0.4999683)
+           +0.1 *dnorm(x,mean= 0,sd=0.5))/0.55)
 }
 F = mh(n, dtnorm_mix2, c(-4,4), mc=FALSE)
 score(F, dtnorm_mix2)
