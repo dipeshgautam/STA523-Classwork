@@ -9,11 +9,11 @@ getTable= function(func){
   for (i in 1:length(times)) {
     for (j in 1:length(dfunc)) {
       table[j,1]=dfunc[j]
-      table[j, 2+i] = system.time(func(times[i],dfunc[[j]],get(dfunc[[j]]), range[[j]], mc = FALSE ) )[3] # 1.087
+      table[j, 2+i] = system.time(func(times[i],dfunc[[j]],get(dfunc[[j]]), range[[j]], mc = FALSE,dfunc[[j]] ) )[3] # 1.087
       print(c(j,i))   
       
       ## Multiple cores
-      table[j, 6+i]= system.time(func(times[i],dfunc[[j]],get(dfunc[[j]]), range[[j]] , mc = TRUE) )[3] # 0.734
+      table[j, 6+i]= system.time(func(times[i],get(dfunc[[j]]), range[[j]] , mc = TRUE,dfunc[[j]]) )[3] # 0.734
     }
   }
   return(table)
