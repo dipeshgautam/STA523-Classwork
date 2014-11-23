@@ -1,5 +1,4 @@
 library(testthat)
-source_dir("..", env=globalenv() )
 
 is_valid = function(g) 
 {
@@ -23,35 +22,35 @@ is_valid = function(g)
                 if (length(sapply(g, function(x) x[["edges"]])) == length(sapply(sapply(g, function(x) x[["edges"]]), unique)))
                   return(TRUE)
   else {
-    print("Duplicate edges.")
+    #print("Duplicate edges.")
     return(FALSE)
   }
   else {
-    print("Edge(s) not integer type.")
+    #print("Edge(s) not integer type.")
     return(FALSE)
   }
   else {
-    print("Edge count and weight count do not match.")
+    #print("Edge count and weight count do not match.")
     return(FALSE)
   }
   else {
-    print("One or more weights less than or equal to 0, or NA.")
+    #print("One or more weights less than or equal to 0, or NA.")
     return(FALSE)
   }
   else {
-    print("Edge(s) to non-existent vertice(s).")
+    #print("Edge(s) to non-existent vertice(s).")
     return(FALSE)
   }
   else {
-    print("Secondary list does not only contain edge and weight vectors.")
+    #print("Secondary list does not only contain edge and weight vectors.")
     return(FALSE)
   }
   else {
-    print("Duplicate names in primary list.")
+    #print("Duplicate names in primary list.")
     return(FALSE) # The number of uniques does not equal the total number of list elements => not all unique.
   }
   else {
-    print("Object not list of lists.")
+    #print("Object not list of lists.")
     return(FALSE)
   }
 }
@@ -61,17 +60,17 @@ is_undirected = function(g)
   stopifnot(is_valid(g))
   ## If all edges are NULL or all edges are NULL, graph is undirected.
   if (all(sapply(sapply(g, function(x) x[["weights"]]), length) == 0) | all(sapply(sapply(g, function(x) x[["edges"]]), length) == 0)) {
-    print("True. Loop found. Two or more edge/weights are NULL.")
+    #print("True. Loop found. Two or more edge/weights are NULL.")
     return(TRUE)
   }
   ## If there is only one weight and it is NULL, graph is undirected.
   if (length(sapply(sapply(g, function(x) x[["weights"]]), length)) == 1 && sapply(sapply(g, function(x) x[["weights"]]), length) == 0) {
-    print("Found loop. Last vertice has NULL edge(s) and/or weight(s).")
+    #print("Found loop. Last vertice has NULL edge(s) and/or weight(s).")
     return(TRUE)
   }
   ## Graph has one weight, therefore undirected.
   if (length(sapply(sapply(g, function(x) x[["weights"]]), length)) == 1) {
-    print("Graph has one weight, therefore undirected.")
+    #print("Graph has one weight, therefore undirected.")
     return(TRUE)
   }
   ## Graph has at least two elements. Weights are equal in both directions between two adjacent vertices. Exclude NA edges.
@@ -80,18 +79,18 @@ is_undirected = function(g)
     if (is.na(all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) == c("FALSE")) { # Exclude graphs with last vertice if it is NA.
       for (i in 1:(length(g)-1)) {
         if (all(g[[i+1]]$edges == i && g[[i]]$weights == g[[i+1]]$weights)) {
-          print("Adjacent vertices have equal weights.")
+          #print("Adjacent vertices have equal weights.")
           return(TRUE)
         }
       }
       ## Finds if edge is only directed towards self.
       if (all(g[[i]]$edges == i) && length(g[[i]]$edges) == 1) {
-        print("Edge only directed towards self.")
+        #print("Edge only directed towards self.")
         return(TRUE)
       }
       ## Finds if all weights and edges for list[i] == list[i+1]. Exclude cases where last edge is "NA".
       if (all(g[[i+1]]$edges == g[[i]]$edges) && all(g[[i+1]]$weights == g[[i]]$weights)) {
-        print("list[i] and list[i+1] have the same weights and edges.")
+        #print("list[i] and list[i+1] have the same weights and edges.")
         #print(paste0("list",[i], "and", "list",[i+1], "have the same weights and edges."))
         return(TRUE)
       }
