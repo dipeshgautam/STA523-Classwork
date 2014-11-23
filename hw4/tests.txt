@@ -1,0 +1,77 @@
+Test is_connected : ...................................................................
+Test is_isomorphic : ...........................
+Test is_undirected : ............123
+Test is_valid : ..................4....
+Test min_span_tree : ....5...
+Test namespace : .6........
+Test reading graphs : ..................
+Test shortest_path : ......................................................................
+Test writing graphs : ...........
+
+
+1. Error: Undirected -----------------------------------------------------------
+object 'i' not found
+1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+2: eval(code, new_test_environment)
+3: eval(expr, envir, enclos)
+4: expect_true(is_undirected(g3)) at test_is_undirected.R:69
+5: expect_that(object, is_true(), info, label)
+6: condition(object)
+7: expectation(identical(as.vector(x), TRUE), "isn't true", "is true")
+8: structure(list(passed = passed, error = FALSE, skipped = FALSE, failure_msg = failure_msg, 
+       success_msg = success_msg), class = "expectation")
+9: identical(as.vector(x), TRUE)
+10: as.vector(x)
+11: is_undirected(g3)
+
+2. Error: Directed - Edges -----------------------------------------------------
+object 'i' not found
+1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+2: eval(code, new_test_environment)
+3: eval(expr, envir, enclos)
+4: expect_false(is_undirected(g1)) at test_is_undirected.R:87
+5: expect_that(object, is_false(), info, label)
+6: condition(object)
+7: expectation(identical(as.vector(x), FALSE), "isn't false", "is false")
+8: structure(list(passed = passed, error = FALSE, skipped = FALSE, failure_msg = failure_msg, 
+       success_msg = success_msg), class = "expectation")
+9: identical(as.vector(x), FALSE)
+10: as.vector(x)
+11: is_undirected(g1)
+
+3. Error: Directed - Weights ---------------------------------------------------
+object 'i' not found
+1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+2: eval(code, new_test_environment)
+3: eval(expr, envir, enclos)
+4: expect_false(is_undirected(g1)) at test_is_undirected.R:102
+5: expect_that(object, is_false(), info, label)
+6: condition(object)
+7: expectation(identical(as.vector(x), FALSE), "isn't false", "is false")
+8: structure(list(passed = passed, error = FALSE, skipped = FALSE, failure_msg = failure_msg, 
+       success_msg = success_msg), class = "expectation")
+9: identical(as.vector(x), FALSE)
+10: as.vector(x)
+11: is_undirected(g1)
+
+4. Failure(@test_is_valid.R#104): Duplicated edges -----------------------------
+is_valid(bad_g) isn't false
+
+5. Error: Med valid graph ------------------------------------------------------
+object 'i' not found
+1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+2: eval(code, new_test_environment)
+3: eval(expr, envir, enclos)
+4: expect_true(is_undirected(r)) at test_min_span_tree.R:61
+5: expect_that(object, is_true(), info, label)
+6: condition(object)
+7: expectation(identical(as.vector(x), TRUE), "isn't true", "is true")
+8: structure(list(passed = passed, error = FALSE, skipped = FALSE, failure_msg = failure_msg, 
+       success_msg = success_msg), class = "expectation")
+9: identical(as.vector(x), TRUE)
+10: as.vector(x)
+11: is_undirected(r)
+
+6. Failure(@test_namespace.R#11): Check namespace ------------------------------
+all(ls(envir = globalenv()) %in% funcs) isn't true
+
