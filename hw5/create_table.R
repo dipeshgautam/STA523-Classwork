@@ -2,9 +2,9 @@ source("R_sampler.R")
 source("slice_sampler.R")
 source("Metropolissampling.R")
 source("reject.R")
-suppressMessages(install.packages("truncnorm"))
+source("check_packages.R")
+suppressMessages(check_packages(c('truncnorm')))
 library(parallel)
-library(truncnorm)
 
 getTable= function(name, func){
   table = as.data.frame(matrix(rep(0,12*6), ncol=12))

@@ -4,9 +4,11 @@ author: "Andrew Wong, Dipesh Gautam, Heather Shapiro, Siyang Li"
 date: "11/23/2014"
 output: html_document
 ---
-### Introduction
+
+## Introduction
 The goal of homework 5 is to learn how to implement univariate sampling functions from random probability density functions. The steps to solving this problem involved first understanding the algorithm involved, coding the samplers, then optimizing them for speed and accuracy.
 
+## Sampling Methodologies
 ### Rejection Sampler
 The rejection sampler first checks that the arguments for each parameter are of the correct type, e.g. sample size, *n* is a positive integer. 
 
@@ -25,6 +27,18 @@ We were able to get good accuracy accross the board but as expected our implemen
 
 ### R Sampler
 
-```{r, echo=FALSE}
-loadRDS("table.Rdata")
+
+## Results
+We ran the four samplers for the given six distributions and recorded the result in the table below. We have time/samples timing across all the samplers and distributions for n=10, 10,000, 1,000,000 and 10,000,000. We also record score for each sampler and distribution combination with 1,000,000 samples. All these tests were done both for single core and multi-core implementations of our samplers.
+```{r results="asis", echo=FALSE}
+source("check_packages.R")
+suppressMessages(check_packages(c('xtable')))
+table = readRDS("table.Rdata")
+table.xtable = xtable(table)
+display(table.xtable)= c("d", "s","s", "e", "e","e", "e","e", "e","e", "e","e", "e")
+print(table.xtable, type="html")
 ```
+
+
+
+
