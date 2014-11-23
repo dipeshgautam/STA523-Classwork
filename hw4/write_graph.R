@@ -1,5 +1,7 @@
 library(stringr)
-source("predicate.R")
+
+source("predicates.R")
+
 write_graph <- function(graph, file)
 {
   ## Check if the graph is valid
