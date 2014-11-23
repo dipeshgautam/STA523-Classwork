@@ -1,14 +1,13 @@
-R = function(n,dfunc, range, mc,name)
+R = function(n,dfunc, range, mc)
 {
   library(parallel)
   library(truncnorm)
   stopifnot(is.numeric(n)&&n%%1==0)
-  stopifnot(is.function(dfunc))
   stopifnot(is.vector(range))
   stopifnot(is.logical(mc))
   
   ## Beta
-  if(as.character(name)=="dbetann"){
+  if(identical(dfunc,"dbetann")){
     if (mc==TRUE && n>1000000){
       cores=8
       return(unlist(mclapply(1:cores, function(x) rbeta( ceiling(n/cores), .9, .9 ),
@@ -18,7 +17,7 @@ R = function(n,dfunc, range, mc,name)
     } 
     
     ## Truncated Normal  
-  }else if(as.character(name)=="dtnorm")
+  }else if(identical(dfunc,"dtnorm"))
   {
     cores=8
     if (mc==TRUE && n>1000000){
@@ -30,11 +29,10 @@ R = function(n,dfunc, range, mc,name)
     }
     
     ## Truncated Exponential  
-  }else if(as.character(name)=="dtexp"){
+  }else if(identical(dfunc,"dtexp")){
     if (mc==TRUE && n>1000000){
       cores=8
-      a = unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015, 1/3)),
-                             mc.cores = cores) )
+      a = unlist(mclapply(1:cores, function(x) rexp( ceiling(n/cores*1.015), rate=1/3)))
       return(a[a<6])
     }else
     {
@@ -43,7 +41,7 @@ R = function(n,dfunc, range, mc,name)
     }
     
     ## Uniform Mixture  
-  }else if(as.character(name)=="dunif_mix"){
+  }else if(identical(dfunc,"dunif_mix")){
     if (mc==TRUE && n>1000000)
     {
       cores=8
@@ -59,7 +57,7 @@ R = function(n,dfunc, range, mc,name)
     }
     
     ## Truncated Normal Mixture 1  
-  }else if(as.character(name)=="dtnorm_mix1"){
+  }else if(identical(dfunc,"dtnorm_mix1")){
     if (mc==TRUE && n>=1000000){
       cores=8
       return(unlist(mclapply(1:cores, function(x) c(rtruncnorm(ceiling(0.5*n/cores),0,10,2,2),
@@ -73,7 +71,7 @@ R = function(n,dfunc, range, mc,name)
     }
     
     ## Truncated Normal Mixture 2  
-  }else if(as.character(name)=="dtnorm_mix2"){
+  }else if(identical(dfunc,"dtnorm_mix2")){
     if (mc==TRUE && n>1000000){
       cores=8
       return(unlist(mclapply(1:cores,
@@ -93,4 +91,5 @@ R = function(n,dfunc, range, mc,name)
   }                             
   
 }
+
 

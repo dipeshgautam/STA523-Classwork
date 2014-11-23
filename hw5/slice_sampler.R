@@ -1,13 +1,13 @@
 
 slice = function(n, dfunc, range, mc)
 {
+  dfunc = get(dfunc)
   stopifnot(is.numeric(n)&&n%%1==0)
-  stopifnot(is.function(dfunc))
   stopifnot(is.vector(range))
   stopifnot(is.logical(mc))
   ## Define initial width
   w = (range[2]-range[1])/10
-  
+
   sample = function(m, dfunc, range, w){
     ## Sample initial x0 within the range
     x0 = runif(1, range[1], range[2])

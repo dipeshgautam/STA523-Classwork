@@ -11,7 +11,7 @@ mh <- function(n, dfunc, range, mc)
   # range = numeric vector defining the min & max range of the pdf (e.g.: range = c(0, 1) )
   # Used for the vector of quantiles: x <- seq(range[1], range[2], length = n))
   # mc = multicore
-  
+  dfunc = get(dfunc)
   mhsampler <- function(n, dfunc, range, mc = FALSE){
   
   sample <- matrix(NA, nrow = n, ncol = 1) ## create a matrix to save the results
@@ -67,7 +67,6 @@ mh <- function(n, dfunc, range, mc)
     
     sample[i,1] <- theta
     ratio <- num/(n - 1) 
-    cat(ratio,'\n')
   }  
   
   return(sample)
