@@ -1,4 +1,5 @@
 library(stringr)
+
 read_graph <- function(file)
 {
   ## Check if the file exists.

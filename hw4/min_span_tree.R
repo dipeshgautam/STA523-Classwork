@@ -1,4 +1,5 @@
 source("predicates.R")
+
 min_span_tree=function(g){
   x=function(){
     if(is_valid(g)){

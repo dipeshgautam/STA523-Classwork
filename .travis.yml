@@ -13,7 +13,7 @@ install:
   - ./travis-tool.sh install_r stringr
 
 script: 
-  - Rscript -e "library(testthat);invisible(source_dir('./',env=globalenv()));z=test_dir('tests');stopifnot(sum(z$failed)==0)"
+  - Rscript -e "library(testthat);invisible(source_dir('./',env=globalenv()));test_dir('tests');test_dir('tests',reporter='stop')"
 
 notifications:
   email: false
