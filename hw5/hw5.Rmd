@@ -10,9 +10,9 @@ The goal of homework 5 is to learn how to implement univariate sampling function
 
 ## Sampling Methodologies
 ### Rejection Sampler
-The rejection sampler first checks that the arguments for each parameter are of the correct type, e.g. sample size, *n* is a positive integer. 
+The rejection sampler first checks that the arguments for each parameter are of the correct type, e.g. sample size, *n* is a positive integer. Next, the absolute max for the desired arbitrary function is determined to set the maximum height for the instrumental/proposal distribution 
 
-The rejection sampler had good accuracy.
+The rejection sampler had good accuracy. 
 
 ### Metropolis-Hastings Sampler
 
