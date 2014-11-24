@@ -1,7 +1,7 @@
 reject <- function(n, dfunc, range, mc = FALSE) {
-  ## Check Conditions
+  ## Check user enters arguments that meet expected conditions.
   stopifnot(is.numeric(n) && n%%1==0) # Ensure number of samples, n, is numeric and an integer.
-  #   stopifnot(is.function(dfunc))
+  stopifnot(is.function(dfunc))
   stopifnot(is.vector(range))
   stopifnot(is.logical(mc))
   
@@ -9,10 +9,9 @@ reject <- function(n, dfunc, range, mc = FALSE) {
   M <- min(100, max(dfunc(seq(range[1], range[2], length = 1e6)))) # Find the absolute max for the function. Use 100 for beta distribution.
   accepted <- c() # Initialize with uniform distribution rather than NA's to prevent accepting NA's. Initialized values overwritten anyway.
   
-  ## Rejection sampler
+  ## Vectorized rejection sampler
   sample <- function (n, dfunc, range) {
     while (length(accepted) < n) {
-      ## Vectorize. 
       proposal_x <- runif(trunc(1.3*n), min = range[1], max = range[2]) # Generate 1.3*n proposal values, proposal_x, within arbitrary distribution's domain.
       proposal_y <- runif(trunc(1.3*n), min = 0, max = M) # Sample 1.3*n y-values along 1.3*n vertical lines at 1.3 x's, where x = proposal_x. 
       accepted <- c(accepted, proposal_x[dfunc(proposal_x) > proposal_y]) # Subset using a conditional statement.
