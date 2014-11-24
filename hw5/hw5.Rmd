@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ## Introduction
-The goal of homework 5 was to learn how to implement univariate sampling functions from random probability density functions. The steps to solving this problem included understanding the algorithm involved, coding the samplers, then optimizing them for speed and accuracy.
+The goal of homework 5 was to learn how to implement univariate sampling functions from random probability density functions. The steps to solving this problem included understanding the algorithm involved, coding the samplers, and then optimizing for speed and accuracy.
 
 ## Sampling Methodologies
 ### Rejection Sampler
