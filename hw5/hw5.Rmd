@@ -17,6 +17,11 @@ However, an optimization problem remained. Since rejection sampling performs poo
 After completing the vectorization improvement, the next step was to see what broke in the process. After a pleasantly short debugging process, the rejection sampler generated histograms clearly delineating all of the test distributions and scored well on all of them (~0.000) using the provided `score()` function.
 
 ### Metropolis-Hastings Sampler
+For our implementation of Metropolis-Hastings Sampler we used the Random normal walk. First we had to tune the variance of the proposal distribution to get the desired acceptance ratio between 0.25 and 0.4. To accomplish this, we started with variance of .75 and ran Metropolis-Hastings algorithm on a smaller number of samples. We calculated the acceptance ratio for given variance and if it was not within desired range, variance was tweaked by either scaling it up or down depending on whether the acceptance ratio was too hign or to low. After getting the derised acceptance ratio, we fixed our variance for the proposal distribution and ran Metropolis-Hastings algorithm for the given number of iterations.
+
+In MH algorithm, we sample $x^*$ from the proposal distribution, normal with x(sample from previous iteration) as mean and given varaince in case of normal random walk, and accept the $x^*$ as a sample with a probability given by $min\{1, \frac{dfunc(x^*)*g(x^*->x)}{dfunc(x)*g(x->x^*)}\}$. Since we are using symmetric proposal function, our acceptance probability becomes $min\{1, \frac{dfunc(x^*)}{dfunc(x)}\}$
+
+To make the operations faster, when the multi-core option was selected, we split the required number of samples evely between different cores using mcapply function and combined the result back to get required number of samples. We ran multiple cores only if the number of iterations was larger than 1000 as running multiple cores was found to be inefficient for smaller sample sizes.
 
 ### Slice Sampler
 For slice sampling, we adopted the stepping-out method for finding out the interval. We step out on both direction with width w from x0 until both ends are just outside the slice. Then, we sample x1 from this range, rejecting x1 if it's sampled outside the slide and reassigning the x1 as the boundary of interval on appropriate side.

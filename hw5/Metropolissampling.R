@@ -13,18 +13,18 @@ mh <- function(n, dfunc, range, mc)
   # mc = multicore
   dfunc = get(dfunc)
   mhsampler <- function(n, dfunc, range, mc = FALSE){
-  
-  sample <- matrix(NA, nrow = n, ncol = 1) ## create a matrix to save the results
-  num <- 0 ## used for calculating acceptance ratio, ratio should be within 25%-40% 
-  ## starting point
-  sample[1,1] <- theta <- runif(1,range[1],range[2]) ## starting point needs tuning too?
-  tweaking1 <- 0.5
-  tweaking2 <- 2
-  ratio <- -Inf
+    
+    sample <- matrix(NA, nrow = n, ncol = 1) ## create a matrix to save the results
+    num <- 0 ## used for calculating acceptance ratio, ratio should be within 25%-40% 
+    ## starting point
+    sample[1,1] <- theta <- runif(1,range[1],range[2]) ## starting point needs tuning too?
+    tweaking1 <- 0.5
+    tweaking2 <- 2
+    ratio <- -Inf
     while(ratio > 0.4 |ratio < 0.25){
       ##starting point
       b.tweak <- 0.75     
-           
+      
       for(i in 2:round(n/5)){
         theta.star <- rnorm(1,mean = theta, sd = b.tweak) ## draw a value from proposal distribution, b is the tuning parameter
         acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
@@ -37,7 +37,7 @@ mh <- function(n, dfunc, range, mc)
         ratio <- num/(n - 1) 
       }
       
-        
+      
       ##tuning parameter
       if(ratio > 0.4){
         b.tweak <- b.tweak*tweaking1
@@ -56,29 +56,29 @@ mh <- function(n, dfunc, range, mc)
         break
       }
     }
-  
-  for(i in 2:n){
-    theta.star <- rnorm(1,mean = theta, sd = b.final) ## draw a value from proposal distribution, b is the tuning parameter
-    acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
-    if(runif(1,0,1) < min(acceptance,1)){
-      theta = theta.star
-      num = num + 1
-    }
     
-    sample[i,1] <- theta
-    ratio <- num/(n - 1) 
+    for(i in 2:n){
+      theta.star <- rnorm(1,mean = theta, sd = b.final) ## draw a value from proposal distribution, b is the tuning parameter
+      acceptance <- dfunc(theta.star)/dfunc(theta) ## calculate acceptance ratio
+      if(runif(1,0,1) < min(acceptance,1)){
+        theta = theta.star
+        num = num + 1
+      }
+      
+      sample[i,1] <- theta
+      ratio <- num/(n - 1) 
+    }  
+    
+    return(sample)
   }  
-  
-  return(sample)
-}  
   
   
   if(mc == TRUE && n > 1000){
     cores = 8
-      return(unlist(mclapply(1:cores, function(x) mhsampler(ceiling(n/cores), dfunc, range, w),
-                         mc.cores = cores) ) )
-  
-    }else{
-      mhsampler(n, dfunc, range, w)
-    }
+    return(unlist(mclapply(1:cores, function(x) mhsampler(ceiling(n/cores), dfunc, range, w),
+                           mc.cores = cores) ) )
+    
+  }else{
+    return(unlist(mhsampler(n, dfunc, range, w)))
+  }
 }
