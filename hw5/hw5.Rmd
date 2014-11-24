@@ -44,6 +44,7 @@ table = readRDS("table.Rdata")
 table.xtable = xtable(table)
 display(table.xtable)= c("d", "s","s", "e", "e","e", "e","e", "e","e", "e","e", "e")
 print(table.xtable, type="html")
+
 ```
 
 
