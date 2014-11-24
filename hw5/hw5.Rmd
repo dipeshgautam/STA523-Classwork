@@ -28,7 +28,7 @@ We were able to get good accuracy accross the board but as expected our implemen
 
 
 ### R Sampler
-
+Implementation of R's built-in samplers was mostly straightforward. We used rbeta(), runif() and rexp() to sample from beta, uniform and exponential distribution respectively. We used rtruncnorm() from the package "truncnorm" to sample truncated normal distributions. We couldn't find a function or package to sample from truncated exponential distribution, so we sampled few extra points from a regular exponential distribution and rejected the ones that were outside the support of the truncated exponential provided.
 
 ## Results
 We ran the four samplers for the given six distributions and recorded the result in the table below. We have time/samples timing across all the samplers and distributions for n=10, 10,000, 1,000,000 and 10,000,000. We also record score for each sampler and distribution combination with 1,000,000 samples. All these tests were done both for single core and multi-core implementations of our samplers.
