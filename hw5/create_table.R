@@ -122,8 +122,20 @@ for (i in 1:length(names)){
 tabs=tabs[-1,]
 tabs2 = tabs
 tabs2=tabs2[order(tabs2$Distribution),]
+
+# 
+# tabs2["SC 100"]= tabs2["SC 100"]/100
+# tabs2["SC 10,000"]= tabs2["SC 10,000"]/10000
+# tabs2["SC 1,000,000"]= tabs2["SC 1,000,000"]/1000000
+# tabs2["SC 10,000,000"]= tabs2["SC 10,000,000"]/10000000
+# 
+# tabs2["MC 100"]= tabs2["MC 100"]/100
+# tabs2["MC 10,000"]= tabs2["MC 10,000"]/10000
+# tabs2["MC 1,000,000"]= tabs2["MC 1,000,000"]/1000000
+# tabs2["MC 10,000,000"]= tabs2["MC 10,000,000"]/10000000
+# 
+# 
+# tabs2["MC Score"] = tabs2["MC Score"]*1000000
+# tabs2["SC Score"] = tabs2["SC Score"]*1000000
+
 saveRDS(tabs2, "table.Rdata")
-
-
-
-
