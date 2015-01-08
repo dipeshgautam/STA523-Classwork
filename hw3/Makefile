@@ -13,6 +13,3 @@ manh.RData: geocode.R
 
 .PHONY: clean
 clean:
-	rm -rf dennys/
-	rm -rf lq/
-	rm -f hw2.html
