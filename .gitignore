@@ -5,7 +5,7 @@
 # R data files from past sessions
 .Rdata
 .Rproj.user
-*.Rproj
+STA523-Classwork.Rproj
 inclass/*.html
 homework/homework*.html
 HW1/HW1.html
